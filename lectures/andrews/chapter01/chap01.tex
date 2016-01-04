@@ -1,0 +1,185 @@
+\documentclass{article}
+\sloppy
+%\usepackage[margin=0.5in]{geometry}
+%\usepackage[landscape,margin=0.5in]{geometry}
+\usepackage[landscape,top=-1in,left=0.5in,right=0.5in,bottom=0.0in]{geometry}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{overpic}
+
+\usepackage{fancyvrb}
+\setlength{\parindent}{0in}
+
+
+%\newcommand{\myfig}[1]{\hspace{-1.5in}{\includegraphics[width=1.5\textwidth]{{#1}}}\newpage}
+
+\newcommand{\myfig}[1]{\begin{overpic}[scale=1.5]{figures/#1}}
+\newcommand{\myfigsmall}[1]{\begin{overpic}[scale=1.25]{figures/#1}}
+\newcommand{\myfigend}{\end{overpic}\newpage}
+\newcommand{\myput}[2]{\put(10,#1){$\bullet$ #2}}
+\newcommand{\myputn}[2]{\put(15,#1){#2}}
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ii}{\item}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\ti}[1]{
+\mbox{~}
+
+\vspace{1.25in}
+\centerline{\bf #1}}
+
+\newcommand{\la}{\ensuremath{\langle}}
+\newcommand{\ra}{\ensuremath{\rangle}}
+
+\title{Andrews Figures, Chapter 03}
+\author{Geoffrey Matthews\\
+\small Western Washington University}
+
+\RecustomVerbatimEnvironment
+  {Verbatim}{Verbatim}
+  {frame=single,commandchars=\\\{\}}
+
+\begin{document}
+\huge
+\ti{The Concurrent Computing Landscape}
+\centerline{Andrews Chapter 1}
+
+\newpage
+
+\myfig{1_1.pdf}
+\myput{64}{Temporal locality}
+\myput{62}{Cache hit}
+\myput{60}{Cache miss}
+\myput{58}{Write through cache}
+\myput{56}{Write back cache}
+\myput{54}{Cache lines}
+\myput{52}{Spatial locality}
+\myfigend
+
+\myfig{1_2.pdf}
+\myput{64}{Cache consistency problem}
+\myputn{62}{Snooping}
+\myput{60}{Memory consistency problem}
+\myputn{58}{Compilers and libraries}
+\myput{56}{False sharing}
+\myputn{54}{Padding}
+\myfigend
+
+\myfig{1_3.pdf}
+\myput{63}{Clusters}
+\myput{60}{Networks}
+\myput{57}{Message passing}
+\myfigend
+
+%\ti{Data {\em vs.} Task Parallel}
+%\bi
+%\ii Data parallel:  each process does the same thing on its part of
+%the data 
+%\ii Task parallel: different processes carry out different tasks
+%\ei
+%\newpage
+
+\ti{Paradigms}
+\bi
+\ii Iterative parallelism
+\bi\ii Each process is an iterative program.  Scientific computation.\ei
+\ii Recursive parallelism
+\bi\ii Recursive procedure calls are independent.\ei
+\ii Producers and consumers
+\bi\ii Each process is a filter.  Pipelines.\ei
+\ii Clients and servers
+\bi\ii World Wide Web.  Graphics cards.\ei
+\ii Interacting peers
+\bi\ii Decentralized decision making.\ei
+\ei
+\newpage
+
+\myfig{p13_mm_seq.pdf}
+\myfigend
+
+\ti{Embarrassingly Parallel}
+\bi
+\ii {\bf Read set}: set of variables read by a process
+\ii {\bf Write set}: set of variables written to by a process
+\ii Two operations are {\bf independent} if the write set of each is
+disjoint from both the read and write sets of the other.
+\ei
+\newpage
+
+\myfig{p14a_mm_rows.pdf}
+\myfigend
+
+\myfig{p14b_mm_cols.pdf}
+\myfigend
+
+\myfig{p15a_mm_rows_cols.pdf}
+\myfigend
+
+\myfig{p15b_mm_nested_co.pdf}
+\myput{63}{Can we parallelize the loop over {\tt k}?}
+\myfigend
+
+\myfig{p16a_mm_process.pdf}
+\myput{63}{Processes are named.}
+\myput{60}{Processes cannot be nested.}
+\myput{57}{Program does not wait for processes to end.}
+\myfigend
+
+\myfig{p16b_mm_strips.pdf}
+\myput{60}{Useful because we often have only 4 or 8 cores.}
+\myfigend
+
+\myfig{1_4.pdf}
+\myput{68}{Find the area under a function.}
+\myput{63}{Iterative approach:}
+\myputn{60}{Break region into many equal intervals.}
+\myput{57}{Recursive approach:}
+\myputn{54}{Break region in half, recursion on each half.}
+\myfigend
+
+\myfig{p18a_quad_iterative.pdf}
+\myfigend
+
+\myfig{p18b_quad_recursive.pdf}
+\myput{60}{Change the recursion to:}
+\myputn{56}{\tt co larea = quad(left, mid, fleft, fmid, larea);}
+\myputn{54}{\tt // rarea = quad(mid, right, fmid, fright, rarea);}
+\myputn{52}{\tt oc}
+\myput{48}{{\tt co} statements do not end until all branches end.}
+\myfigend
+
+
+\ti{Independent procedure calls}
+\bi
+\ii If a procedure does not reference global variables and has only
+value parameters, then every call of the procedure will be
+independent.
+\ii Functional programming has these features.
+\ii For example, quicksort.
+\ei
+
+\myfig{p18c_quad_co.pdf}
+\myfigend
+
+
+\myfig{1_5.pdf}
+\myputn{70}{\tt sed -f Script \$* | tbl | eqn | groff Macros -}
+\myput{66}{Producers and consumers.}
+\myfigend
+
+\myfig{1_6.pdf}
+\myput{63}{Web pages}
+\myput{60}{Graphics cards}
+\myfigend
+
+\myfig{1_7.pdf}
+\myput{63}{Interacting peers}
+\myfigend
+
+\myfig{p23_mm_coord_worker.pdf}
+\myfigend
+
+\myfig{p25_mm_circular.pdf}
+\myfigend
+
+\end{document}

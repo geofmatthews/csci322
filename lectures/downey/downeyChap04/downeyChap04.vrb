@@ -1,0 +1,15 @@
+\frametitle{ Semaphore starvation }
+\bi
+\ii {\bf Property 4:}  if a thread is waiting at a semaphore, then the
+number of threads that will be woken before it is bounded.
+\pause
+\ii FIFO queues satisfy this property.
+\pause
+\ii A semaphore with Property 4 is called a {\bf strong semaphore}.
+\pause
+\ii Dijkstra (inventor of semaphores) conjectured in 1965 that it was
+impossible to solve the mutex problem without starvation with weak
+semaphores.
+\pause
+\ii Morris showed you could do it in 1979. (Solution in book.)
+\ei

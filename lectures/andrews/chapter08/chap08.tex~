@@ -1,0 +1,77 @@
+\documentclass{article}
+\sloppy
+%\usepackage[margin=0.5in]{geometry}
+%\usepackage[landscape,margin=0.5in]{geometry}
+\usepackage[landscape,top=-1in,left=0.5in,right=0.5in,bottom=0.0in]{geometry}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{overpic}
+
+\usepackage{fancyvrb}
+\setlength{\parindent}{0in}
+
+
+\newcommand{\nop}[1]{}
+\newcommand{\myfig}[1]{\newpage\begin{overpic}[scale=1.5]{figures/#1}}
+\newcommand{\myfigs}[2]{\newpage\begin{overpic}[scale=#1]{figures/#2}}
+\newcommand{\myfigsp}[3]{\newpage\begin{overpic}[scale=#1,page=#2]{figures/#3}}
+\newcommand{\myfigend}{\end{overpic}}
+\newcommand{\myput}[2]{\put(10,#1){$\bullet$ #2}}
+\newcommand{\myputn}[2]{\put(15,#1){#2}}
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ii}{\item}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\ti}[1]{
+\newpage
+\mbox{~}
+
+\vspace{1.25in}
+\centerline{\bf #1}
+}
+
+\newcommand{\la}{\ensuremath{\langle}}
+\newcommand{\ra}{\ensuremath{\rangle}}
+
+
+\RecustomVerbatimEnvironment
+  {Verbatim}{Verbatim}
+  {frame=single,commandchars=\\\{\}}
+
+\begin{document}
+
+
+\huge\sf
+
+\ti{RPC and Rendezvous}
+\centerline{Andrews, Chapter 08}
+
+figures/8_10.pdf
+figures/8_11.pdf
+figures/8_12.pdf
+figures/8_13.pdf
+figures/8_14.pdf
+figures/8_15.pdf
+figures/8_16.pdf
+figures/8_17.pdf
+figures/8_18.pdf
+figures/8_19.pdf
+figures/8_1.pdf
+figures/8_20.pdf
+figures/8_2a.pdf
+figures/8_2b.pdf
+figures/8_3.pdf
+figures/8_4.pdf
+figures/8_5.pdf
+figures/8_6.pdf
+figures/8_7.pdf
+figures/8_8.pdf
+figures/8_9.pdf
+figures/ada_accept_select.pdf
+figures/ada_protected_types.pdf
+figures/ada_tasks.pdf
+figures/modules.pdf
+figures/operations.pdf
+figures/sr_resources.pdf
+figures/table.pdf
+figures/timing_rpc_rend.pdf

@@ -1,0 +1,249 @@
+\documentclass{beamer}
+\usetheme{Singapore}
+
+%\usepackage{pstricks,pst-node,pst-tree}
+\usepackage{amssymb,latexsym}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ii}{\item}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\Show}[1]{\psshadowbox{#1}}
+
+
+\newcommand{\grf}[2]{\centerline{\includegraphics[width=#1\textwidth]{#2}}}
+\newcommand{\tw}{\textwidth}
+\newcommand{\bc}{\begin{columns}}
+\newcommand{\ec}{\end{columns}}
+\newcommand{\cc}[1]{\column{#1\textwidth}}
+
+\newcommand{\bfr}[1]{\begin{frame}[fragile]\frametitle{{ #1 }}}
+\newcommand{\efr}{\end{frame}}
+
+\newcommand{\cola}[1]{\begin{columns}\begin{column}{#1\textwidth}}
+\newcommand{\colb}[1]{\end{column}\begin{column}{#1\textwidth}}
+\newcommand{\colc}{\end{column}\end{columns}}
+
+\title{Little Book of Semaphores, Chapter 1}
+\author{Geoffrey Matthews\\
+\small Western Washington University}
+
+\RecustomVerbatimEnvironment{Verbatim}{Verbatim}{frame=single}
+
+\begin{document}
+\maketitle
+
+\bfr{Concurrency}
+\bi
+\ii Concurrent programs
+  \bi
+  \ii Collections of interacting computational processes
+  \ii Preemptive time-shared threads on a single processor
+  \ii Multiple cores on a single chip
+  \ii Physically separated processors, cluster or network
+  \ei
+
+\ii Three kinds:
+\bi 
+\ii Operating systems
+\ii Distributed systems
+\ii Parallel systems
+\ei
+\ei
+\end{frame}
+
+\bfr{Kinds of concurrency}
+\bi
+\ii Operating systems
+\bi
+\ii Single CPU, perhaps multi-core or multi-cpu
+\ii Performs many tasks
+\ii Easier to program tasks separately
+\ei
+
+\ii {Distributed systems}
+\bi
+\ii Networks, geographically separated
+\ii Multiple ``slow'' CPUs, ``slow'' connections
+\ii Performs single task
+\ii Goal: cooperation
+\ei
+
+\ii Parallel systems
+\bi
+\ii Clusters, geographically together
+\ii Multiple ``fast'' CPUs, ``fast'' connections
+\ii Performs single task
+\ii Goal: speed
+\ei
+\ei
+\end{frame}
+
+\bfr{Threads}
+\bi
+\ii For a single core, there is only one instruction happening at a time.
+\ii A sequence of such instructions is a {\em thread}.
+\ii A desktop computer will have many threads running at one time.
+\ii The OS may run threads in parallel, on different CPUs.
+\ii The OS may run only one thread at a time, and interleave many
+threads on a single CPU.
+\ei
+
+\end{frame}
+
+\bfr{Synchronization}
+\bi
+\ii When more than one thread is running, synchronization may be
+important: 
+\ii {\bf Serialization:}  Event A must happen before event B.
+\ii {\bf Mutual exclusion:}  Events A and B must not happen at the same time.
+\ei
+\end{frame}
+
+\bfr{Lunch}
+\bi
+\ii You and your friend Bob live in different cities.
+\ii You wonder who ate lunch first.
+\ii How can you find out?
+\pause
+\ii You could call and ask the time, but how would you know if your
+clocks were synchronized?
+\ei
+
+\end{frame}
+
+\bfr{Lunch Synchronization}
+\bi
+\ii You want to {\em guarantee} that you ate lunch before Bob.
+\ii How can you do it?
+\pause
+\ii Synchronize with messages:
+\ei
+\cola{.4}
+\begin{Verbatim}[label=You]
+Eat breakfast
+Work
+Eat lunch
+Call Bob
+\end{Verbatim}
+\colb{.4}
+\begin{Verbatim}[label=Bob]
+Eat breakfast
+Wait for call
+Eat lunch
+\end{Verbatim}
+\colc
+\pause
+\bi
+\ii You ate lunch {\bf sequentially} (order guaranteed)
+\ii You ate breakfast {\bf concurrently} (order undetermined)
+\pause
+\ii
+Two events are concurrent if we cannot tell by looking at the program
+which will happen first.
+\ei
+
+\end{frame}
+
+\bfr{Lunch Synchronization with Shared Variables}
+\bi
+\ii You and Bob work in the same office, but are NOT talking to each other.
+\pause
+\ii Keep a rock in a box.
+\pause
+\ii Make a rule that you can only eat lunch if you have the rock.
+\pause
+\ei
+\cola{.4}
+\begin{Verbatim}[label=You]
+Eat breakfast
+Take rock from box
+Eat lunch
+Put rock back in box
+\end{Verbatim}
+\colb{.4}
+\begin{Verbatim}[label=Bob]
+Eat breakfast
+Take rock from box
+Eat lunch
+Put rock back in box
+\end{Verbatim}
+\colc
+\pause
+\bi
+\ii You ate breakfast concurrently (order undetermined).  Lunch?
+\pause
+\ii You ate lunch concurrently (order undetermined).
+\pause
+\ii This version does not enforce order, but {\bf mutual exclusion}.
+\pause
+\ii Can you find a version that enforces order?
+\pause
+\ii Can you find a message version that enforces mutual exclusion?
+\ei
+
+\end{frame}
+
+\bfr{Shared variables}
+\cola{.4}
+\begin{Verbatim}[label=Thread A]
+x = 5
+print x
+\end{Verbatim}
+\colb{.4}
+\begin{Verbatim}[label=Thread B]
+x = 7
+\end{Verbatim}
+\colc
+\pause
+\bi
+\ii What path yields output 5 and final value 5?
+\ii What path yields output 7 and final value 7?
+\pause
+\ii What path yields output 5 and final value 7?
+\pause
+\ii What path yields output 7 and final value 5?
+\pause
+\ii What paths are possible and what are their effects?
+\ii Can we prove bad effects impossible, and desirable effects certain?
+\ei
+
+\end{frame}
+
+
+\bfr{Concurrent Updates}
+\vfill
+\cola{.4}
+\begin{Verbatim}[label=Thread A]
+x = x + 1
+\end{Verbatim}
+\colb{.4}
+\begin{Verbatim}[label=Thread B]
+x = x + 1
+\end{Verbatim}
+\colc
+\pause
+\vfill
+\cola{.4}
+\begin{Verbatim}[label=Thread A]
+load x
+add 1
+store x
+\end{Verbatim}
+\colb{.4}
+\begin{Verbatim}[label=Thread B]
+load x
+add 1
+store x
+\end{Verbatim}
+\colc
+
+\pause
+\vfill
+
+Any operation that cannot be interrupted is said to be {\bf atomic}.
+
+\end{frame}
+
+\end{document}

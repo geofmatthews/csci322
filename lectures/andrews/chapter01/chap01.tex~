@@ -1,0 +1,64 @@
+\documentclass{article}
+\sloppy
+\usepackage[margin=0.5in]{geometry}
+\usepackage{graphicx}
+\usepackage{multicol}
+\setlength{\parindent}{0in}
+
+
+\newcommand{\myfig}[1]{\hspace{-1.5in}\includegraphics[width=1.5\textwidth]{{#1}}\newpage}
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ii}{\item}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\ti}[1]{\centerline{\bf #1}}
+
+\title{Andrews Figures, Chapter 01}
+\author{Geoffrey Matthews\\
+\small Western Washington University}
+
+
+\begin{document}
+\huge
+
+\maketitle
+
+\myfig{chap01/1_1.pdf}
+\myfig{chap01/1_2.pdf}
+\myfig{chap01/1_3.pdf}
+\myfig{chap01/p13_mm_seq.pdf}
+\ti{Embarrassingly Parallel}
+\bi
+\ii {\bf Read set}: set of variables read by a process
+\ii {\bf Write set}: set of variables written to by a process
+\ii Two operations are {\bf independent} is the write set of each is
+disjoint from both the read and write sets of the other.
+\ei
+\newpage
+
+\myfig{chap01/p14a_mm_rows.pdf}
+\myfig{chap01/p14b_mm_cols.pdf}
+\myfig{chap01/p15a_mm_rows_cols.pdf}
+\myfig{chap01/p15b_mm_nested_co.pdf}
+\myfig{chap01/p16a_mm_process.pdf}
+\myfig{chap01/p16b_mm_strips.pdf}
+\myfig{chap01/1_4.pdf}
+\myfig{chap01/p18a_quad_iterative.pdf}
+\myfig{chap01/p18b_quad_recursive.pdf}
+\ti{Independent procedure calls}
+\bi
+\ii If a procedure does not reference global variables and has only
+value parameters, then every call of the procedure will be
+independent.
+\ii Functional programming has these features.
+\ii For example, quicksort.
+\ei
+
+\myfig{chap01/p18c_quad_co.pdf}
+
+\myfig{chap01/1_5.pdf}
+\myfig{chap01/1_6.pdf}
+\myfig{chap01/1_7.pdf}
+\myfig{chap01/p23_mm_coord_worker.pdf}
+\myfig{chap01/p25_mm_circular.pdf}
+\end{document}

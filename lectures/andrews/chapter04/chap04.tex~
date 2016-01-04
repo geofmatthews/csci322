@@ -1,0 +1,118 @@
+\documentclass{article}
+\sloppy
+%\usepackage[margin=0.5in]{geometry}
+%\usepackage[landscape,margin=0.5in]{geometry}
+\usepackage[landscape,top=-1in,left=0.5in,right=0.5in,bottom=0.0in]{geometry}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{overpic}
+
+\usepackage{fancyvrb}
+\setlength{\parindent}{0in}
+
+
+%\newcommand{\myfig}[1]{\hspace{-1.5in}{\includegraphics[width=1.5\textwidth]{{#1}}}\newpage}
+
+\newcommand{\myfig}[1]{\begin{overpic}[scale=1.5]{#1}}
+\newcommand{\myfigsmall}[1]{\begin{overpic}[scale=1.15]{#1}}
+\newcommand{\myfigtiny}[1]{\begin{overpic}[scale=1.0]{#1}}
+\newcommand{\myfigend}{\end{overpic}\newpage}
+\newcommand{\myput}[2]{\put(10,#1){$\bullet$ #2}}
+\newcommand{\myputn}[2]{\put(15,#1){#2}}
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ii}{\item}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\ti}[1]{
+\mbox{~}
+
+\vspace{1.25in}
+\centerline{\bf #1}}
+
+\newcommand{\la}{\ensuremath{\langle}}
+\newcommand{\ra}{\ensuremath{\rangle}}
+
+\title{Andrews Figures, Chapter 04}
+\author{Geoffrey Matthews\\
+\small Western Washington University}
+
+
+\begin{document}
+\huge
+
+\ti{Semaphores}
+
+\bi
+\ii Chapter 3 used busy-waiting loops.
+\ii Semaphores are easy to implement.
+\ii Virtually all concurrent libraries include semaphores.
+\ii Make critical sections easy.
+\ii Can be used for signalling and scheduling.
+\ei
+
+
+\myfig{chap04/4_01.pdf}
+\myfigend
+
+\myfig{chap04/4_02.pdf}
+\myput{57}{A two-process barrier.}
+\myput{54}{Can use {\tt count} to generalize (see Downey).}
+\myput{51}{Can use butterfly or dissemination-barrier.}
+\myfigend
+
+\myfig{chap04/4_03.pdf}
+\myput{47}{Split binary semaphores.}
+\myfigend
+
+\myfig{chap04/4_04.pdf}
+\myput{50}{{\tt empty} is initalized to {\tt n}}
+\myfigend
+
+\myfig{chap04/4_05.pdf}
+\myfigend
+
+\myfig{chap04/4_06.pdf}
+\put(10,64){\tt process Philosopher[i = 0 to 4] \{}
+\put(12,62){\tt while (true) \{}
+\put(14,60){\tt think;}
+\put(14,58){\tt acquire forks;}
+\put(14,56){\tt eat;}
+\put(14,54){\tt release forks;}
+\put(12,52){\tt \}}
+\put(10,50){\tt \}}
+\myfigend
+
+\myfig{chap04/4_07.pdf}
+\myfigend
+
+\myfig{chap04/4_08.pdf}
+\myfigend
+
+\myfig{chap04/4_09.pdf}
+\myfigend
+
+\myfig{chap04/4_10.pdf}
+\myfigend
+
+\myfig{chap04/4_11.pdf}
+\myfigend
+
+\myfig{chap04/p173_signal_code.pdf}
+\myput{60}{Signal {\em exactly one} of the semaphores.}
+\myput{57}{{\tt r}, {\tt w}, and {\tt e} are a split binary semaphore.}
+\myput{54}{{\bf Passing the baton} to one another.}
+\myfigend
+
+\myfigsmall{chap04/4_12.pdf}
+\myfigend
+
+\myfigsmall{chap04/4_13.pdf}
+\myfigend
+
+\myfig{chap04/4_14.pdf}
+\myfigend
+
+\myfigtiny{chap04/4_15.pdf}
+\myfigend
+
+\end{document}

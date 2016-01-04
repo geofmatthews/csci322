@@ -1,0 +1,515 @@
+\documentclass{beamer}
+\usetheme{Singapore}
+
+%\usepackage{pstricks,pst-node,pst-tree}
+\usepackage{amssymb,latexsym}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+\usepackage{relsize}
+\usepackage{multicol}
+
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ii}{\item}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\Show}[1]{\psshadowbox{#1}}
+
+
+\newcommand{\grf}[2]{\centerline{\includegraphics[width=#1\textwidth]{#2}}}
+\newcommand{\tw}{\textwidth}
+\newcommand{\bc}{\begin{columns}}
+\newcommand{\ec}{\end{columns}}
+\newcommand{\cc}[1]{\column{#1\textwidth}}
+
+\newcommand{\bfr}[1]{\begin{frame}[fragile]\frametitle{{ #1 }}}
+\newcommand{\efr}{\end{frame}}
+
+\newcommand{\cola}[1]{\begin{columns}\begin{column}{#1\textwidth}}
+\newcommand{\colb}[1]{\end{column}\begin{column}{#1\textwidth}}
+\newcommand{\colc}{\end{column}\end{columns}}
+
+\title{Little Book of Semaphores, Chapter 4}
+\author{Geoffrey Matthews\\
+\small Western Washington University}
+
+\RecustomVerbatimEnvironment{Verbatim}{Verbatim}
+{frame=single,fontsize=\relsize{-1}}
+
+\begin{document}
+\maketitle
+
+\bfr{Producers and Consumers}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Producer i]
+event[i] = waitForEvent()
+buffer.add(event[i])
+\end{Verbatim}
+\begin{Verbatim}[label=Consumer j]
+event[j] = buffer.get()
+event[j].process()
+\end{Verbatim}
+\end{multicols}
+\bi 
+\ii Threads must have exclusive
+access to the buffer.  No adding and getting at the same time.  
+\ii If
+a consumer thread arrives when the buffer is empty, it blocks until a
+producer adds an item.
+\ii {\tt waitForEvent} and {\tt process} can happen simultaneously,
+but not buffer access.
+\ii {\tt event} is a local variable for each thread---not shared.
+\ii We could use an array, as above, with all producers and consumers
+having different indices.
+\ei
+
+\end{frame}
+
+\bfr{Producers and Consumers Hint}
+\begin{Verbatim}
+mutex = Semaphore(1)
+items = Semaphore(0)
+local event
+\end{Verbatim}
+\bi
+\ii Local events can be handled several ways:
+\bi
+\ii Each thread has its own run-time stack.  (We use this in scheme
+and python, where threads are functions.)
+\ii Threads could be objects, with local private variables.
+\ii Threads can use unique IDs as indices into an array.
+\ei
+\ei
+\end{frame}
+
+
+\bfr{Producer-consumer solution}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Producer]
+event = waitForEvent()
+mutex.wait()
+  buffer.add(event)
+  items.signal()
+mutex.signal()
+\end{Verbatim}
+\begin{Verbatim}[label=Consumer]
+items.wait()
+mutex.wait()
+  event = buffer.get()
+mutex.signal()
+event.process()
+\end{Verbatim}
+\end{multicols}
+\pause
+\bi
+\ii Could the {\tt items.signal()} be taken out of the mutex?
+\ii What would be the advantage?
+\ei
+
+
+\end{frame}
+
+\bfr{Producer-consumer solution (slight improvement)}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Producer]
+event = waitForEvent()
+mutex.wait()
+  buffer.add(event)
+mutex.signal()
+items.signal()
+\end{Verbatim}
+\begin{Verbatim}[label=Consumer]
+items.wait()
+mutex.wait()
+  event = buffer.get()
+mutex.signal()
+event.process()
+\end{Verbatim}
+\end{multicols}
+\pause
+\bi
+\ii {\tt items} could at times not accurately reflect the actual
+number of waiting consumers.  
+\ei
+\end{frame}
+
+\bfr{Producer-consumer solution (broken)}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Producer]
+event = waitForEvent()
+mutex.wait()
+  buffer.add(event)
+mutex.signal()
+items.signal()
+\end{Verbatim}
+\begin{Verbatim}[label=Consumer]
+mutex.wait()
+  items.wait()
+  event = buffer.get()
+mutex.signal()
+event.process()
+\end{Verbatim}
+\end{multicols}
+\bi
+\ii Why is this broken?
+\pause
+\ii Don't wait for a semaphore after grabbing a mutex!
+\ei
+\end{frame}
+
+\bfr{Producer-consumer with finite buffer}
+\begin{Verbatim}[label=Broken finite buffer solution]
+if items >= bufferSize:
+  block()
+\end{Verbatim}
+\bi
+\ii {\tt items} is a semaphore, we can't check its size
+\ii Even if we could, we could be interrupted between checking and
+blocking.
+\ii We {\em don't} want to block inside a mutex!
+\pause
+\ii What to do?
+\ei
+\end{frame}
+
+\bfr{Finite buffer producer-consumer hint}
+\begin{Verbatim}
+mutex = Semaphore(1)
+items = Semaphore(0)
+spaces = Semaphore(bufferSize)
+\end{Verbatim}
+\bi
+\ii {\tt items + spaces = bufferSize}
+\ei
+\end{frame}
+
+\bfr{Finite buffer producer-consumer solution}
+\begin{Verbatim}
+mutex = Semaphore(1)
+items = Semaphore(0)
+spaces = Semaphore(bufferSize)
+\end{Verbatim}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Producer]
+event = waitForEvent()
+
+spaces.wait()
+mutex.wait()
+  buffer.add(event)
+mutex.signal()
+items.signal()
+\end{Verbatim}
+\begin{Verbatim}[label=Consumer]
+items.wait()
+mutex.wait()
+  event = buffer.get()
+mutex.signal()
+spaces.signal()
+
+event.process()
+\end{Verbatim}
+\end{multicols}
+\pause
+\bi
+\ii Note that {\tt items + spaces} is a constant.
+\ii This is an {\em invariant}
+\ii Using invariants is a good way to design programs
+and help prove properties.
+\ei
+\end{frame}
+
+\bfr{Readers-writers problem}
+\bi
+\ii Suppose a number of processes all access the same data.
+\ii Any number of readers can be in the critical section
+simultaneously.
+\ii Writers must have exclusive access to the critical section.
+\ii Ideas?
+\ei
+\end{frame}
+
+\bfr{Readers-writers hint}
+\begin{Verbatim}
+readers = 0
+mutex = Semaphore(1)
+roomEmpty = Semaphore(1)
+\end{Verbatim}
+
+\bi
+\ii ``wait'' means ``wait for the condition to be true''
+\ii ``signal'' means ``signal that the condition is true''
+\ei
+\end{frame}
+
+\bfr{Readers-writers solution}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Writers]
+roomEmpty.wait()
+# critical section for writer
+roomEmpty.signal()
+\end{Verbatim}
+\newpage
+\begin{Verbatim}[label=Readers]
+mutex.wait()
+  readers += 1
+  if readers == 1:
+    # first in locks:
+    roomEmpty.wait()
+mutex.signal()
+
+# critical section for reader
+
+mutex.wait()
+  readers -= 1
+  if readers == 0:
+    # last out unlocks
+    roomEmpty.signal()
+mutex.signal()
+\end{Verbatim}
+\end{multicols}
+
+\bi
+\ii A {\bf Lightswitch}
+\ei
+
+\end{frame}
+
+\bfr{Claims useful in a proof of correctness}
+\bi
+\ii Only one reader can queue on {\tt roomEmpty}
+\ii Several writers might be queued on {\tt roomEmpty}
+\ii When a reader signals {\tt roomEmpty} the room is empty
+\ei
+
+\end{frame}
+
+\bfr{A lightswitch object}
+\begin{minipage}{0.5\textwidth}
+\begin{Verbatim}
+class Lightswitch:
+  def __init__(self):
+    self.counter = 0
+    self.mutex = Semaphore(1)
+
+  def lock(self, semaphore):
+    self.mutex.wait()
+      self.counter += 1
+      if self.counter == 1:
+        semaphore.wait()
+    self.mutex.signal()
+
+  def unlock(self, semaphore):
+    self.mutex.wait()
+      self.counter -= 1
+      if self.counter == 0:
+        semaphore.signal()
+        self.mutex.signal()
+\end{Verbatim}
+\end{minipage}\begin{minipage}{0.5\textwidth}
+\begin{Verbatim}[label=Initialization]
+readswitch = Lightswitch()
+roomEmpty = Semaphore(1)
+\end{Verbatim}
+\vfill
+\begin{Verbatim}[label=Readers]
+readswitch.lock(roomEmpty)
+# critical section
+readwitch.unlock(roomEmpty)
+\end{Verbatim}
+\vfill
+\begin{Verbatim}[label=Writers]
+roomEmpty.wait()
+# critical section for writer
+roomEmpty.signal()
+\end{Verbatim}
+\vfill
+\end{minipage}
+\end{frame}        
+
+\bfr{Starvation}
+
+\bi
+\ii No deadlock in the above readers-writers solution.
+\ii However, it is possible for a writer to {\bf starve}.
+\ii While a writer is blocked, readers can come and go, and the writer
+never progresses.
+\ii (In the buffer problem, readers eventually empty the buffer, but
+we can imagine readers who simply examine the buffer without removing
+an item.)
+\pause
+\ii Puzzle:  extend the solution so that when a writer arrives, the
+existing readers can finish, but no additional readers may enter.
+\pause
+\ii Hint: Add a turnstyle and allow the writers to lock it.
+\ei
+
+
+\end{frame}        
+
+\bfr{No-starve readers-writers hint}
+\begin{Verbatim}
+readSwitch = Lightswitch()
+roomEmpty = Semaphore(1)
+turnstile = Semaphore(1)
+\end{Verbatim}
+\pause
+\bi
+\ii {\tt turnstile} is a turnstile for readers and a mutex for writers
+\ei
+
+\end{frame}        
+
+\bfr{No-starve readers-writers solution}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Writers]
+turnstile.wait()
+  roomEmpty.wait()
+  # critical section
+turnstile.signal()
+
+roomEmpty.signal()
+\end{Verbatim}
+\begin{Verbatim}[label=Readers]
+turnstile.wait()
+turnstile.signal()
+
+readSwitch.lock(roomEmpty)
+  # critical section
+readSwitch.unlock(roomEmpty)
+\end{Verbatim}
+\end{multicols}
+\bi
+\ii {\tt turnstile} is a turnstile for readers and a mutex for writers
+\pause
+\ii It is now possible for {\em readers} to starve!
+\ei
+
+\end{frame}        
+
+\bfr{Priority Scheduling}
+\bi
+\ii Some schedulers allow priority scheduling.
+\ii Puzzle:  Write a solution to readers-writers that gives priority
+to writers.  In other words, once a writer arrives, no readers are
+allowed in the critical section until {\em all} writers have left the
+system. 
+\pause
+\ii Hint: use two lightswitches
+\ei
+\end{frame}        
+
+\bfr{Writer-priority readers-writers hint}
+\begin{Verbatim}
+readSwitch = Lightswitch()
+writeSwitch = Lightswitch()
+mutex = Semaphore(1)
+noReaders = Semaphore(1)
+noWriters = Semaphore(1)
+\end{Verbatim}
+\end{frame}
+
+\bfr{Writer-priority readers-writers solution}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Writers]
+writeSwith.lock(noReaders)
+  noWriters.wait()
+
+    # critical section
+
+  noWriters.signal()
+writeSwitch.unlock(noReaders)
+\end{Verbatim}
+\begin{Verbatim}[label=Readers]
+noReaders.wait()
+  readSwitch.lock(noWriters)
+noReaders.signal()
+
+# critical section
+
+readSwitch.unlock(noWriters)
+\end{Verbatim}
+\end{multicols}
+\bi
+
+\ii Writers in critical section hold {\em both} {\tt noReaders}
+and {\tt noWriters}.
+\ii {\tt writeSwitch} allows writers to queue on {\tt noWriters}, but
+keeps {\tt noReaders} locked
+\ii The last writer signals {\tt noReaders}
+\pause
+\ii Readers in critical section
+ hold {\tt noWriters} but don't hold {\tt noReaders}, so a writer can
+ lock {\tt noReaders}
+\ii The last reader signals {\tt noWriters} so writers can go
+\ei
+\end{frame}
+
+\bfr{Thread starvation}
+\bi
+\ii We just addressed {\bf categorical starvation}:   one category of
+threads makes another category starve.
+\ii {\bf Thread starvation} is the more general possibility of a
+thread waiting indefinitely while other threads proceed.
+\pause
+\ii Part of the problem is the responsibility of the scheduler.  If a
+thread is never scheduled, it is starved.
+\pause
+\ii Some schedulers use algorithms that guarantee bounded waiting.
+\ei
+\end{frame}
+
+\bfr{Thread starvation}
+\bi
+\ii If we don't want to assume too much about the scheduler, can we
+assume: 
+\ii
+{\bf Property 1:}  if there is only one thread that is ready to run, the
+scheduler has to let it run.
+\ii This would be sufficient for the boundary problem.
+\pause
+\ii In general we need a stronger assumption:
+\ii 
+{\bf Property 2:}  if a thread is ready to run, then the time it waits
+until it runs is bounded.
+\pause
+\ii We use this assumption in all our work.
+\ii Some schedulers in the real world do not guarantee this strictly.
+\ei
+\end{frame}
+
+\bfr{Semaphore starvation}
+\bi
+\ii When one thread signals a semaphore, which waiting thread is woken
+up?
+\pause
+\ii {\bf Property 3:}  if there are threads waiting on a semaphore
+when a thread executes {\tt signal}, then one of the waiting threads
+has to be woken.
+\pause
+\ii Prevents a thread from signalling a semaphore, racing
+around a loop, waiting on the same semaphore, and catching its own
+signal! 
+\pause
+\ii However, if A, B, and C are using a mutex in a loop, A and B could
+race around and around, starving C.
+\pause
+\ii A semaphore with Property 3 is called a {\bf weak semaphore}.
+\ei
+\end{frame}
+
+\bfr{Semaphore starvation}
+\bi
+\ii {\bf Property 4:}  if a thread is waiting at a semaphore, then the
+number of threads that will be woken before it is bounded.
+\pause
+\ii FIFO queues satisfy this property.
+\pause
+\ii A semaphore with Property 4 is called a {\bf strong semaphore}.
+\pause
+\ii Dijkstra (inventor of semaphores) conjectured in 1965 that it was
+impossible to solve the mutex problem without starvation with weak
+semaphores. 
+\pause
+\ii Morris showed you could do it in 1979. (Solution in book.)
+\ei
+\end{frame}
+\end{document}

@@ -1,0 +1,720 @@
+\documentclass{article}
+\sloppy
+%\usepackage[margin=0.5in]{geometry}
+%\usepackage[landscape,margin=0.5in]{geometry}
+\usepackage[landscape,top=-1in,left=0.5in,right=0.5in,bottom=0.0in]{geometry}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{overpic}
+\usepackage{hyperref}
+\usepackage{color}
+\newcommand{\blue}{{\tt\color{blue}blue}}
+\newcommand{\red}{{\tt\color{red}red}}
+
+\usepackage{fancyvrb}
+\setlength{\parindent}{0in}
+
+
+\newcommand{\nop}[1]{}
+\newcommand{\myfig}[1]{\newpage\begin{overpic}[scale=1.5]{figures/#1}}
+\newcommand{\myfigs}[2]{\newpage\begin{overpic}[scale=#1]{figures/#2}}
+\newcommand{\myfigsp}[3]{\newpage\begin{overpic}[scale=#1,page=#2]{figures/#3}}
+\newcommand{\myfigend}{\end{overpic}}
+\newcommand{\myput}[2]{\put(10,#1){$\bullet$ #2}}
+\newcommand{\myputn}[2]{\put(15,#1){#2}}
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ii}{\item}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\ti}[1]{
+\newpage
+\mbox{~}
+
+\vspace{1.25in}
+\centerline{\bf #1}
+}
+
+\newcommand{\la}{\ensuremath{\langle}}
+\newcommand{\ra}{\ensuremath{\rangle}}
+
+
+\RecustomVerbatimEnvironment
+  {Verbatim}{Verbatim}
+  {frame=single,commandchars=\\\{\}}
+
+\begin{document}
+
+
+\huge\sf
+
+\ti{Paradigms for Process Interaction}
+\centerline{Andrews, Chapter 09}
+
+\ti{Three basic patterns for distributed programs}
+\bi
+\ii producer/consumer
+\ii client/server
+\ii interacting peers
+\ei
+
+\ti{Basic patterns can be combined in several paradigms}
+\bi
+\ii Parallel computation:
+\bi
+\ii Manager/workers 
+  \bi\ii distributed bag of tasks\ei
+\ii Heartbeat algorithms
+  \bi\ii periodically send then receive\ei
+\ii Pipeline algorithms
+  \bi\ii information flows with receive then send\ei
+\ei
+\ii Distributed systems:
+\bi
+\ii Probes (sends) and echoes (receives)
+  \bi\ii disseminate then gather in trees and graphs\ei
+\ii Broadcast algorithms
+  \bi\ii decentralized decision making \ei
+\ii Token-passing algorithms
+  \bi\ii another approach to decentralized decision making\ei
+\ii Replicated server processes
+  \bi\ii manage multiple instances of resources\ei
+\ei
+\ei
+
+
+\ti{\S 9.1 Manager/Workers (Distributed Bag of Tasks)}
+
+\ti{\S 9.1.1 Sparse matrix representation}
+
+\bi
+\ii Compute product $A\times B = C$ of $n\times n$ matrices.
+\ii Requires $n^2$ inner products.
+\ii A matrix is {\em dense} if most entries are nonzero.
+\ii A matrix is {\em sparse} if most entries are zero.
+\ii Sparse matrix representation:
+\begin{multicols}{2}
+\begin{Verbatim}
+int lengthA[n];
+pair *elementsA[n]
+\end{Verbatim}
+\columnbreak
+\rule{0cm}{1cm}
+\end{multicols}
+\begin{multicols}{2}
+\ii Example:
+\begin{Verbatim}
+lengthA  elementsA
+  1      (3, 2.5)
+  0
+  0
+  2      (1, -1.5) (4, 0.6)
+  0
+  1      (0, 3.4)
+\end{Verbatim}
+\columnbreak
+\[
+\left(\begin{array}{cccccc}
+0.0 &0.0 &0.0 & 2.5& 0.0 &0.0\\
+0.0&0.0&0.0&0.0&0.0&0.0\\
+0.0&0.0&0.0&0.0&0.0&0.0\\
+0.0& -1.5 &0.0 &0.0 & 0.6&0.0\\
+0.0&0.0&0.0&0.0&0.0&0.0\\
+3.4 &0.0&0.0&0.0&0.0&0.0\end{array}\right)
+\]
+\end{multicols}
+\ei
+
+\ti{Sparse matrix multiplication}
+\bi
+\ii Represent $A$ and $C$ by rows, $B$ by columns.
+\ii Each row of $A$ is a task.
+\ii Each task will need all columns of $B$.
+\ei
+
+
+\myfig{9_1a.pdf}
+\myfigend
+\myfig{9_1b.pdf}
+\myfigend
+\myfig{inner_prod.pdf}
+\myfigend
+
+
+
+\begin{overpic}[scale=1.5]{../chapter01/figures/1_4.pdf}
+\put(5,90){\bf \S 9.1.2 Adaptive Quadrature Revisited}
+\end{overpic}
+\begin{overpic}[scale=1.5]{../chapter01/figures/p18a_quad_iterative.pdf}
+\end{overpic}
+\begin{overpic}[scale=1.5]{../chapter01/figures/p18b_quad_recursive.pdf}
+\end{overpic}
+
+\myfigs{1.2}{9_2.pdf}
+\myput{30}{Combination of iterative and recursive}
+\myfigend
+
+
+\myfig{heartbeat.pdf}
+\put(10,91){\bf \S 9.2 Heartbeat Algorithms}
+\myput{60}{Useful for data parallel iterative applications.}
+\myput{57}{Each worker updates part of the data.}
+\myput{54}{Each worker then requires data from its neighbors to continue.}
+\myfigend
+
+\ti{Heartbeat algorithms}
+\bi
+\ii If the data is a grid it can be broken up into strips or blocks.
+\ii 3D data can be broken up into planes, prisms, or cubes.
+\ii Examples:
+\bi \ii region labelling \ii Game of Life \ei
+\ei
+
+\myfig{image.pdf}
+\put(5,91){\bf \S 9.2.1 Image Processing:  Region Labeling}
+\myput{70}{Image has {\em three} regions (using 4-neighbors).}
+\myput{68}{Initially each point is given a unique label: $mi+j$.}
+\myput{66}{Iterate until no changes:}
+\myputn{64}{If adjacent pixels are lit, set label of each to maximum.}
+\myput{62}{Final labels are regions.}
+\myfigend
+
+\ti{Region labelling}
+\bi
+\ii We could assign a task to each pixel.
+\ii This would be appropriate on a SIMD machine, such as a graphics card.
+\ii For MIMD machines, these tasks are too small.
+\ii Break image up into strips.
+\ii On each iteration, each task needs to exchange its edge values
+with its neighbor. 
+\ii Each individual task could examine its pixels once, or (to cut
+down on the messaging) iterate
+until they don't change.
+\ii Workers cannot determine when to terminate.
+\ii Coordinator detects termination by receiving messages from all
+workers. 
+\ii Could speed up termination detection with a butterfly.
+\ei
+
+\myfig{9_3a.pdf}
+\myfigend
+\myfig{9_3b.pdf}
+\myfigend
+
+\ti{Game of Life}
+\bi
+\ii \url{http://pmav.eu/stuff/javascript-game-of-life-v3.1.1/}
+\ii I have provided a Racket implementation (from rosettacode.org).
+\ii Rules:
+\bi
+\ii A live cell with zero or one live neighbors dies from loneliness.
+\ii A live cell with two or three live neighbors survives.
+\ii A live cell with four or more live neighbors dies from overpopulation.
+\ii A dead cell with exactly three live neighbors becomes alive.
+\ei
+\ei
+\centerline{\includegraphics[scale=0.75]{figures/gameoflife.png}}
+
+\myfig{9_4.pdf}
+\put(21,76){\rule{2.2cm}{2pt}}
+\put(27,75.75){\LARGE\tt (p != i or q != j)}
+\myfigend
+
+\ti{\S 9.3 Pipeline Algorithms}
+
+\myfig{9_5.pdf}
+\myfigend
+
+\begin{overpic}[scale=1.5]{../chapter01/figures/p25_mm_circular.pdf}
+\put(2,90){\bf \S 1.8 used a circular pipeline for distributed matrix
+  multiplication. }
+\myfigend
+
+\myfig{9_6a.pdf}
+\myfigend
+\myfigs{1.25}{9_6b.pdf}
+\myfigend
+
+\ti{Properties of the circular solution}
+\bi
+\ii Messages chase each other around the pipeline: rows of {\tt a},
+then columns of {\tt b}, then rows of {\tt c}.
+\ii There is little delay between receiving a message and passing it
+along. 
+\ii Once {\tt a} has been distributed, inner products with {\tt b} are
+computed very fast.
+\ii The number of columns of {\tt b} is arbitrary.
+\ii Each worker could have a strip of rows of {\tt a}.
+\ii Pipeline could be open and part of a larger pipeline.
+\ei
+
+\myfig{mm_blocks.pdf}
+\put(5,91){\bf Matrix multiplication by row/column circular queues.}
+\myput{70}{Use $n^2$ processes and $2n^2$ channels.}
+\myput{66}{Shift rows and columns initially as above.}
+\myput{64}{On each iteration, shift {\tt a}'s to the left, {\tt b}'s up.}
+\myput{62}{After $n-1$ shifts, each process has computed its inner
+  product. }
+\myput{58}{Can use blocks instead of single cells to reduce}
+\myputn{56}{number of processes and channels.}
+\myfigend
+
+\myfig{9_7.pdf}
+\myfigend
+
+\ti{\S 9.4 Probe/Echo Algorithms}
+
+\bi
+\ii Distributed version of depth-first search.
+\ei
+
+\myfig{9_8.pdf}
+\myput{69}{If a single node knows the network topology:}
+\myputn{66}{compute the spanning tree}
+\myputn{64}{send message and tree to all descendents in tree}
+\myputn{62}{each descendent forwards message and tree to its descendents}
+
+\myput{50}{Network topology:}
+\myputn{48}{data structure describing all connections of all nodes}
+
+\myfigend
+
+\myfig{9_9.pdf}
+\myfigend
+
+\ti{What if we don't know the topology?}
+\bi
+\ii{How can a node know how many times to receive?}
+\ii{Too few: extra messages are left in the message queues.}
+\ii{Too many:  deadlock waiting for messages never sent.}
+\ei
+
+\myfig{9_10.pdf}
+\myput{50}{Topology not necessary.}
+\myput{48}{Each node knows exactly how many messages to receive.}
+\myput{44}{Advanced topic:  fault-tolerant broadcast.}
+\myfigend
+
+
+\ti{Computing the topology of a network}
+
+\bi
+\ii Two phases:
+\bi
+\ii probe: as before, each node sends to all others
+\ii echo: each node returns local topology
+\ei 
+\ii When the start node receives all echoes, it has the global topology.
+\ii Could then be efficiently broadcast to all nodes.
+\ei
+
+\ti{Computing the topology of an acyclic network (tree)}
+
+\bi
+\ii Initiator (root) sends probe to all children.
+\ii Each node receives probe from parent, sends probe on to children.
+\ii Leaf nodes receive probe from parent, echo their local topology.
+\ii After an internal node receives all echoes, sends echo to parent including
+local topology. 
+\ii When the root receives all echoes, it will have global topology.
+\ei
+
+
+\myfigs{1.3}{9_11.pdf}
+\myfigend
+
+\ti{Computing the topology of a general network (graph)}
+\bi
+\ii After receiving a probe, each node sends probes to all its neighbors.
+\ii Each node may thus receive multiple probes.
+\ii All but the first are echoed immediately with {\tt null} topology.
+\ii Eventually a node will receive echoes from every probe.
+\ii It keeps the union of all these echoes, adding them to its local
+topology. 
+\ii After receiving an echo from every node, 
+the node sends an echo to the {\em first}
+probing node with the accumulated topology.
+\ei
+
+\myfigs{1.2}{9_12.pdf}
+\myput{31}{Unified channel: can receive probes or echoes at any time.}
+\myfigend
+
+\ti{\S 9.5 Broadcast Algorithms}
+\bi
+\ii In previous section we considered networks connected in a graph.
+\ii In local area networks, processors share a common communication
+channel.
+\ii In this situation, it is easy to support {\bf broadcast} messages,
+which transmit a message from one process to all the others.
+\begin{multicols}{2}
+\begin{Verbatim}
+broadcast ch(m);
+
+\end{Verbatim}
+\begin{Verbatim}
+co [i=1 to n]
+  send ch[i](m);
+\end{Verbatim}
+\end{multicols}
+\ii
+Processes use {\tt receive} for both kinds of messages.
+\ii {\tt broadcast} is not atomic:  
+\bi
+\ii {\tt broadcast} messages from {\tt A} and {\tt B} could arrive in
+any order.
+\ei
+\ei
+
+\ti{\S 9.5.1 Logical clocks and event ordering}
+
+\bi
+\ii Actions of processes are either local or communication actions.
+\ii Communication actions must be synchronized.
+\ii In this section, {\em event} refers to execution of {\tt send},
+{\tt broadcast}, or {\tt receive}.
+\ei
+
+\ti{\S 9.5.1 Logical clocks and event ordering}
+\bi
+\ii There exists a partial ordering of events:
+\bi\ii sending a message must
+{\em happen before} the receiving of the same message.\ei
+\ii This {\em happens before} relation 
+is reflexive, antisymmetric, and transitive:  a {\bf partial order}.
+\ii Not every pair of events is in the ordering:
+\bi\ii if {\tt A} sends a message to {\tt B} and then {\tt C}, the
+arrivals of these messages are not ordered.\ei
+\ei
+
+\ti{\S 9.5.1 Logical clocks and event ordering}
+\bi
+\ii If we had a global clock, we could impose a total ordering with timestamps.
+\ii But perfect synchronization of local clocks is impossible.
+\ii A {\bf logical clock} is an integer counter that is incremented
+when events occur.
+\ei
+
+{\bf Logical clock update rules.} 
+
+ Let {\tt A} be a process and let
+{\tt lc} be a logical clock in the process. 
+
+{\tt A} updates the value
+of {\tt lc} as follows:
+\begin{enumerate}
+\ii When {\tt A} sends or broadcasts a message, it sets the timestamp
+of the message to the current value of {\tt lc} and then increments
+{\tt lc} by 1.
+\ii When {\tt A} receives a message with timestamp {\tt ts}, it sets
+{\tt lc} to the maximum of {\tt lc} and {\tt ts + 1} and then
+increments {\tt lc} by 1.
+\end{enumerate}
+
+\ti{Clock values and a total order for events using logical clocks}
+\bi
+\ii Every {\tt send} event the clock value is the timestamp of the
+message.
+\ii Every {\tt receive} event the clock value is the maximum of {\tt
+  lc} and {\tt ts + 1} (but before incrementing).
+\ei
+\bigskip
+\bi
+\ii These rules ensure that every event has a clock value.
+\ii These rules also ensure that if an event {\tt a} {\em happens
+  before} another event {\tt b}, the clock value of {\tt a} will be
+smaller than the clock value of {\tt b}.
+\ii We break ties (same clock value) 
+by smaller process ID to get a {\bf total order}.
+\ei
+
+\ti{Distributed Semaphores}
+\bi
+\ii We could use semaphores in a distributed environment by
+implementing them on a server.
+\ii We can also use semaphores in a distributed environment by
+decentralizing them.
+\ei
+
+\ti{Distributed Semaphores}
+\bi
+\ii Semaphore is an integer {\tt s}
+\ii Invariant: \bi\ii
+Number of successful {\tt P} operations 
+is less or equal to number
+of {\tt V} operations plus initial value of {\tt s}.
+\ii To implement, we need a way to count {\tt P} and {\tt V}
+operations, and delay {\tt P} operations.\ei
+\ii Invariant:  {\tt s >= 0}
+\bi
+\ii Processes which share a semaphore need to maintain this.
+\ei\ei
+
+\ti{Distributed Semaphores}
+\bi
+\ii Processes broadcast when they want to {\tt P} or {\tt V}:
+\bi\ii message includes ID, timestamp, and POP or VOP.\ei
+\ii Processes keep POP and VOP messages in a queue {\tt mq}, sorted by
+timestamp. 
+\ii Processes also keep their own POP and VOP messages in this queue.
+\ii If all messages were received in order, every process would know
+all the {\tt P} and {\tt V} commands and could maintain the
+invariants.
+\ii Unfortunately, {\tt broadcast} is not atomic.
+\bi
+\ii Messages broadcast by two different processes can be received in
+different orders by different processes.
+\ei
+\ei
+
+\ti{Distributed Semaphores}
+\bi
+\ii However, consecutive messages sent by each process {\em do} have
+increasing timestamps. 
+\ii Therefore:
+\bi
+\ii Suppose a process's message queue {\tt mq} contains a message {\tt
+  m} with timestamp {\tt ts}.
+\ii Once the process has received a message with a larger timestamp
+from every other process, it knows it will {\em never} see a message
+with a smaller timestamp.
+\ii When this happens the message {\tt m} is said to be {\bf fully
+  acknowledged}. 
+\ei
+\ii Further, if {\tt m} is fully acknowledged, then so are all
+messages in front of it in the queue.
+\ii Therefore, the part of the queue up to and including {\tt m} is a
+{\bf stable prefix}:
+\bi\ii no new messages will ever be inserted into it.\ei
+\ei
+
+\ti{{\tt ACK} messages}
+\bi
+\ii It some process never sends a {\tt POP} or {\tt VOP}, nothing will
+ever be fully acknowledged.
+\ii Possibility of deadlock.  Therefore:
+\ii After each process {\em receives} a {\tt POP} or {\tt VOP}
+message, it will broadcast an {\em ACK} message.
+\ii {\tt ACK} messages have timestamps and update the logical clocks,
+but are not stored in the message queue {\tt mq}.
+\ii Thus they facilitate the full acknowledgement of other messages.
+\ei
+
+\ti{Distributed semaphore implementation}
+\bi
+\ii Each process maintains its own local integer variable {\tt s}.
+\ii For every {\tt VOP} message, increment {\tt s} and delete the
+message from {\tt mq}.
+\ii Examine {\tt POP} messages in stable prefix in timestamp order:
+\bi
+\ii if {\tt s > 0} decrement {\tt s} and delete the {\tt POP} message.
+\ei
+\ii Invariant {\em DSEM}:
+
+\centerline{{\tt s >= 0} $\land$ {\tt mq} is ordered by timestamps}
+
+\ii {\tt POP} messages are processed in stable prefix order.
+\ii All processes handle {\tt POP} messages in same order.
+\ei
+
+\myfigs{1.05}{9_13.pdf}
+\myfigend
+
+\ti{Distributed Semaphores}
+\bi
+\ii We can use distributed semaphores in distributed systems the same
+way we did in shared memory systems.
+\bi
+\ii mutual exclusion
+\ii barriers
+\ii {\em etc.}
+\ei
+\ii Broadcast messages and logical clocks can be used to solve other
+problems as well.
+\ii Every process takes part in every decision, so it does not scale
+well to large numbers of processes.
+\ii In addition, it must be modified to be fault tolerant.
+\ei
+
+\ti{\S 9.6 Token-Passing Algorithms}
+
+\ti{\S 9.6.1 Distributed mutual exclusion}
+\bi
+\ii Critical sections primarily arise in shared memory programs.
+\ii Often distributed programs must manage a resource that can only be
+used by a single process at a time:
+\bi
+\ii communicaiton link to a satellite
+\ii distributed file system or database
+\ei
+\ii Best solution is often an active monitor.
+\ii Another solution is distributed semaphores.
+\bi
+  \ii no one process has a centralized role
+  \ii but all processes share all decisions
+  \ii lots of {\tt broadcast} and {\tt ACK} messages
+\ei
+\ii {\bf Token ring} is a third solution.
+\bi
+\ii decentralized and fair
+\ii requires far fewer messages than distributed semaphores
+\ei
+\ei
+
+\myfig{9_14.pdf}
+\myput{57}{\em DMUTEX:}
+\myputn{54}{{\tt User[i]} in CS $\Rightarrow$ {\tt Helper[i]} has
+  token}
+\myputn{52}{$\land$}
+\myputn{50}{there is exactly one token}
+\myfigend
+
+\myfig{9_15.pdf}
+\myfigend
+
+\ti{\S 9.6.2 Termination detection in a ring}
+\bi
+\ii Assume {\em all} communication goes around the ring.
+\ii Processes start out active (\red).
+\ii Each process notes when it becomes idle (\blue).
+\bi\ii idle: either terminated or waiting for a message.\ei
+\ii When an idle process receives a (non-token) message it becomes
+active 
+(\red).
+\ii {\tt T[1]} holds the token initially.
+ When {\tt T[1]} becomes idle, it passes the token to {\tt T[2]}.
+\ii When an idle process receives the token, it passes it on and
+remains idle (\blue).
+\ii If {\tt T[1]} has been {\em continuously idle} when the token gets
+back:
+\bi
+\ii There can be no messages left in the system; the token has
+``flushed'' the pipe.
+\ii All processes became idle when they passed the token.
+\ii The computation has terminated.
+\ei
+\ii Otherwise, become idle and start the token again.
+\ei
+
+
+\myfig{9_16.pdf}
+\myfigend
+
+\ti{\S 9.6.3 Termination detection in a graph}
+\bi
+\ii Assume complete graph.
+\ii Can be extended to other cases.
+\ei
+
+\myfig{9_17.pdf}
+\myput{65}{Ring algorithm will not work:}
+\myput{60}{{\tt T[1]} becomes idle and sends token to {\tt T[2]}}.
+\myput{57}{{\tt T[2]} becomes idle and sends token to {\tt T[3]}}.
+\myputn{54}{but at the same time, {\tt T[3]} sends a real message to {\tt
+    T[2]}.}
+\myput{51}{{\tt T[3]} becomes idle and sends token to {\tt T[1]}.}
+\myfigend
+
+\ti{Generalizing the ring token algorithm to graphs}
+\bi
+\ii We ensure that the token traverses {\em every} edge of the graph.
+\ii The token will visit each process multiple times.
+\ii If {\em every} process remains continuously idle while the token leaves,
+makes a complete circuit of every edge, and returns, then the computation has
+terminated. 
+\ii Every complete graph contains a cycle that includes every edge.
+\ii To implement the algorithm, we precompute:
+\bi
+\ii Let {\tt c} be one of these cycles, and {\tt nc} be its length.
+\ii Each process keeps track of the order in which its outgoing edges
+occur in {\tt c}.
+\ei
+\ii The token will be passed around this cycle by each node.
+\ii Each node can detect when the token has completed this cycle.
+\ei
+
+\ti{Graph token termination algorithm}
+\bi
+\ii Token value starts out as 0.
+\ii All processes start out \red.
+\ii When a process receives a regular message, it turns \red.
+\ii When a process recieves the token, it turns (or remains) \blue.
+\ii If a process is  \red\ when it gets the token, it resets the
+token value to 0.
+\ii If a process is \blue\ when it gets the token, it increments the
+token value.
+\ii Invariant {\em GRAPH:}\\
+\rule{1in}{0in}{\tt token} has value V $\Rightarrow$\\
+\rule{1.5in}{0in}( the last V channels in cycle {\tt c} were empty \\
+\rule{2in}{0in}$\land$\\
+\rule{1.75in}{0in}the last V processes to receive the token were {\tt
+  \blue} )
+\ii If any process gets a token with value {\tt nc}, computation has
+terminated. 
+\ii Note:  process actually terminated just before token takes last lap:
+\bi
+\ii one lap turns everybody \blue
+\ii next lap checks to make sure everybody is still \blue.
+\ei
+\ei
+
+\myfig{9_18.pdf}
+\myfigend
+
+\ti{\S 9.7 Replicated Servers}
+
+\myfig{9_19.pdf}
+\myfigend
+\myfig{9_20.pdf}
+\myfigend
+
+\ti{\S 9.7.2 Decentralized Dining Philosophers}
+
+\bi
+\ii Forks are either {\tt dirty} or {\tt clean}.
+\ii Whenever a philosopher eats, those forks become {\tt dirty}.
+\ii A waiter can let their own philosopher eat over and over with their own {\tt
+  dirty} forks.
+\ii If a waiter requests a {\tt dirty} fork from another waiter,
+\bi\ii the
+waiter cleans it and gives it over.\ei
+\ii If a waiter holds a {\tt clean} fork,
+\bi\ii it is not given up
+until their philosopher eats and it becomes {\tt dirty}.\ei
+\ii Note:  Must start in asymmetric configuration with all forks {\tt dirty}.
+\ei
+
+\ti{Decentralized Dining Philosophers}
+
+
+
+\bigskip
+
+If a waiter wants a fork that another holds, he will eventually get
+it:
+\bi
+\ii If the fork is dirty and not in use, 
+\bi\ii it is immediately handed
+over.\ei
+\ii If the fork is dirty and in use,\bi\ii eventually the philosopher will
+finish and it will be handed over.\ei
+\ii If the other fork is clean
+\bi\ii the other philosopher is hungry 
+\ii the other waiter just got both forks, or
+\ii the other waiter is waiting for the second fork.
+\bi\ii
+In this last case, the other waiter will eventually get it because
+there is no state in which every waiter holds one clean fork and wants
+a second.
+\ei
+\ei
+\ei
+
+
+\myfigsp{.95}{1}{9_21.pdf}
+\myfigend
+\myfigsp{1}{2}{9_21.pdf}
+\myfigend
+
+
+
+\end{document}

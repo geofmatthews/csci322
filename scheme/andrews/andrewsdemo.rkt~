@@ -1,0 +1,29 @@
+#lang racket
+(require andrews.rkt)
+
+(co (d 1) (d 2) (d 3) (d 4))
+(co for i from 1 to 5 (atomic (d i) (d (* 2 i))))
+
+(define x 0)
+(co
+ (await (> x 5) 
+        (d "=====================> Yay!")
+        (sleep 1)
+        (d "x is bigger than 5!!!")
+        )
+ (let loop ()
+   (when (< x 10)
+     (atomic
+      (set! x (+ x 1)))
+     (sleep .0001)
+     (atomic (d x))
+     (sleep .001)
+     (loop))))
+
+
+(define n 5)
+(define a (v n))
+(define b (v n))
+(co for i from 1 to n 
+    (vset! a i i)
+    (vset! b i 0))

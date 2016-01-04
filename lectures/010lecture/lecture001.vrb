@@ -1,0 +1,15 @@
+\frametitle{ Tesla K80 }
+\cola{.5}
+\bi
+\ii 8.74 TFLOPs
+\ii 24 GB RAM
+\ei
+\colb{.5}
+\bi
+\ii 4992 CUDA cores
+\ii \$5,000
+\ei
+\colc
+
+\grf{.8}{tesla.jpg}
+

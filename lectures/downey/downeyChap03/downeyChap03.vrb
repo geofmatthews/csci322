@@ -1,0 +1,36 @@
+\frametitle{ Exclusive Queue Solution }
+\begin{multicols}{2}
+\begin{Verbatim}[label=Leader]
+mutex.wait()
+if followers > 0:
+  followers--
+  followerQueue.signal()
+else:
+  leaders++
+  mutex.signal()
+  leaderQueue.wait()
+dance()
+rendezvous.wait()
+mutex.signal()
+\end{Verbatim}
+\begin{Verbatim}[label=Follower]
+mutex.wait()
+if leaders > 0:
+  leaders--
+  leaderQueue.signal()
+else:
+  followers++
+  mutex.signal()
+  followerQueue.wait()
+dance()
+rendezvous.signal()
+
+\end{Verbatim}
+
+\end{multicols}
+
+\bi
+\ii ``Wait'' means ``wait on this queue''
+\ii ``Signal'' means ``let someone go from this queue''
+\ei
+

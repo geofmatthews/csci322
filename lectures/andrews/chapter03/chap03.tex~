@@ -1,0 +1,540 @@
+\documentclass{article}
+\sloppy
+%\usepackage[margin=0.5in]{geometry}
+%\usepackage[landscape,margin=0.5in]{geometry}
+\usepackage[landscape,top=-1in,left=0.5in,right=0.5in,bottom=0.0in]{geometry}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{overpic}
+
+\usepackage{fancyvrb}
+\setlength{\parindent}{0in}
+
+
+%\newcommand{\myfig}[1]{\hspace{-1.5in}{\includegraphics[width=1.5\textwidth]{{#1}}}\newpage}
+
+\newcommand{\myfig}[1]{\begin{overpic}[scale=1.5]{#1}}
+\newcommand{\myfigsmall}[1]{\begin{overpic}[scale=1.25]{#1}}
+\newcommand{\myfigend}{\end{overpic}\newpage}
+\newcommand{\myput}[2]{\put(10,#1){$\bullet$ #2}}
+\newcommand{\myputn}[2]{\put(15,#1){#2}}
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ii}{\item}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\ti}[1]{
+\mbox{~}
+
+\vspace{1.25in}
+\centerline{\bf #1}}
+
+\newcommand{\la}{\ensuremath{\langle}}
+\newcommand{\ra}{\ensuremath{\rangle}}
+
+\title{Andrews Figures, Chapter 03}
+\author{Geoffrey Matthews\\
+\small Western Washington University}
+
+\RecustomVerbatimEnvironment
+  {Verbatim}{Verbatim}
+  {frame=single,commandchars=\\\{\}}
+
+\begin{document}
+
+
+\huge
+
+\ti{Locks and Barriers}
+
+\centerline{Andrews Chapter 03}
+
+\newpage
+
+\ti{Critical Section Problem}
+\bi
+\ii Mutual Exclusion.
+\ii Absence of Deadlock (Livelock).
+\ii Absence of Unnecessary Delay.
+\ii Eventual Entry.
+\ei
+
+Three safety properties, one liveness property.
+
+\newpage
+
+\myfig{chap03/3_01.pdf}
+\myfigend
+
+\myfig{chap03/3_02.pdf}
+\myfigend
+
+\ti{Test and Set}
+
+\begin{Verbatim}
+bool TS(bool lock) \{
+  \la
+  bool initial = lock;
+  lock = true;
+  return initial;
+  \ra
+\}
+\end{Verbatim}
+
+
+\myfig{chap03/3_03.pdf}
+\myput{60}{In spin-lock solution, exit protocol simply resets shared
+  variables.}
+\myfigend
+
+
+
+
+\myfig{chap03/3_04.pdf}
+\myfigend
+
+\ti{Implementing Await Statements}
+\bi
+\ii Any critical section solution can be used to implement
+unconditional atomic actions:
+\begin{multicols}{2}
+\begin{Verbatim}
+\la S; \ra
+\end{Verbatim}
+\columnbreak
+\begin{Verbatim}
+CSenter;
+S;
+CSexit;
+\end{Verbatim}
+\end{multicols}
+\ii Provided all other code that could interfere with variables in
+{\tt S} are also protected similarly.
+\ii This was what we did using semaphores as {\bf mutex}es.
+\ei
+
+\newpage
+
+\ti{Implementing Await Statements}
+\bi
+\ii How should we add {\tt await}?
+\begin{multicols}{2}
+\begin{Verbatim}
+\la await(B) s; \ra
+\end{Verbatim}
+\columnbreak
+\begin{Verbatim}
+CSenter;
+while (B) \{ ??? \}
+S;
+CSexit;
+\end{Verbatim}
+\end{multicols}
+\ii If we don't do anything, deadlock is guaranteed since all
+processes are blocked.
+\ei
+
+\newpage
+
+\ti{Implementing Await Statements}
+\bi
+\ii
+\begin{multicols}{2}
+\begin{Verbatim}
+\la await(B) s; \ra
+\end{Verbatim}
+\columnbreak
+\begin{Verbatim}
+CSenter;
+while (B) \{
+  CSexit; 
+  CSenter; 
+\}
+S;
+CSexit;
+\end{Verbatim}
+\end{multicols}
+\ii Correct but inefficient.
+\ii Good chance the scheduler will not be very fair.
+\ei
+
+\newpage
+
+\ti{Implementing Await Statements}
+\bi
+\ii
+\begin{multicols}{2}
+\begin{Verbatim}
+\la await(B) s; \ra
+\end{Verbatim}
+\columnbreak
+\begin{Verbatim}
+CSenter;
+while (B) \{
+  CSexit;
+  Delay;
+  CSenter; 
+\}
+S;
+CSexit;
+\end{Verbatim}
+\end{multicols}
+\ii Gives more chance for other processes to change {\tt B}
+\ii Used in Ethernet {\bf binary exponential backoff protocol.}
+\ii Shown to be useful in critical section entry protocols, too.
+\ei
+
+\newpage
+\ti{Critical Sections:  Fair Solutions}
+\bi
+\ii Spin-lock solutions we've seen require a strongly fair scheduler.
+\ii This is impractical.
+\ii Three user-defined critical section protocols, only requiring weak fairness:
+\bi
+\ii Tie breaker algorithm
+\ii Ticket algorithm
+\ii Bakery algorithm
+\ei
+\ei
+
+
+
+\myfig{chap03/3_05.pdf}
+\myfigend
+\myfig{chap03/3_06.pdf}
+\myfigend
+\myfig{chap03/3_07.pdf}
+\myfigend
+
+\ti{TICKET}
+\newcommand{\imp}{\Rightarrow}
+
+\begin{eqnarray*}
+\mbox{next} > 0 \\
+\land\\
+(\forall_{ 1 \leq i \leq n} :&\\
+&&(\mbox{CS[i] in its critical section})\imp(\mbox{turn[i] == next}) \\
+&&\land\\
+&&(\mbox{turn[i]} > 0)\imp (\forall_{1\leq j \leq n, j\not = i}  \mbox{turn[i]}\not =\mbox{turn[j]})\\
+&&)
+\end{eqnarray*}
+\newpage
+
+
+\myfig{chap03/3_08.pdf}
+\myfigend
+
+\ti{Fetch and Add}
+\begin{Verbatim}
+FA(var, incr):
+  \la int tmp = var; var = var + incr; return(tmp); \ra
+\end{Verbatim}
+
+\newpage
+\myfig{chap03/3_09.pdf}
+\myfigend
+\ti{BAKERY}
+
+
+\begin{eqnarray*}
+(\forall_{1\leq i \leq n} &&\\
+&(\mbox{CS[i] in critical section})\imp& (\mbox{turn[i]} > 0)\\
+&& \land\\
+&&(\forall_{1\leq j\leq n, j\not = i} \mbox{turn[j]} = 0 \lor \mbox{turn[i]} < \mbox{turn[j]})\\
+)
+\end{eqnarray*}
+
+\bi
+\ii Note: errata in book.
+\ei
+
+\newpage
+\myfig{chap03/3_10.pdf}
+\myput{56}{Entry protocol is difficult to implement.}
+\myput{53}{To understand the solution, start with a two-process solution.}
+\myfigend
+
+\ti{Entry protocols, first try}
+\bigskip
+
+\begin{Verbatim}[frame=single,label=CS1]
+turn1 = turn2 + 1;
+while (turn2 != 0 and turn1 > turn2) skip;
+\end{Verbatim}
+
+\bigskip
+
+\begin{Verbatim}[frame=single,label=CS2]
+turn2 = turn1 + 1;
+while (turn1 != 0 and turn2 > turn1) skip;
+\end{Verbatim}
+
+\bi
+\ii Both could set their turns to 1 at the same time.
+\ii Both could enter their critical sections at the same time.
+\ei
+
+\newpage
+\ti{Entry protocols, asymmetry is slight improvement}
+\bigskip
+
+\begin{Verbatim}[frame=single,label=CS1]
+turn1 = turn2 + 1;
+while (turn2 != 0 and turn1 > turn2) skip;
+\end{Verbatim}
+
+\bigskip
+
+\begin{Verbatim}[frame=single,label=CS2]
+turn2 = turn1 + 1;
+while (turn1 != 0 and turn2 >= turn1) skip;
+\end{Verbatim}
+
+\bi
+\ii Still possible for both to enter critical sections.
+\ii {\tt CS2} can ``race by'' {\tt CS1}
+\ii Called a {\bf race condition}
+\ei
+
+
+
+\newpage
+\ti{Entry protocols}
+\bigskip
+
+\begin{Verbatim}[frame=single,label=CS1]
+turn1 = 1; turn1 = turn2 + 1;
+while (turn2 != 0 and turn1 > turn2) skip;
+\end{Verbatim}
+
+\bigskip
+
+\begin{Verbatim}[frame=single,label=CS2]
+turn2 = 1; turn2 = turn1 + 1;
+while (turn1 != 0 and turn2 >= turn1) skip;
+\end{Verbatim}
+
+\bi
+\ii Works, but not symmetric
+\ei
+\newpage
+\ti{Generalized ``Less Than''}
+
+\begin{eqnarray*}
+(a,b) > (c,d) &= \mbox{true}&  (a > c) \lor (a = c \land b > d)\\
+              &= \mbox{false}& \mbox{otherwise}
+\end{eqnarray*}
+\newpage
+\ti{Symmetric Entry Protocols}
+\bigskip
+
+\begin{Verbatim}[frame=single,label=CS1]
+turn1 = 1; turn1 = turn2 + 1;
+while (turn2 != 0 and (turn1,1) > (turn2,2)) skip;
+\end{Verbatim}
+
+\bigskip
+
+\begin{Verbatim}[frame=single,label=CS2]
+turn2 = 1; turn2 = turn1 + 1;
+while (turn1 != 0 and (turn2,2) >= (turn1,1)) skip;
+\end{Verbatim}
+
+\newpage
+
+
+\myfig{chap03/3_11.pdf}
+\myfigend
+
+\ti{Barrier Synchronization}
+
+\bi
+\ii Inefficient solution, too many tasks starting and stopping:
+\begin{Verbatim}
+while (true) \{
+  co [i = 1 to n]
+    code for task i
+  oc
+\}
+\end{Verbatim}
+\ii {\bf Much more costly to create and destroy processes than to
+  synchronize them.} 
+\ii More efficient model:
+\begin{Verbatim}
+process Worker[i = 1 to n] \{
+  while (true) \{
+    code for task i
+    wait for all n tasks to complete
+  \}
+\}
+\end{Verbatim}
+\ei
+
+\newpage
+\myfig{chap03/p116_counter_barrier.pdf}
+\myput{63}{Can implement barrier with:}
+\myputn{60}{\tt FA(count, 1);}
+\myputn{58}{\tt while (count != n) skip;}
+
+\myput{55}{Problem is resetting {\tt count} and looping}
+\myput{52}{{\tt count} is a global variable for each process}
+\myfigend
+
+\ti{Flags and Coordinators}
+\bi
+\ii Distribute {\tt count} over {\tt arrive[1:n]}
+\ii Global invariant becomes:
+
+\centerline{\tt count == (arrive[1] + ... + arrive[n])}
+
+\ii Waiting on this is just as bad:
+
+\centerline{\tt \la await ((arrive[1] + ... + arrive[n]) == n); \ra}
+
+\ii Use a coordinator task.  
+\ii 
+\begin{Verbatim}[label=Task i]
+arrive[i] = 1;
+\la await (continue[i] == 1);
+\end{Verbatim}
+
+\ii 
+\begin{Verbatim}[label=Coordinator]
+for [i = 1 to n] \la await (arrive[i] == 1); \ra
+for [i = 1 to n] continue[i] = 1;
+\end{Verbatim}
+\ei
+
+\newpage
+\ti{Flag Synchronization Principles}
+\bi
+\ii The process that waits for a synchronization flag to be set is the
+one that should clear that flag.
+\ii A flag should not be set until it is known that it is clear.
+\ei
+
+\myfigsmall{chap03/3_12.pdf}
+\myput{46}{Avoids memory contention.}
+\myput{43}{Is not symmetric.}
+\myput{40}{Coordinator spends most of its time waiting.}
+\myput{37}{Tasks have a linear time wait for coordinator.}
+\myfigend
+
+
+\myfig{chap03/3_13.pdf}
+\myput{60}{\bf Combining tree barrier.}
+\myfigend
+
+\myfig{chap03/3_14.pdf}
+\myput{50}{More symmetric, each task does some real computation.}
+\myput{47}{But still three different kinds of nodes.}
+\myfigend
+
+
+\myfig{chap03/p121_sym_barrier.pdf}
+\myput{60}{A symmetric two-process barrier.}
+\myputn{57}{Wait clearing own flag.}
+\myputn{54}{Set own flag.}
+\myputn{51}{Wait setting other flag.}
+\myputn{48}{Clear other flag.}
+\myput{45}{First line is necessary to prevent a process racing
+  around.}
+\myfigend
+
+\myfig{chap03/3_15.pdf}
+\myput{63}{Combining 2-process synchronization.}
+\myput{60}{At stage $s$ synchronize with process $2^{s-1}$ away.}
+\myput{57}{$n$ must be power of 2.}
+\myfigend
+
+\myfig{chap03/3_16.pdf}
+\myput{66}{At stage $s$ synchronize with process $2^{s-1}$ away.}
+\myput{63}{\bf Dissemination barrier:}
+\myputn{60}{Set arrival flag of worker to right.}
+\myputn{57}{Wait on own flag.}
+\myputn{54}{Clear own flag.}
+\myfigend
+
+\myfig{chap03/3_15.pdf}
+\myput{63}{Need to avoid global flags:}
+\myputn{60}{Suppose 1 finishes, but 2 is slow.}
+\myputn{57}{Now 3 and 4 finish.}
+\myputn{54}{Now 3 tries to synchronize with 1, and thinks it is ready.}
+\myput{51}{Could use different flags for each level.}
+\myput{48}{Or use integer flags.}
+\myfigend
+
+\ti{Data Parallel Algorithms}
+\bi
+\ii Many processes execute the same code and work on different parts
+of shared data.
+\ii Usually associated with parallel hardware, {\em e.g.} graphics cards.
+\ii Barrier synchronization usually in hardware.
+\ii Can be useful on asynchronous processors when
+granularity of the processes is large enough to compensate for
+synchronization overhead.
+\ei
+
+\newpage
+\ti{Partial sums of an array}
+\bigskip
+
+\begin{Verbatim}[label=Sequential solution]
+sum[0] = a[0];
+for [i = 1 to n-1]
+  sum[i] = sum[i-1] + a[i]
+\end{Verbatim}
+
+\bigskip
+
+\begin{Verbatim}[frame=none]
+initial values of a   1  2  3  4  5  6
+partial sums          1  3  6 10 15 21
+\end{Verbatim}
+
+
+\myfig{chap03/3_17.pdf}
+\myput{45}{A $\log(n)$ concurrent solution using {\bf doubling}.}
+\myputn{54}{\tt initial values of a\ \ \ \ 1\ \ 2\ \ 3\ \ 4\ \ 5\ \ 6}
+\myputn{52}{\tt sum after distance 1\ \ \ 1\ \ 3\ \ 5\ \ 7\ \ 9 11}
+\myputn{50}{\tt sum after distance 2\ \ \ 1\ \ 3\ \ 6 10 14 18}
+\myputn{48}{\tt sum after distance 4\ \ \ 1\ \ 3\ \ 6 10 15 21}
+\myfigend
+
+
+\myfig{chap03/3_18.pdf}
+\myput{48}{Find the end of linked list in $\log(n)$ time.}
+\myfigend
+
+\myfig{chap03/3_19.pdf}
+\myput{59}{Convergence can be checked with partial sums algorithm.}
+\myput{56}{Unroll into two stages to avoid copying back.}
+\myput{53}{Use red-black successive relaxation (Chapter 11).}
+\myput{50}{Partition grid into blocks (on asynchronous machines).}
+\myfigend
+
+\myfig{chap03/p131_partial_sums_SIMD.pdf}
+\myput{63}{\bf Single Instruction Multiple Data}
+\myput{60}{Every processor executes exactly the same instructions in lock step.}
+\myput{57}{Barriers not needed since all finish before looping.}
+\myput{54}{Every process fetches old {\tt sum} before writing new one.}
+\myput{51}{Parallel assignments thus appear to be atomic.}
+\myput{48}{{\tt if} statements always take the maximum time.}
+\myfigend
+
+
+\myfig{chap03/p132_bag_of_tasks.pdf}
+\myput{63}{\bf Bag of Tasks}
+\myput{60}{Can be used with recursive parallelism (calls are tasks).}
+\myput{57}{Scalable:  use any number of processors.}
+\myput{54}{Automatic load balancing.}
+
+\myfigend
+
+\myfig{chap03/3_20.pdf}
+\myfigend
+
+\myfigsmall{chap03/3_21.pdf}
+\put(55,41){\Large Typo: remove {\tt if (w == 1)}}
+\myfigend
+
+\end{document}

@@ -1,0 +1,17 @@
+#lang racket
+
+(require racket/block)
+
+(define *anderson-mutex* (make-semaphore 1))
+
+(define-syntax atomic
+  (syntax-rules ()
+    ((atomic exp ...)
+     (block
+      (semaphore-wait *anderson-mutex*)
+      exp ...
+      (semaphore-post *anderson-mutex*)))))
+
+(define-syntax co
+  (syntax-rules ()
+    ((co for i from a to b exp)

@@ -1,0 +1,166 @@
+\documentclass[12pt]{article}
+\sloppy
+\usepackage{multicol}
+\usepackage{natded}
+
+\setlength{\parindent}{0in}
+
+\newcommand{\lang}{\ensuremath{\langle}}
+\newcommand{\rang}{\ensuremath{\rangle}}
+\newcommand{\eq}{&\equiv&}
+\newcommand{\imp}{\Rightarrow}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ii}{\item}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\stm}[3]{\ensuremath{\{#1\}}\ \mbox{\tt #2}\ \ensuremath{\{#3\}}}
+\newcommand{\la}{\ensuremath{\langle}}
+\newcommand{\ra}{\ensuremath{\rangle}}
+
+\begin{document}
+
+
+\centerline{\bf Logic: axioms}
+
+\begin{multicols}{2}
+\begin{eqnarray*}
+A\land(B\lor C) \eq  (A\land B) \lor (A \land C)\\
+A\lor(B\land C) \eq  (A\lor B) \land (A \lor C)
+\end{eqnarray*}
+\begin{eqnarray*}
+\neg \neg A \eq A\\
+A\lor A \eq A\\
+A\lor \neg A \eq true\\
+A\lor true \eq true\\
+A\lor false \eq A\\
+A\land true \eq A\\
+A\land false \eq false\\
+A\land A \eq A\\
+A\land \neg A \eq false\\
+A\imp true \eq true\\
+A\imp false \eq \neg A\\
+true\imp A \eq A\\
+false \imp A \eq true\\
+A\imp A \eq true\\
+A\imp B \eq \neg A \lor B\\
+A\imp B \eq \neg B \imp \neg A\\
+\neg(A\imp B) \eq A \land \neg B\\
+A\land(A\lor B) \eq A\\
+A\lor(A\land B) \eq A\\
+A\land(\neg A \lor B) \eq A \land B\\
+A \lor (\neg A \land B) \eq A \lor B\\
+\neg(A\land B) \eq \neg A \lor \neg B\\
+\neg(A\lor B) \eq \neg A \land \neg B
+\end{eqnarray*}
+
+\end{multicols}
+
+
+
+\centerline{\bf Logic: inference rules}
+\begin{multicols}{2}
+\bi
+\ii Modus Ponens
+\[
+\frac{A\imp B, A}{B}
+\]
+\ii Modus Tollens
+\[
+\frac{A\imp B, \neg B}{\neg A}
+\]
+\ii Conjunction
+\[
+\frac{A,B}{A\land B}
+\]
+\ii Simplification
+\[
+\frac{A\land B}{A}
+\]
+\ii Addition
+\[
+\frac{A}{A\lor B}
+\]
+\ii Disjunctive syllogism
+\[
+\frac{A\lor B, \neg A}{B}
+\]
+\ii Hypothetical syllogism
+\[
+\frac{A\imp B, B\imp C}{A\imp C}
+\]
+\ii Constructive dilemma
+\[
+\frac{A\lor B, A\imp C, B\imp D}{C\lor D}
+\]
+\ii Destructive dilemma
+\[
+\frac{\neg C\lor \neg D, A\imp C, B\imp D}{\neg A \lor \neg B}
+\]
+\ei
+\end{multicols}
+
+\newpage
+\centerline{\bf Axiomatic Semantics}
+
+{\bf Assignment Axiom}
+\[
+\stm{P_{x\leftarrow t}}{x = t}{P}
+\]
+
+{\bf Inference Rules}
+\bi
+\ii Composition
+\[
+\frac{\stm{P}{S1}{R}, \stm{R}{S2}{Q}}{\stm{P}{S1;S2}{Q}}
+\]
+
+\begin{multicols}{2}
+\ii Consequence
+\[
+\frac{P\imp R, \stm{R}{S}{Q}}{\stm{P}{S}{Q}}
+\]
+
+\[
+\frac{\stm{P}{S}{T}, T\imp Q}{\stm{P}{S}{Q}}
+\]
+\end{multicols}
+
+
+\ii If-then
+\[
+\frac{\stm{P\land C}{S}{Q}, P\land\neg C\imp Q}{\stm{P}{if C then
+    S}{Q}}
+\]
+\ii If-then-else
+\[
+\frac{\stm{P\land C}{S1}{Q}, \stm{P\land\neg C}{S2}{Q}}{\stm{P}{if C then
+    S1 else S2}{Q}}
+\]
+
+\ii While
+\[
+\frac{\stm{P\land C}{S}{P}}{\stm{P}{while C do S}{P\land\neg C}}
+\]
+
+\ei
+
+\vfill
+
+\centerline{\bf Sematics of Concurrent Execution}
+\bi
+\ii Await rule
+\[
+\frac{\stm{P\land B}{S}{Q}}{\stm{P}{\la await (B) S;\ra}{Q}}
+\]
+\ii Co rule
+\[
+\frac{\stm{P_i}{Si}{Q_i}\mbox{\ are interference free}}
+     {\stm{P_1\land ... \land P_n}{co S1; // ... // Sn; oc}{Q_1\land ... \land Q_n}}
+\]
+\ii One process {\bf interferes} with another if it executes an
+assignment that invalidates an assertion in the other process. 
+\ei
+
+
+
+
+\end{document}

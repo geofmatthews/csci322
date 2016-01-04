@@ -1,0 +1,35 @@
+# csci322
+
+* This repository contains files for Geoffrey Matthews class CSCI322 at WWU.
+
+
+## Readings for CSCI 322
+
+* Jan 6  [Teach Yourself Scheme, 1-7](http://www.ccs.neu.edu/home/dorai/t-y-scheme/t-y-scheme.html)
+
+* Jan 6 Threads and semaphores from the *DrRacket* help desk
+
+* Jan 6 Classes from  the *DrRacket* help desk
+
+* Jan 12 [Python Tutorial, 1-11](http://www.sthurlow.com/python/)
+
+* Jan 12 [TLBOS, 1-4](http://greenteapress.com/semaphores/downey08semaphores.pdf)
+
+* Jan 12 [TLBOS, Appendix A](http://greenteapress.com/semaphores/downey08semaphores.pdf)
+
+* Jan 19 FOMPADP 1-2
+
+* Jan 21 [Syntax-rules](http://docs.racket-lang.org/guide/pattern-macros.html)
+
+* Jan 26 [Natural deduction](http://homepage.univie.ac.at/christian.damboeck/ps06/clemente_nat_ded.pdf)  Reading this is optional, but may help you understand what's going on.  The notation is slightly different from that used in class.
+
+* Feb 17 [OpenMP](http://booksite.elsevier.com/9780123742605/LS/Chapter_5.ppt) A nice introduction to OpenMP, the goto thread programming library for speed.
+
+* Feb 17 [OpenMP](http://ezproxy.library.wwu.edu/login?url=http://proquest.safaribooksonline.com/?uicode=wwu)  The book to go with the above slides is avialable for free from our library.  Also has good stuff on MPI.
+
+* Feb 18 Read section 6.5 in the Andrews text on implementing monitors with sema
+phores.
+
+* Feb 23 Read about channels and asynchronous channels in DrRacket's Reference Manual, Chapter 11.
+
+* Feb 23 [Ada tasking and rendezvous](http://en.wikibooks.org/wiki/Ada_Programming/Tasking)

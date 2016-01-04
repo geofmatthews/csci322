@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+rm -f tmp.*
+cat header.tex > tmp.tex
+for f 
+  do
+  echo "\myfig{"$f"}" >> tmp.tex
+  echo "\myfigend" >> tmp.tex
+  done
+echo "\end{document}" >> tmp.tex
+pdflatex tmp.tex

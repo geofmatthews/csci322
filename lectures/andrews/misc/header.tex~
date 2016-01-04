@@ -1,0 +1,46 @@
+\documentclass{article}
+\sloppy
+%\usepackage[margin=0.5in]{geometry}
+%\usepackage[landscape,margin=0.5in]{geometry}
+\usepackage[landscape,top=-1in,left=0.5in,right=0.5in,bottom=0.0in]{geometry}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{overpic}
+
+\usepackage{fancyvrb}
+\setlength{\parindent}{0in}
+
+
+%\newcommand{\myfig}[1]{\hspace{-1.5in}{\includegraphics[width=1.5\textwidth]{{#1}}}\newpage}
+
+\newcommand{\myfig}[1]{\begin{overpic}[scale=1.5]{#1}}
+\newcommand{\myfigs}[2]{\begin{overpic}[scale=#1]{#2}}
+\newcommand{\myfigend}{\end{overpic}\newpage}
+\newcommand{\myput}[2]{\put(10,#1){$\bullet$ #2}}
+\newcommand{\myputn}[2]{\put(15,#1){#2}}
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ii}{\item}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\ti}[1]{
+\mbox{~}
+
+\vspace{1.25in}
+\centerline{\bf #1}}
+
+\newcommand{\la}{\ensuremath{\langle}}
+\newcommand{\ra}{\ensuremath{\rangle}}
+
+\title{Andrews Figures, Chapter 03}
+\author{Geoffrey Matthews\\
+\small Western Washington University}
+
+\RecustomVerbatimEnvironment
+  {Verbatim}{Verbatim}
+  {frame=single,commandchars=\\\{\}}
+
+\begin{document}
+
+
+\huge
+

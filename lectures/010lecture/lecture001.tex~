@@ -1,0 +1,186 @@
+\documentclass{beamer}
+\usetheme{Singapore}
+
+%\usepackage{pstricks,pst-node,pst-tree}
+\usepackage{amssymb,latexsym}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ii}{\item}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\Show}[1]{\psshadowbox{#1}}
+
+
+\newcommand{\grf}[2]{\centerline{\includegraphics[width=#1\textwidth]{#2}}}
+\newcommand{\tw}{\textwidth}
+\newcommand{\bc}{\begin{columns}}
+\newcommand{\ec}{\end{columns}}
+\newcommand{\cc}[1]{\column{#1\textwidth}}
+
+\newcommand{\bfr}[1]{\begin{frame}[fragile]\frametitle{{ #1 }}}
+\newcommand{\efr}{\end{frame}}
+
+\newcommand{\cola}[1]{\begin{columns}\begin{column}{#1\textwidth}}
+\newcommand{\colb}[1]{\end{column}\begin{column}{#1\textwidth}}
+\newcommand{\colc}{\end{column}\end{columns}}
+
+\title{Concurrent Programming Lecture 1}
+\author{Geoffrey Matthews\\
+\small Western Washington University}
+
+\RecustomVerbatimEnvironment{Verbatim}{Verbatim}{frame=single}
+
+\begin{document}
+\maketitle
+
+\bfr{Why Concurrency?}
+\cola{.3}
+\bi
+\ii Some jobs are easier to describe as a bag of tasks.
+\ii Make things go faster (end of Moore's law).
+\ii Make things use less power.
+\ei
+\colb{.7}
+%\grf{.75}{mooreslaw.jpg}
+\grf{}{intelcputrends.png}
+\colc
+\end{frame}
+
+\bfr{Initially Military-driven History}
+\bi
+\ii World War II
+  \bi
+  \ii Hand-computed artillery tables:  ENIAC (USA)
+  \ii Break German codes:  Bombe, Colossus (UK)
+  \ei
+\ii Cold War
+  \bi
+  \ii Nuclear weapons design
+  \ii Aircraft, submarine, etc. design
+  \ii Intelligence gathering
+  \ii Code breaking
+  \ei
+\ei
+\end{frame}
+
+
+\bfr{ENIAC 1943}
+\bi
+\ii Eckert and Mauchley build ENIAC (Electroni Numerical Integrator
+and Calculator) 
+\ii First stored-program ``electronic computer''
+\ei
+
+\grf{.8}{eniac.jpg}
+
+\end{frame}
+
+\bfr{First Supercomputer:  Illiac-IV, 1966-1976}
+\bi
+\ii Linear array of 256 64-bit processors
+\ii Target: 1 GFLOP, 13 MHz
+\ii Programmed in ``GLYPNIR'', a vectorized ALGOL 60
+\ei
+\grf{.8}{Illiac-IV.jpg}
+\end{frame}
+
+\bfr{First commercial supercomputer: CRAY-1, 1976}
+\begin{columns}
+\begin{column}{.5\textwidth}
+\bi
+\ii Scalar+vector processor
+\ii 80 MHz
+\ii 133 MFLOPS
+\ii 8MB main memory
+\ii \$5 to \$8 million
+\ii 150 kW motor generator
+\ii 20-ton compressor for freon cooling system
+\ii Programmed in CFT, Cray Fortran Compiler, vectorized DO loops
+\ei
+\end{column}
+\begin{column}{.5\textwidth}
+\grf{1}{cray.jpg}
+\end{column}
+\end{columns}
+\end{frame}
+
+\bfr{\normalsize Microprocessor supercomputers:  Caltech Cosmic Cube (1981)}
+\begin{columns}
+\begin{column}{.4\textwidth}
+\bi
+\ii 64 node hypercube
+\ii Intel 8086+8087
+\ii 128 KB RAM per node
+\ii 8MHz
+\ii 10 MFLOPS
+\ii \$80,000
+\ii Programmed in Pascal and C
+\ii message passing library
+\ei
+\end{column}
+\begin{column}{.6\textwidth}
+\grf{}{cosmiccube.jpg}
+\end{column}
+\end{columns}
+\end{frame}
+
+\bfr{A new model, Thinking Machines CM-1 (1985)}
+\cola{.5}
+\bi
+\ii Tried to model human brain
+\ii 65,536 processing elements
+\ii 2,500 MIPS
+\ii 2,500 MFLOPS
+\ii \$5 million
+\ii Programmed in Lisp, C and Fortran variants
+\ei
+\colb{.5}
+\grf{1}{cm1.jpg}
+\colc
+\end{frame}
+
+\bfr{Commodity clusters:  Nasa's Beowulf (1994)}
+\cola{.5}
+\bi
+\ii 486 PCs connected with 10 Mb/s Ethernet
+\ii Linux with MPI
+\ii 1 GFLOP for \$50,000
+\ii Death of many supercomputer companies
+\ei
+\colb{.5}
+\grf{1}{beowulf.jpg}
+\colc
+\end{frame}
+
+\bfr{Cray Titan, fastest supercomputer 2012}
+\bi
+\ii 17 petaFLOPS, \$97 million
+\ii 18,688 16-core CPUs, 18,688 Nvidia Tesla GPUs
+\ei
+
+\grf{1}{titan.jpg}
+
+\end{frame}
+
+\bfr{Tesla K20X}
+\cola{.5}
+\bi
+\ii 1-3 TFLOPs
+\ii 6 GB RAM
+\ei
+\colb{.5}
+\bi
+\ii 2,688 CUDA cores
+\ii \$3,200
+\ei
+\colc
+
+\grf{.8}{tesla.jpg}
+
+\end{frame}
+
+
+
+
+\end{document}

@@ -1,0 +1,4 @@
+\begin{psarray}
+&&\ovalnode{CV queue} \\
+\mnode{Call}&\ovalnode{Entry queue} && \ovalnode{Executing} & \mnode{Return}
+\end{psarray}

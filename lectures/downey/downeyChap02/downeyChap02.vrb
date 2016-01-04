@@ -1,0 +1,8 @@
+\frametitle{ Why semaphores? }
+\bi
+\ii Semaphores impose constraints that help programmers avoid errors.
+\ii Solutions using semaphores are often clean and organized.
+\ii Semaphores can be implemented easily in hardware, so solutions are
+portable.  \pause
+\ii However, they can get complex quickly.
+\ei

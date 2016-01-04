@@ -1,0 +1,92 @@
+\documentclass{article}
+\sloppy
+%\usepackage[margin=0.5in]{geometry}
+%\usepackage[landscape,margin=0.5in]{geometry}
+\usepackage[landscape,top=-1in,left=0.5in,right=0.5in,bottom=0.0in]{geometry}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{overpic}
+
+\usepackage{fancyvrb}
+\setlength{\parindent}{0in}
+
+
+%\newcommand{\myfig}[1]{\hspace{-1.5in}{\includegraphics[width=1.5\textwidth]{{#1}}}\newpage}
+
+\newcommand{\myfig}[1]{\begin{overpic}[scale=1.5]{#1}}
+\newcommand{\myfigsmall}[1]{\begin{overpic}[scale=1.25]{#1}}
+\newcommand{\myfigtiny}[1]{\begin{overpic}[scale=1.1]{#1}}
+\newcommand{\myfigs}[2]{\begin{overpic}[scale=#1]{#2}}
+\newcommand{\myfigend}{\end{overpic}\newpage}
+\newcommand{\myput}[2]{\put(10,#1){$\bullet$ #2}}
+\newcommand{\myputn}[2]{\put(15,#1){#2}}
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ii}{\item}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\ti}[1]{
+\mbox{~}
+
+\vspace{1.25in}
+\centerline{\bf #1}}
+
+\newcommand{\la}{\ensuremath{\langle}}
+\newcommand{\ra}{\ensuremath{\rangle}}
+
+\title{Andrews Figures, Chapter 03}
+\author{Geoffrey Matthews\\
+\small Western Washington University}
+
+\RecustomVerbatimEnvironment
+  {Verbatim}{Verbatim}
+  {frame=single,commandchars=\\\{\}}
+
+\begin{document}
+
+
+\huge
+
+\ti{Scientific Computing}
+
+\myfig{chap11/11_1.pdf}
+\myfigend
+\myfig{chap11/11_2.pdf}
+\myfigend
+\myfigsmall{chap11/11_3.pdf}
+\myfigend
+\myfigsmall{chap11/11_4.pdf}
+\myfigend
+\myfigtiny{chap11/11_5.pdf}
+\myfigend
+\myfigtiny{chap11/11_6.pdf}
+\myfigend
+\myfig{chap11/11_7.pdf}
+\myfigend
+\myfig{chap11/11_8.pdf}
+\myfigend
+\myfigtiny{chap11/11_9.pdf}
+\myfigend
+\myfig{chap11/11_10.pdf}
+\myfigend
+\myfigs{1}{chap11/11_11.pdf}
+\myfigend
+\myfigs{1.1}{chap11/11_12.pdf}
+\myfigend
+\myfigs{1.2}{chap11/11_13.pdf}
+\myfigend
+\myfig{chap11/11_14.pdf}
+\myfigend
+\myfig{chap11/table11_1.pdf}
+\myfigend
+\myfig{chap11/11_15.pdf}
+\myfigend
+\myfigs{1.2}{chap11/11_16.pdf}
+\myfigend
+\myfig{chap11/11_17.pdf}
+\myfigend
+\myfig{chap11/11_18.pdf}
+\myfigend
+\myfigs{1.3}{chap11/11_19.pdf}
+\myfigend
+
+\end{document}

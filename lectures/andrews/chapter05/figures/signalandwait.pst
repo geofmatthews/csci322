@@ -1,0 +1,13 @@
+\psset{arrows=->,arrowscale=2}
+\begin{psmatrix}
+&&\ovalnode{Q}{CV queue} \\
+\rnode{Call}{Call}&\ovalnode{E}{Entry queue} && \ovalnode{X}{Executing} & \rnode{Return}{Return}\\
+&&{\bf Signal and wait}
+\ncline{Call}{E}
+\ncline{X}{Return}
+\ncline{E}{X}^{Monitor free}
+\nccurve[angleA=90,angleB=0]{X}{Q}^{Wait}
+\nccurve[angleA=-45,angleB=160]{Q}{X}^{Signal}
+\nccurve[angleA=-160,angleB=-20]{X}{E}_{Signal}
+
+\end{psmatrix}

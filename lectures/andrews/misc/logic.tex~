@@ -1,0 +1,1036 @@
+\documentclass{article}
+\sloppy
+\usepackage[margin=0.5in]{geometry}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{alltt}
+\setlength{\parindent}{0in}
+
+
+\newcommand{\myfig}[1]{\hspace{-1.5in}\includegraphics[width=1.5\textwidth]{{#1}}\newpage}
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ii}{\item}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\ti}[1]{\centerline{\bf #1}}
+
+\title{Andrews Figures, Chapter 02}
+\author{Geoffrey Matthews\\
+\small Western Washington University}
+
+
+\begin{document}
+\maketitle
+\newpage
+
+\Large
+
+\ti{Semantics of concurrent programs}
+\bi
+\ii {\bf State:} the values of all the variables at a point in time.
+\ii{\bf Atomic action:} Action which indivisibly examine or change state.
+\ii{\bf History or interleaving or trace:} A particular sequence of the atomic
+actions of a program.  Results in a particular sequence of states:  $s_0 \rightarrow s_1 \rightarrow s_3
+...\rightarrow s_n$
+\ii{\bf Critical section:} A section that cannot be interleaved with
+other actions in other processes that reference the same variables.
+
+\newpage
+\ti{Properties of concurrent programs}
+\ii {\bf Property:} Something which is true of every possible history
+of a program.
+\bi
+\ii {\bf Safety properties:}  program never enters a bad state.
+Example: Mutual exclusion.
+\ii {\bf Liveness properties:} program eventually enters a good
+state.  Example: Eventual entry into a critical section (no deadlock).
+\ei
+\ii {\bf Partial correctness:}  final state is correct, assuming the
+program terminates.  A safety property.
+\ii {\bf Termination:}  every loop and procedure call terminates.  All
+histories are finite.  A liveness property
+\ii {\bf Total correctness:}  partially correct and terminates.
+\ei
+
+\newpage
+\ti{Demonstrating properties of concurrent programs}
+\bi
+\ii Testing and debugging.
+\ii Operational reasoning.
+\ii $m$ threads executing $n$ atomic actions each:
+\ei
+\[
+\frac{(mn)!}{(m!)^n}
+\]
+\begin{multicols}{2}
+\begin{verbatim}
+m n
+3 1 6
+3 2 90
+3 3 1680
+3 4 34650
+3 5 756756
+3 6 17153136
+3 7 399072960
+3 8 9465511770
+\end{verbatim}
+\begin{verbatim}
+m n
+4 1 24
+4 2 2520
+4 3 369600
+4 4 63063000
+4 5 11732745024
+4 6 2308743493056
+4 7 472518347558400
+4 8 99561092450391000
+\end{verbatim}
+\end{multicols}
+
+\newpage
+\ti{Assertional reasoning}
+\bi
+\ii Axiomatic semantics
+\ii Use {\em assertions} to characterize sets of states:
+\bi
+\ii All states in which the assertion is true.
+\ei
+\ii Atomic actions are {\em predicate transformers}.
+\ii Prove that bad states can't happen.
+\ii Can statically analyze programs.
+\ii Very difficult to use correctly.
+\ii Best to combine with testing and operational reasoning.
+\ei
+
+\newpage
+
+\myfig{chap02/p45_find_seq.pdf}
+
+\ti{Independence of parallel processes}
+\bi
+\ii {\bf Read set:}  variables read by a part of a program.
+\ii {\bf Write set:}  variables written to by a part of a program (and
+maybe read).
+\ii Two parts are {\bf independent} if the write set of each part is
+disjoint from both the read and write sets of the other part.
+\ii Two parts are independent if both only read shared variables, or
+each part reads different variables than the ones written into by the
+other part.
+\ii Which parts of the pattern finding program are independent?
+\ei
+
+
+\newpage
+\myfig{chap02/p46a_find_interfere.pdf}
+\myfig{chap02/p46b_find_nothing.pdf}
+\myfig{chap02/p46c_find_co_inside_while.pdf}
+\myfig{chap02/2_1.pdf}
+
+\ti{Atomic actions and await statements}
+\begin{verbatim}
+int y = 0, z = 0;
+co x = y+z; // y = 1; z = 2; oc;
+\end{verbatim}
+\bi
+\ii Final value of {\tt x} could be 0,1,2, or 3
+\ii There is {\em never} a state in which {\tt y+z} is 2
+\ei
+
+\newpage
+\ti{Assumptions for our machines}
+\bi
+\ii Values of basic types are stored in memory elements that are read
+and written as atomic actions.
+\ii Values are manipulated by loading into registers, operating on
+them, and storing results back into memory.
+\ii Each process has its own set of registers.  (Either separate
+cores, dedicated registers, or a {\em context switch}.
+\ii Intermediate results when a complex expression is evaluated are
+stored in registers or private memory (e.g. a private stack).
+\ei
+
+\newpage
+\ti{Appearance of atomicity}
+\bi
+\ii If evaluating expression {\tt e}, one process does not reference a
+variable altered by another process, expression evaluation will appear
+to be atomic.
+\bi
+\ii None of the values on which {\tt e} depends could change during
+the evaluation
+\ii No other process can see any temporary values that might be
+created while the expression is evaluated
+\ei
+\ii If an assignment {\tt x = e} does not reference any variable
+altered by another process then the assignment will appear atomic.
+\ei
+
+\newpage
+\ti{At-Most-Once Property}
+\bi
+\ii A {\bf critical reference} in an expression is a reference to a
+variable that is changed by another process.
+\ii Assume a critical reference is to a simple variable.
+\ii An assignment {\tt x = e} is {\bf at-most-once} if either
+\bi
+\ii {\tt e} contains at most one critical reference and {\tt x} is not
+read by another process
+\ii {\tt e} contains no critical references
+\ei
+\ii At most one shared variable, referenced at most one time.
+\ei
+
+\newpage
+\ti{Examples}
+No critical references:
+\begin{verbatim}
+int x = 0, y = 0;
+co x = x+1; // y = y+1; oc;
+\end{verbatim}
+{\tt x} and {\tt y} are both 1
+
+\vspace{1in}
+
+One critical reference:
+\begin{verbatim}
+int x = 0, y = 0;
+co x = y+1; // y = y+1; oc;
+\end{verbatim}
+{\tt x} is 1 or 2, {\tt y } is 1
+
+\vspace{1in}
+
+Neither satisfies at-most-once:
+\begin{verbatim}
+int x = 0, y = 0;
+co x = y+1; // y = x+1; oc;
+\end{verbatim}
+Values could be 1 and 2, 2 and 1, or even 1 and 1
+
+\newpage
+\ti{The Await Statement}
+
+\bi
+\ii {\tt <await (B) S;>}
+\ii {\tt B} specifies a delay condition.
+\ii {\tt S} is a sequence of statements guaranteed to terminate.
+\ii Atomic actions are specified by angle brakets, {\tt <} and {\tt >}
+\ii Therefore {\tt B} is guaranteed to be true when execution os {\tt
+  S} begins.
+\ii No internal state of {\tt s} is visible to other processes.
+\ii What is this?
+
+\centerline {\tt <await (s > 0) s = s - 1;>}
+\ei
+
+\newpage
+\ti{Await is very powerful}
+\bi
+\ii Await is convenient to use.
+\ii Await is expensive to implement.
+\ii Mutual exclusion:
+
+\centerline{\tt <S;>}
+
+\ii For example:  {\tt < x = x+1; y = y+1; > }
+\ii If {\tt S} is a single assignment that is at-most-once, then {\tt <S;>}
+is the same as {\tt S;}
+\ii Condition synchronization:
+
+\centerline{\tt < await (B); >}
+
+\ii Example, delay until {\tt count > 0}:
+
+\centerline{\tt <await (count > 0);>}
+
+\ii If {\tt B} is at-most-once, then {\tt < await (B); >} can be
+implemented as:
+
+\centerline{\tt while (not B);}
+\ei
+
+\newpage
+\ti{Atomic actions}
+\bi
+\ii An {\bf unconditional} atomic action is one that does not contain
+a delay condition {\tt B}.
+\ii A {\bf conditional} atomic action is an {\tt await} statement with
+a guard {\tt B}.  
+\ii If {\tt B} is false, it can only become true as the result of
+actions by other processes.
+\ei
+
+
+\newpage
+\myfig{chap02/2_2.pdf}
+
+\ti{Logic: equivalences}
+\newcommand{\eq}{&\equiv&}
+\newcommand{\imp}{\Rightarrow}
+
+\begin{multicols}{2}
+\begin{eqnarray*}
+A\land(B\lor C) \eq\\  (A\land B) \lor (A \land C)\\
+A\lor(B\land C) \eq\\  (A\lor B) \land (A \lor C)
+\end{eqnarray*}
+\begin{eqnarray*}
+\neg \neg A \eq A\\
+A\lor A \eq A\\
+A\lor \neg A \eq true\\
+A\lor true \eq true\\
+A\lor false \eq A\\
+A\land true \eq A\\
+A\land false \eq false\\
+A\land A \eq A\\
+A\land \neg A \eq false\\
+A\imp true \eq true\\
+A\imp false \eq \neg A\\
+true\imp A \eq A\\
+false \imp A \eq true\\
+A\imp A \eq true\\
+A\imp B \eq \neg A \lor B\\
+A\imp B \eq \neg B \imp \neg A\\
+\neg(A\imp B) \eq A \land \neg B\\
+A\land(A\lor B) \eq A\\
+A\lor(A\land B) \eq A\\
+A\land(\neg A \lor B) \eq A \land B\\
+A \lor (\neg A \land B) \eq A \lor B\\
+\neg(A\land B) \eq \neg A \lor \neg B\\
+\neg(A\lor B) \eq \neg A \land \neg B
+\end{eqnarray*}
+
+\end{multicols}
+
+\newpage
+\ti{Logic: inference rules}
+\begin{multicols}{2}
+\bi
+\ii Modus Ponens
+\[
+\frac{A\imp B, A}{B}
+\]
+\ii Modus Tollens
+\[
+\frac{A\imp B, \neg B}{\neg A}
+\]
+\ii Conjunction
+\[
+\frac{A,B}{A\land B}
+\]
+\ii Simplification
+\[
+\frac{A\land B}{A}
+\]
+\ii Addition
+\[
+\frac{A}{A\lor B}
+\]
+\ii Disjunctive syllogism
+\[
+\frac{A\lor B, \neg A}{B}
+\]
+\ii Hypothetical syllogism
+\[
+\frac{A\imp B, B\imp C}{A\imp C}
+\]
+\ii Constructive dilemma
+\[
+\frac{A\lor B, A\imp C, B\imp D}{C\lor D}
+\]
+\ii Destructive dilemma
+\[
+\frac{\neg C\lor \neg D, A\imp C, B\imp D}{\neg A \lor \neg B}
+\]
+\ei
+\end{multicols}
+
+\newpage
+\ti{Proof strategies}
+\bi
+\ii {\bf Conditional proof:} To prove something like $X\imp Y$:
+\bi
+\ii Assume $X$ is true on one line of a proof.
+\ii Show that $Y$ follows on some later line.
+\ei
+\ii {\bf Indirect proof:}  To prove something like $X$:
+\bi
+\ii Assume $\neg X$ on one line of a proof.
+\ii Show that a contradiction ($Z$ and $\neg Z$) shows up on later
+lines.
+\ei
+\ei
+
+\newpage
+\newcommand{\ind}{\hspace{1cm}}
+\newcommand{\indd}{\hspace{2cm}}
+\newcommand{\inddd}{\hspace{3cm}}
+\newcommand{\indddd}{\hspace{4cm}}
+\ti{Example conditional proof}
+Prove: $P\imp (Q\imp(P\land Q))$
+
+\begin{enumerate}
+\item \ind $P$ \hfill assumption for conditional proof
+\item \ind ...
+\item \ind ...
+\item \ind $Q\imp(P\land Q)$  \hfill somehow...
+\item $P\imp (Q\imp(P\land Q))$ \hfill from lines 1 and 4 
+\end{enumerate}
+
+\vspace{1cm}
+Now we need to find a proof of $Q\imp (P\land Q)$
+
+\newpage
+\ti{Example conditional proof}
+Prove: $P\imp (Q\imp(P\land Q))$
+
+We use a {\em   nested proof}:
+
+\begin{enumerate}
+\item \ind $P$ \hfill assumption for conditional proof
+\item \ind \ind $Q$ \hfill assumption for conditional proof
+\item \ind\ind ...
+\item \ind\ind ...
+\item \ind\ind $P\land Q$ \hfill somehow...
+\item \ind $Q\imp(P\land Q)$ \hfill from lines 2 and 5
+\item $P\imp (Q\imp(P\land Q))$ \hfill from lines 1 and 6
+\end{enumerate}
+
+\vspace{1cm}
+
+But line 5 follows immediately from lines 1 and 2 by
+conjunction!   We can eliminate lines 3 and 4.
+
+
+\newpage
+\ti{Example conditional proof}
+Prove: $P\imp (Q\imp(P\land Q))$
+
+\begin{enumerate}
+\item \ind $P$ \hfill assumption for conditional proof
+\item \ind \ind $Q$ \hfill assumption for conditional proof
+\item \ind \ind $P\land Q$ \hfill from lines 1 and 2 by conjunction
+\item \ind $Q\imp(P\land Q)$ \hfill from lines 2 and 3
+\item $P\imp Q\imp(P\land Q)$ \hfill from lines 1 and 4
+\end{enumerate}
+
+
+\newpage
+\ti{Example indirect proof}
+Prove: $A\imp (B\imp A)$
+
+\begin{enumerate}
+\item \ind$\neg(A\imp (B\imp A))$\hfill assumption for indirect proof
+\item \ind...
+\item \ind$Z$ \hfill somehow
+\item \ind...
+\item \ind$\neg Z$\hfill somehow 
+\item \ind...
+\item $A\imp (B\imp A)$ \hfill from 1, 3, and 5
+\end{enumerate}
+
+\bigskip
+
+$Z$ can be anything at all, so we have more freedom with this method.
+
+\newpage
+\ti{Example indirect proof}
+Prove: $A\imp (B\imp A)$
+
+\begin{enumerate}
+\item \ind$\neg(A\imp (B\imp A))$\hfill assumption for indirect proof
+\item \ind $A \land \neg (B\imp A)$\hfill equiv to line 1
+\item \ind $A$ \hfill simplification from line 2
+\item \ind $\neg (B\imp A)$ \hfill  simplification from line 2
+\item \ind $B\land \neg A$ \hfill equiv to line 4
+\item \ind $B$ \hfill simplification from line 5
+\item \ind $\neg A$ \hfill simplification from line 5
+\item \ind...
+\item \label{z}\ind$Z$ \hfill somehow
+\item \ind...
+\item \label{nz}\ind$\neg Z$\hfill somehow 
+\item \ind...
+\item $A\imp (B\imp A)$ \hfill from 1, \ref{z}, and \ref{nz}
+\end{enumerate}
+
+\bigskip
+Now what?
+
+\newpage
+\ti{Example indirect proof}
+Prove: $A\imp (B\imp A)$
+
+\begin{enumerate}
+\item \ind$\neg(A\imp (B\imp A))$\hfill assumption for indirect proof
+\item \ind $A \land \neg (B\imp A)$\hfill equiv to line 1
+\item \ind $A$ \hfill simplification from line 2
+\item \ind $\neg (B\imp A)$ \hfill  simplification from line 2
+\item \ind $B\land \neg A$ \hfill equiv to line 4
+\item \ind $B$ \hfill simplification from line 5
+\item \ind $\neg A$ \hfill simplification from line 5
+\item $A\imp (B\imp A)$ \hfill from 1, 3, and 7
+\end{enumerate}
+
+\bigskip
+
+\newpage
+\ti{Example proof}
+Prove: $(A\imp C) \imp (A\imp (B\lor C))$
+
+\bigskip
+Ideas?
+
+\newpage
+\ti{Example proof}
+Prove: $(A\imp C) \imp (A\imp (B\lor C))$
+\begin{enumerate}
+\item \ind $A\imp C$\hfill assumption for conditional proof
+\item \ind...
+\item \ind $A\imp (B\lor C)$
+\item $(A\imp C) \imp (A\imp (B\lor C))$ \hfill from 1 and 3
+\end{enumerate}
+
+\bigskip
+Ideas?
+
+\newpage
+\ti{Example proof using both conditional and indirect}
+Prove: $(A\imp C) \imp (A\imp (B\lor C))$
+\begin{enumerate}
+\item \ind $A\imp C$\hfill assumption for conditional proof
+\item \ind\ind $A$\hfill assumption for conditional proof
+\item \ind\ind...
+\item \ind\ind $B\lor C$
+\item \ind $A\imp (B\lor C)$ \hfill from 2 and 4
+\item $(A\imp C) \imp (A\imp (B\lor C))$ \hfill from 1 and 5
+\end{enumerate}
+
+\bigskip
+Ideas?
+
+\newpage
+\ti{Example proof using both conditional and indirect}
+Prove: $(A\imp C) \imp (A\imp (B\lor C))$
+\begin{enumerate}
+\item \ind $A\imp C$\hfill assumption for conditional proof
+\item \ind\ind $A$\hfill assumption for conditional proof
+\item \ind\ind\ind $\neg(B\lor C)$ \hfill assumption for indirect
+\item \ind\ind\ind ...
+\item \ind\ind $B\lor C$\hfill from 3 and ? and ?
+\item \ind $A\imp (B\lor C)$ \hfill from 2 and 4
+\item $(A\imp C) \imp (A\imp (B\lor C))$ \hfill from 1 and 5
+\end{enumerate}
+\bigskip
+Ideas?
+
+\newpage
+\ti{Example proof using both conditional and indirect}
+Prove: $(A\imp C) \imp (A\imp (B\lor C))$
+\begin{enumerate}
+\item \ind $A\imp C$\hfill assumption for conditional proof
+\item \ind\ind $A$\hfill assumption for conditional proof
+\item \ind\ind\ind $\neg(B\lor C)$ \hfill assumption for indirect
+\item \ind\ind\ind $\neg B\land \neg C$ \hfill equiv of 3
+\item \ind\ind\ind $\neg B$\hfill simplification of 4
+\item \ind\ind\ind $\neg C$\hfill simplification of 4
+\item \ind\ind\ind...
+\item \ind\ind $B\lor C$\hfill from 3 and ? and ?
+\item \ind $A\imp (B\lor C)$ \hfill from 2 and 8
+\item $(A\imp C) \imp (A\imp (B\lor C))$ \hfill from 1 and 9
+\end{enumerate}
+\bigskip
+Ideas?
+
+\newpage
+\ti{Example proof using both conditional and indirect}
+Prove: $(A\imp C) \imp (A\imp (B\lor C))$
+\begin{enumerate}
+\item \ind $A\imp C$\hfill assumption for conditional proof
+\item \ind\ind $A$\hfill assumption for conditional proof
+\item \ind\ind\ind $\neg(B\lor C)$ \hfill assumption for indirect
+\item \ind\ind\ind $\neg B\land \neg C$ \hfill equiv of 3
+\item \ind\ind\ind $\neg B$\hfill simplification of 4
+\item \ind\ind\ind $\neg C$\hfill simplification of 4
+\item \ind\ind\ind $C$ \hfill 1 and 2 and modus ponens
+\item \ind\ind $B\lor C$\hfill from 3 and 6 and 7
+\item \ind $A\imp (B\lor C)$ \hfill from 2 and 8
+\item $(A\imp C) \imp (A\imp (B\lor C))$ \hfill from 1 and 9
+\end{enumerate}
+
+\newpage
+\myfig{chap02/2_3.pdf}
+\newcommand{\stm}[3]{\ensuremath{\{#1\}}\ \mbox{\tt #2}\ \ensuremath{\{#3\}}}
+
+\ti{Axiomatic Semantics}
+\[
+\stm{P}{S}{Q}
+\]
+\bi
+\ii If $P$ is true before $S$ is executed, and $S$ terminates, then
+$Q$ is true after the execution of $S$.
+\ei
+
+\newpage
+\ti{Axiomatic Semantics}
+\begin{multicols}{2}
+\bi
+\ii Assignment Axiom
+\[
+\stm{Q(x/t)}{x := t}{Q}
+\]
+
+\ii Composition
+\[
+\frac{\stm{P}{S1}{R}, \stm{R}{S2}{Q}}{\stm{P}{S1;S2}{Q}}
+\]
+
+\ii Consequence
+\[
+\frac{P\imp R, \stm{R}{S}{Q}}{\stm{P}{S}{Q}}
+\]
+\[
+\frac{\stm{P}{S}{T}, T\imp Q}{\stm{P}{S}{Q}}
+\]
+\ei
+\end{multicols}
+
+\bi
+\ii If-then
+\[
+\frac{\stm{P\land C}{S}{Q}, P\land\neg C\imp Q}{\stm{P}{if C then
+    S}{Q}}
+\]
+\ii If-then-else
+\[
+\frac{\stm{P\land C}{S1}{Q}, \stm{P\land\neg C}{S2}{Q}}{\stm{P}{if C then
+    S1 else S2}{Q}}
+\]
+
+\ii While
+\[
+\frac{\stm{P\land C}{S}{P}}{\stm{P}{while C do S}{P\land\neg C}}
+\]
+
+\ei
+
+\newpage
+\ti{Proofs in Axiomatic Semantics}
+Prove: \stm{x<5}{x := x + 1}{x < 7}
+
+\begin{enumerate}
+\ii \stm{x + 1 < 7}{x := x + 1}{x < 7}\hfill Axiom
+\ii \ind $x<5$\hfill Assumption
+\ii \ind $x+1<6$\hfill 2, arithmetic
+\ii \ind$6<7$\hfill arithmetic
+\ii \ind$x+1 < 7$\hfill 3,4, transitive
+\ii $(x<5)\imp (x+1<7)$\hfill 2,5, conditional proof
+\ii \stm{x<5}{x := x + 1}{x < 7}\hfill 1,6, consequence
+\end{enumerate}
+
+\[
+\stm{Q(x/t)}{x := t}{Q}
+\]
+
+\newpage
+\ti{Proofs in Axiomatic Semantics}
+Prove: \stm{true}{if x < 0 then x := -x}{x \geq 0}
+
+\begin{enumerate}
+\ii \stm{-x \geq 0}{x := -x}{x \geq 0}\hfill Axiom
+\ii \ind $true \land (x < 0)$ \hfill assumption
+\ii \ind $x < 0$\hfill 2, simplification
+\ii \ind $-x > 0$\hfill 3, arithmetic
+\ii \ind $-x \geq 0$\hfill 4, arithmetic
+\ii $true \land (x < 0)\imp (-x \geq 0)$\hfill 2,5, conditional proof
+\ii \stm{true \land (x < 0)}{x := -x}{x \geq 0}\hfill 1,6, consequence
+\ii \ind $true \land \neg(x < 0)$\hfill assumption
+\ii \ind $\neg(x<0)$\hfill 8, simplification
+\ii \ind $x\geq 0$\hfill 9, arithmetic
+\ii $true \land \neg(x<0)\imp (x \geq 0)$\hfill 8,10, conditional proof
+\ii\stm{true}{if x < 0 then x := -x}{x \geq 0}\hfill 7,11,if-then
+\end{enumerate}
+
+\[
+\frac{\stm{P\land C}{S}{Q}, P\land\neg C\imp Q}{\stm{P}{if C then
+    S}{Q}}
+\]
+
+\newpage
+\ti{Proofs in Axiomatic Semantics}
+\begin{alltt}
+\(\{true\}\)
+m := x;
+\(\{m = x\}\)
+if (y > m)
+  m := y;
+\(\{(m = x) \land m \geq y) \lor (m = y \land m > x)\}\)
+\end{alltt}
+
+\[
+\frac{\stm{P\land C}{S}{Q}, P\land\neg C\imp Q}{\stm{P}{if C then
+    S}{Q}}
+\]
+
+\newpage
+\ti{Proofs in Axiomatic Semantics}
+\begin{alltt}
+\(\{true\}\)
+i := 1;
+\(\{i = 1 \land \forall j: 1 \leq j < i: a[j] \not= x)\}\)
+while (a[i] != x)
+  \(\{(\forall j: 1 <= j < i: a[j] \not= x)\}\)
+  i := i+1;
+\(\{(\forall j: 1 \leq j < i: a[j] \not= x) \land a[i] = x\}\)
+\end{alltt}
+
+\[
+\frac{\stm{P\land C}{S}{P}}{\stm{P}{while C do S}{P\land\neg C}}
+\]
+
+\newpage
+\ti{Proofs in Axiomatic Semantics}
+\begin{alltt}
+\(\{(a>0)\land(b\geq 0)\}\)
+i := 0;
+p := 1;
+\(\{P\} = \{(p = a^i) \land (i\leq b)\}\)
+while i < b do
+  p := p*a;
+  i := i+1;
+\(\{(P\land \neg C)\} = \{(p = a^i) \land (i\leq b) \land \neg(i<b)\}\)
+\(\{p = a^b\}\)
+\end{alltt}
+
+\[
+\frac{\stm{P\land C}{S}{P}}{\stm{P}{while C do S}{P\land\neg C}}
+\]
+
+\newpage
+
+\myfig{chap02/p63_await_co_rules.pdf}
+
+\newcommand{\la}{\ensuremath{\langle}}
+\newcommand{\ra}{\ensuremath{\rangle}}
+\ti{Sematics of Concurrent Execution}
+\bi
+\ii Await rule
+\[
+\frac{\stm{P\land B}{S}{Q}}{\stm{P}{\la await (B) s;\ra}{Q}}
+\]
+\ii Co rule
+\[
+\frac{\stm{P_i}{Si}{Q_i}\mbox{\ are interference free}}
+     {\stm{P_1\land ... \land P_n}{co S1; // ... // Sn; oc}{Q_1\land ... \land Q_n}}
+\]
+\ii One process {\bf interferes} with another if it executes an
+assignment that invalidates an assertion in the other process. 
+\ei
+
+\newpage
+\ti{Co example}
+\bi
+\ii
+\begin{alltt}
+\(\{x = 0\}\)
+co \la x := x+1;\ra // \la x := x+2;\ra oc
+\(\{x = 3\}\)
+\end{alltt}
+\ii Neither process can assume that $x=0$ when they start.
+\ii But the following can be assumed:
+\ii
+\begin{alltt}
+\(\{x = 0\}\)
+co 
+  \(\{x = 0 \lor x = 2\}\)
+  \la x := x + 1; \ra
+  \(\{x = 1 \lor x = 3\}\)
+//
+  \(\{x = 0 \lor x = 1\}\)
+  \la x := x + 2; \ra
+  \(\{x = 2 \lor x = 3\}\)
+oc
+\(\{ x = 3 \}\)
+\end{alltt}
+\ei
+
+\newpage
+\ti{Definition of Noninterference}
+\bi
+\ii An {\bf assignment action} is an assignment statement or an {\tt
+  await} statement that contains one or more assignments.
+\ii A {\bf critical assertion} is a precondition or postcondition that
+is not within an {\tt await} statement.
+\ii Rename all local variables in all processes so that no two
+processes have the same local variable names.
+\ii Let {\tt a} be an assignment action in one process and let $pre(a)$ be its precondition.  Let $C$ be a critical assertion in
+another process.  Then {\tt a} {\bf does not interfere} with $C$ if the
+following is a theorem:
+\centerline{\stm{C\land pre(a)}{a}{C}}
+\ei
+\newpage
+
+\ti{Example of noninterference}
+\bi
+\ii
+\begin{alltt}
+\(\{x = 0\}\)
+co 
+  \(\{x = 0 \lor x = 2\}\)
+  \la x := x + 1; \ra
+  \(\{x = 1 \lor x = 3\}\)
+//
+  \(\{x = 0 \lor x = 1\}\)
+  \la x := x + 2; \ra
+  \(\{x = 2 \lor x = 3\}\)
+oc
+\(\{ x = 3 \}\)
+\end{alltt}
+\ii The precondition of the first process is a critical assertion.
+\ii It is not interfered with by the second process because:
+\ii
+\begin{alltt}
+\(\{(x = 0 \lor x = 2) \land (x = 0\lor x = 1)\}\)
+x := x+2;
+\(\{x = 0 \lor x = 2\}\)
+\end{alltt}
+\ei
+\newpage
+
+\ti{Techniques for avoiding interference:  disjoint variables}
+\bi
+\ii {\bf Read set:} set of variables read by a process.
+\ii {\bf Write set:} set of variables written to by a process.
+\ii {\bf Reference set:} set of variables that appear in the
+assertions of a proof of that process.
+\ii If the write set of one process is disjoint from the reference set
+of a second, and vice versa, the two processes cannot interfere.
+\ii Example:
+\ii {\tt co x := x+1; // y := y+1; oc}
+\ii Both of the following are theorems:
+\ii \stm{x = 0}{x := x + 1;}{x = 1}
+\ii \stm{y = 0}{y := y + 1;}{y = 1}
+\ii Each statement contains one assignment and two assertions, so
+there are four noninterference theorems to prove, but they are all
+trivial. 
+\ei
+
+\newpage
+
+\ti{Techniques for avoiding interference: weakened assertions}
+\bi
+\ii A {\bf weakened assertion} is one that admits more program states
+than another assertion that might be true of a process in isolation.
+\ii Example:
+\ii
+\begin{alltt}
+\(\{x = 0\}\)
+co 
+  \(\{x = 0 \lor x = 2\}\)
+  \la x := x + 1; \ra
+  \(\{x = 1 \lor x = 3\}\)
+//
+  \(\{x = 0 \lor x = 1\}\)
+  \la x := x + 2; \ra
+  \(\{x = 2 \lor x = 3\}\)
+oc
+\(\{ x = 3 \}\)
+\end{alltt}
+\ei
+
+\newpage
+\ti {Techniques for avoiding interference: global invariants}
+\bi
+\ii If $I$ is a predicate that references global variables, then $I$
+is a {\bf global invariant} with respect to a set of processes if:
+\begin{enumerate}
+\ii $I$ is true when the processes begin, and
+\ii $I$ is preserved by every assignment action.
+\end{enumerate}
+\bigskip
+\ii Suppose $I$ is a global invariant, and every critical assertion
+has the form $I \land L$, where $L$ is only about local variables,
+then all processes will be interference free.
+\ii Checking this is a {\em linear} process, as opposed to the {\em
+  exponential } number of program histories.
+\ei
+
+\newpage
+\ti {Techniques for avoiding interference: synchronization}
+\bi
+\ii Statements within {\tt await} statements appear indivisible to
+other processes.
+\ii Hence we can ignore them when considering interference, and
+consider only {\em entire} sequences.
+\ii For example, in the statement\\
+\centerline{\tt \la x := x+1; y := y+1; \ra}
+we don't have to consider each statement by itself.
+\ei
+
+\newpage
+
+\myfig{chap02/2_2.pdf}
+\myfig{chap02/2_4.pdf}
+
+\ti{Example illustrates all four techniques}
+\bi
+\ii Many statements and parts are disjoint.
+\ii Weakened assertions, e.g. {\tt buf == A[p-1]} but only when \verb|p == c+1|
+\ii Global invariant {\em PC}
+\ii Synchronization using {\tt await}
+\ei
+
+\newpage
+\ti{Safety and Liveness Properties}
+
+\bi
+\ii {\bf Safety:}  nothing bad ever happens.
+\bi 
+\ii Final state is correct.
+\ii Mutual exclusion.
+\ii No deadlock.
+\ei
+\ii {\bf Liveness:}  something good eventually happens.
+\bi 
+\ii Program terminates 
+\ii Process eventually enters critical section.
+\ii A request for service will eventually be honored.
+\ii A message will reach its destination.
+\ei
+\ei
+
+\newpage
+\ti{Proving Safety Properties}
+\bi
+\ii Show that {\em BAD} is false in every state.
+\ii Show that {\em GOOD} is true in every state.
+\ei
+
+
+
+\newpage
+\ti{Proving Safety Properties: exclusion of configurations}
+\begin{alltt}
+co # process 1
+  ...;  \{ pre(S1) \} S1; ...
+// # process 2
+  ...;  \{ pre(S2) \} S2; ...
+oc
+\end{alltt}
+\bi
+\ii Suppose the preconditions do not interfere.
+\ii Suppose {\tt pre(S1) $\land$  pre(S2) == false}.
+\ii Then the two processes cannot be at these statements at the same time!
+\ii {\tt false} means that the program is {\em never} in this state.
+\ii In the array copy example, both processes cannot simultaneously be
+delayed  in their {\tt await} statements. 
+\ei
+
+\newpage
+
+\myfig{chap02/2_4.pdf}
+
+\ti{Scheduling and Fairness}
+\bi
+\ii {\bf Fairness:}  each process gets a chance to proceed.
+\ii An atomic action is {\bf eligible} if it is the next one in the
+process that could be executed.
+\ii A {\bf scheduling policy} determines which eligible action will be
+executed next.
+\ei
+
+\newpage
+\ti{Scheduling and Fairness}
+\bi
+\ii
+\begin{alltt}
+bool continue = true;
+co while (continue);
+// continue = false;
+oc
+\end{alltt}
+
+\ii If the first process always goes first, this program will never
+terminate. 
+\ei
+
+\newpage
+
+\ti{Fairness}
+
+\bi 
+\ii {\bf Unconditional fairness:}  if every unconditional atomic
+action that is eligible is executed eventually.
+\ii {\bf Weak fairness:} 
+\begin{enumerate}
+\ii it is unconditionally fair, and
+\ii every conditional atomic action  that is eligible is executed
+eventually, assuming that its condition becomes true and then remains
+true until it is seen by the process executing the conditional atomic
+action.
+\end{enumerate}
+\ii In other words, assuming that if {\tt \la await (B) S;\ra} is
+eligible and {\tt B} becomes true, then {\tt B} remains true until
+after {\tt S}.  \ii Round-robin and time slicing are weakly fair.  \ii
+Not sufficient to guarantee that any eligible {\tt await} statement
+eventually executes.  \ei
+
+\newpage
+\ti{Fairness}
+\bi
+\ii {\bf Strong fairness:}  
+\begin{enumerate}
+\ii it is unconditionally fair, and
+\ii every conditional atomic action that is eligible is executed
+eventually, assuming that its condition is infinitely often true.
+\end{enumerate}
+\ii Such a scheduling policy cannot happen to select an action only
+when the condition is false.
+\ei
+
+\newpage
+\ti{Difference between strong and weak fairness}
+\begin{alltt}
+bool continue = true, try = false;
+
+co while (continue) \{try = true; try = false;\}
+// \la await (try) continue = false; \ra
+oc
+\end{alltt}
+\bi
+\ii With strong fairness, this program will eventually terminate.
+\ii With weak fairness, this program might not terminate, even though
+{\tt try} becomes true infinitely often.
+\ii It is impossible to devise a scheduler that is both practical and
+strongly fair.
+\newpage
+
+\ti{Fairness in the array copy example}
+
+\ii The example is deadlock free, even with weak fairness:
+\bi
+\ii When one process makes the delay condition of the other true, it
+stays true until after the other process continues.
+\ii Each {\tt await} statement has the form {\tt \la await(B);\ra},
+and {\tt B} refers to only one variable altered by the other process.
+\ii Both {\tt await} statements could be implemented with busy loops:
+
+\centerline{{\tt \la await (p == c)\ra} $\equiv$ {\tt while (p != c)}}
+
+\ei
+\ii This program will terminate only on unconditional fairness, since
+there are no more conditional atomic actions.
+\ei
+
+\myfig{chap02/2_4.pdf}
+
+\ti{Livelock}
+\bi
+\ii If all busy waiting loops spin forever, the program is said to
+suffer {\bf livelock}.
+\ii The program is alive, but the processes are not going anywhere.
+\ii Like two people passing each other in a hallway, each constantly
+moving to the other side.
+\ii Absence of livelock is a safety property.
+\ei
+
+
+\end{document}

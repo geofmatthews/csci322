@@ -1,0 +1,4 @@
+(define fred (make-semaphore))
+(semaphore-post fred)
+(semaphore-wait fred)
+(print 'hello)

@@ -1,0 +1,16 @@
+\psset{arrows=->,arrowscale=2,nodesep=0.2}
+\psset{coilwidth=0.25,coilarm=0.0}
+\begin{psmatrix}
+\rnode{CP}{Calling Process} & \rnode{SP}{Server Process} \\
+\rnode{Call}{} & \\
+             & \rnode{Receive}{} \\
+             & \rnode{Return}{}\\
+\rnode{Back}{} & \\
+\rnode{Done}{} & \\
+\nccoil{-}{CP}{Call}
+\ncline{Call}{Receive}\ncput*[nrot=:U]{Call}
+\nccoil{-}{Receive}{Return}
+\ncline{Return}{Back}\ncput*[nrot=:D]{Return}
+\nccoil{-}{Back}{Done}
+\end{psmatrix}
+

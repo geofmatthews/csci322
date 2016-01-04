@@ -1,0 +1,608 @@
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.3.7)  19 FEB 2013 01:35
+entering extended mode
+**tmp.tex
+(C:\Users\matthews\Documents\csci322\lectures\andrews\tmp.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2009-06-19, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, lao, latin, lat
+vian, lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerm
+an, ngerman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese, 
+romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
+sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
+senglishmax, welsh, loaded.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\article.cls"
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\size10.clo"
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\geometry\geometry.sty"
+Package: geometry 2010/09/12 v5.6 Page Geometry
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ifvtex.sty"
+Package: ifvtex 2010/03/01 v1.5 Switches for detecting VTeX and its modes (HO)
+Package ifvtex Info: VTeX not detected.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+\Gm@cnth=\count87
+\Gm@cntv=\count88
+\c@Gm@tempcnt=\count89
+\Gm@bindingoffset=\dimen103
+\Gm@wd@mp=\dimen104
+\Gm@odd@mp=\dimen105
+\Gm@even@mp=\dimen106
+\Gm@layoutwidth=\dimen107
+\Gm@layoutheight=\dimen108
+\Gm@layouthoffset=\dimen109
+\Gm@layoutvoffset=\dimen110
+\Gm@dimlist=\toks15
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\geometry\geometry.cfg"))
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2011/04/18 v1.20 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count90
+))
+\Gin@req@height=\dimen111
+\Gin@req@width=\dimen112
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\multicol.sty"
+Package: multicol 2011/06/27 v1.7a multicolumn formatting (FMi)
+\c@tracingmulticols=\count91
+\mult@box=\box26
+\multicol@leftmargin=\dimen113
+\c@unbalance=\count92
+\c@collectmore=\count93
+\doublecol@number=\count94
+\multicoltolerance=\count95
+\multicolpretolerance=\count96
+\full@width=\dimen114
+\page@free=\dimen115
+\premulticols=\dimen116
+\postmulticols=\dimen117
+\multicolsep=\skip43
+\multicolbaselineskip=\skip44
+\partial@page=\box27
+\last@line=\box28
+\mult@rightbox=\box29
+\mult@grightbox=\box30
+\mult@gfirstbox=\box31
+\mult@firstbox=\box32
+\@tempa=\box33
+\@tempa=\box34
+\@tempa=\box35
+\@tempa=\box36
+\@tempa=\box37
+\@tempa=\box38
+\@tempa=\box39
+\@tempa=\box40
+\@tempa=\box41
+\@tempa=\box42
+\@tempa=\box43
+\@tempa=\box44
+\@tempa=\box45
+\@tempa=\box46
+\@tempa=\box47
+\@tempa=\box48
+\@tempa=\box49
+\c@columnbadness=\count97
+\c@finalcolumnbadness=\count98
+\last@try=\dimen118
+\multicolovershoot=\dimen119
+\multicolundershoot=\dimen120
+\mult@nat@firstbox=\box50
+\colbreak@box=\box51
+\multicol@sort@counter=\count99
+)
+(C:\Users\matthews\AppData\Roaming\MiKTeX\2.9\tex\latex\overpic\overpic.sty
+Package: overpic 2010/09/13 v0.53  Overwriting graphics
+
+Package: overpic v0.53 <2010/09/13> (RN)
+(C:\Users\matthews\AppData\Roaming\MiKTeX\2.9\tex\latex\eepic\epic.sty
+Enhancements to Picture Environment. Version 1.2 - Released June 1, 1986
+\@@multicnt=\count100
+\d@lta=\count101
+\@delta=\dimen121
+\@@delta=\dimen122
+\@gridcnt=\count102
+\@joinkind=\count103
+\@dotgap=\dimen123
+\@ddotgap=\dimen124
+\@x@diff=\count104
+\@y@diff=\count105
+\x@diff=\dimen125
+\y@diff=\dimen126
+\@dotbox=\box52
+\num@segments=\count106
+\num@segmentsi=\count107
+\@datafile=\read1
+)
+overpic: relative positioning in percent
+) (C:\Users\matthews\AppData\Roaming\MiKTeX\2.9\tex\latex\fancyvrb\fancyvrb.sty
+Package: fancyvrb 2008/02/07
+
+Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix 
+<2008/02/07> (tvz)
+\FV@CodeLineNo=\count108
+\FV@InFile=\read2
+\FV@TabBox=\box53
+\c@FancyVerbLine=\count109
+\FV@StepNumber=\count110
+\FV@OutFile=\write3
+)
+No file tmp.aux.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: landscape 
+* h-part:(L,W,R)=(36.135pt, 722.7pt, 36.135pt)
+* v-part:(T,H,B)=(-72.26999pt, 686.56499pt, 0.0pt)
+* \paperwidth=794.96999pt
+* \paperheight=614.295pt
+* \textwidth=722.7pt
+* \textheight=686.56499pt
+* \oddsidemargin=-36.135pt
+* \evensidemargin=-36.135pt
+* \topmargin=-181.53998pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+(C:\Users\matthews\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count111
+\scratchdimen=\dimen127
+\scratchbox=\box54
+\nofMPsegments=\count112
+\nofMParguments=\count113
+\everyMPshowfont=\toks16
+\MPscratchCnt=\count114
+\MPscratchDim=\dimen128
+\MPnumerator=\count115
+\makeMPintoPDFobject=\count116
+\everyMPtoPDFconversion=\toks17
+) <chap05/5_01.pdf, id=1, 614.295pt x 794.97pt>
+File: chap05/5_01.pdf Graphic file (type pdf)
+ <use chap05/5_01.pdf>
+Package pdftex.def Info: chap05/5_01.pdf used on input line 47.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 48--48
+[][] 
+ []
+
+[1
+
+{C:/Users/matthews/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[2 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/5_01.pdf>]
+<chap05/5_02.pdf, id=19, 614.295pt x 794.97pt>
+File: chap05/5_02.pdf Graphic file (type pdf)
+ <use chap05/5_02.pdf>
+Package pdftex.def Info: chap05/5_02.pdf used on input line 49.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 50--50
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[3 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/5_02.pdf>]
+<chap05/5_03.pdf, id=29, 614.295pt x 794.97pt>
+File: chap05/5_03.pdf Graphic file (type pdf)
+ <use chap05/5_03.pdf>
+Package pdftex.def Info: chap05/5_03.pdf used on input line 51.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 52--52
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[4 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/5_03.pdf>]
+<chap05/5_04.pdf, id=39, 614.295pt x 794.97pt>
+File: chap05/5_04.pdf Graphic file (type pdf)
+ <use chap05/5_04.pdf>
+Package pdftex.def Info: chap05/5_04.pdf used on input line 53.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 54--54
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[5 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/5_04.pdf>]
+<chap05/5_05.pdf, id=49, 614.295pt x 794.97pt>
+File: chap05/5_05.pdf Graphic file (type pdf)
+ <use chap05/5_05.pdf>
+Package pdftex.def Info: chap05/5_05.pdf used on input line 55.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 56--56
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[6 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/5_05.pdf>]
+<chap05/5_06.pdf, id=60, 614.295pt x 794.97pt>
+File: chap05/5_06.pdf Graphic file (type pdf)
+ <use chap05/5_06.pdf>
+Package pdftex.def Info: chap05/5_06.pdf used on input line 57.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 58--58
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[7 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/5_06.pdf>]
+<chap05/5_07.pdf, id=72, 614.295pt x 794.97pt>
+File: chap05/5_07.pdf Graphic file (type pdf)
+ <use chap05/5_07.pdf>
+Package pdftex.def Info: chap05/5_07.pdf used on input line 59.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 60--60
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[8 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/5_07.pdf>]
+<chap05/5_08.pdf, id=83, 614.295pt x 794.97pt>
+File: chap05/5_08.pdf Graphic file (type pdf)
+ <use chap05/5_08.pdf>
+Package pdftex.def Info: chap05/5_08.pdf used on input line 61.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 62--62
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[9 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/5_08.pdf>]
+<chap05/5_09.pdf, id=94, 614.295pt x 794.97pt>
+File: chap05/5_09.pdf Graphic file (type pdf)
+ <use chap05/5_09.pdf>
+Package pdftex.def Info: chap05/5_09.pdf used on input line 63.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 64--64
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[10 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/5_09.pdf>]
+<chap05/5_10.pdf, id=104, 614.295pt x 794.97pt>
+File: chap05/5_10.pdf Graphic file (type pdf)
+ <use chap05/5_10.pdf>
+Package pdftex.def Info: chap05/5_10.pdf used on input line 65.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 66--66
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[11 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/5_10.pdf>]
+<chap05/5_11.pdf, id=114, 614.295pt x 794.97pt>
+File: chap05/5_11.pdf Graphic file (type pdf)
+ <use chap05/5_11.pdf>
+Package pdftex.def Info: chap05/5_11.pdf used on input line 67.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 68--68
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[12 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/5_11.pdf>]
+<chap05/5_12.pdf, id=123, 614.295pt x 794.97pt>
+File: chap05/5_12.pdf Graphic file (type pdf)
+ <use chap05/5_12.pdf>
+Package pdftex.def Info: chap05/5_12.pdf used on input line 69.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 70--70
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[13 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/5_12.pdf>]
+<chap05/5_13.pdf, id=133, 614.295pt x 794.97pt>
+File: chap05/5_13.pdf Graphic file (type pdf)
+ <use chap05/5_13.pdf>
+Package pdftex.def Info: chap05/5_13.pdf used on input line 71.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 72--72
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[14 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/5_13.pdf>]
+<chap05/5_14.pdf, id=144, 614.295pt x 794.97pt>
+File: chap05/5_14.pdf Graphic file (type pdf)
+ <use chap05/5_14.pdf>
+Package pdftex.def Info: chap05/5_14.pdf used on input line 73.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 74--74
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[15 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/5_14.pdf>]
+<chap05/5_15.pdf, id=153, 614.295pt x 794.97pt>
+File: chap05/5_15.pdf Graphic file (type pdf)
+ <use chap05/5_15.pdf>
+Package pdftex.def Info: chap05/5_15.pdf used on input line 75.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 76--76
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[16 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/5_15.pdf>]
+<chap05/5_16.pdf, id=163, 614.295pt x 794.97pt>
+File: chap05/5_16.pdf Graphic file (type pdf)
+ <use chap05/5_16.pdf>
+Package pdftex.def Info: chap05/5_16.pdf used on input line 77.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 78--78
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[17 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/5_16.pdf>]
+<chap05/5_17.pdf, id=173, 614.295pt x 794.97pt>
+File: chap05/5_17.pdf Graphic file (type pdf)
+ <use chap05/5_17.pdf>
+Package pdftex.def Info: chap05/5_17.pdf used on input line 79.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 80--80
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[18 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/5_17.pdf>]
+<chap05/5_18.pdf, id=185, 614.295pt x 794.97pt>
+File: chap05/5_18.pdf Graphic file (type pdf)
+ <use chap05/5_18.pdf>
+Package pdftex.def Info: chap05/5_18.pdf used on input line 81.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 82--82
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[19 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/5_18.pdf>]
+<chap05/p236_Disk_Access.pdf, id=192, 614.295pt x 794.97pt>
+File: chap05/p236_Disk_Access.pdf Graphic file (type pdf)
+
+<use chap05/p236_Disk_Access.pdf>
+Package pdftex.def Info: chap05/p236_Disk_Access.pdf used on input line 83.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 84--84
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[20 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/p236_Disk_Acce
+ss.pdf>] <chap05/p241_Java_rw_parallel.pdf, id=201, 614.295pt x 794.97pt>
+File: chap05/p241_Java_rw_parallel.pdf Graphic file (type pdf)
+
+<use chap05/p241_Java_rw_parallel.pdf>
+Package pdftex.def Info: chap05/p241_Java_rw_parallel.pdf used on input line 85
+.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 86--86
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[21 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/p241_Java_rw_p
+arallel.pdf>]
+<chap05/p244_Java_rw_exclusive.pdf, id=210, 614.295pt x 794.97pt>
+File: chap05/p244_Java_rw_exclusive.pdf Graphic file (type pdf)
+
+<use chap05/p244_Java_rw_exclusive.pdf>
+Package pdftex.def Info: chap05/p244_Java_rw_exclusive.pdf used on input line 8
+7.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 88--88
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[22 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/p244_Java_rw_e
+xclusive.pdf>] <chap05/p245_Java_rw_true.pdf, id=219, 614.295pt x 794.97pt>
+File: chap05/p245_Java_rw_true.pdf Graphic file (type pdf)
+
+<use chap05/p245_Java_rw_true.pdf>
+Package pdftex.def Info: chap05/p245_Java_rw_true.pdf used on input line 89.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 90--90
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[23 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/p245_Java_rw_t
+rue.pdf>] <chap05/table5_1.pdf, id=228, 614.295pt x 794.97pt>
+File: chap05/table5_1.pdf Graphic file (type pdf)
+
+<use chap05/table5_1.pdf>
+Package pdftex.def Info: chap05/table5_1.pdf used on input line 91.
+(pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
+
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 92--92
+[][] 
+ []
+
+
+Overfull \vbox (505.88649pt too high) has occurred while \output is active []
+
+
+[24 <C:/Users/matthews/Documents/csci322/lectures/andrews/chap05/table5_1.pdf>]
+(C:\Users\matthews\Documents\csci322\lectures\andrews\tmp.aux) ) 
+Here is how much of TeX's memory you used:
+ 2296 strings out of 494045
+ 33202 string characters out of 3145961
+ 92137 words of memory out of 3000000
+ 5587 multiletter control sequences out of 15000+200000
+ 3939 words of font info for 15 fonts, out of 3000000 for 9000
+ 715 hyphenation exceptions out of 8191
+ 27i,5n,19p,236b,142s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Fil
+es (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+Output written on tmp.pdf (24 pages, 64512 bytes).
+PDF statistics:
+ 243 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 116 words of extra memory for PDF output out of 10000 (max. 10000000)
+

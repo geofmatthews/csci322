@@ -1,0 +1,76 @@
+\documentclass{article}
+\sloppy
+%\usepackage[margin=0.5in]{geometry}
+%\usepackage[landscape,margin=0.5in]{geometry}
+\usepackage[landscape,top=-1in,left=0.5in,right=0.5in,bottom=0.0in]{geometry}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{overpic}
+
+\usepackage{fancyvrb}
+\setlength{\parindent}{0in}
+
+
+\newcommand{\nop}[1]{}
+\newcommand{\myfig}[1]{\newpage\begin{overpic}[scale=1.5]{figures/#1}}
+\newcommand{\myfigs}[2]{\newpage\begin{overpic}[scale=#1]{figures/#2}}
+\newcommand{\myfigsp}[3]{\newpage\begin{overpic}[scale=#1,page=#2]{figures/#3}}
+\newcommand{\myfigend}{\end{overpic}}
+\newcommand{\myput}[2]{\put(10,#1){$\bullet$ #2}}
+\newcommand{\myputn}[2]{\put(15,#1){#2}}
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ii}{\item}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\ti}[1]{
+\newpage
+\mbox{~}
+
+\vspace{1.25in}
+\centerline{\bf #1}
+}
+
+\newcommand{\la}{\ensuremath{\langle}}
+\newcommand{\ra}{\ensuremath{\rangle}}
+
+
+\RecustomVerbatimEnvironment
+  {Verbatim}{Verbatim}
+  {frame=single,commandchars=\\\{\}}
+
+\begin{document}
+
+
+\huge\sf
+
+\ti{Paradigms for Process Interaction}
+\centerline{Andrews, Chapter 09}
+
+9_10.pdf
+9_11.pdf
+9_12.pdf
+9_13.pdf
+9_14.pdf
+9_15.pdf
+9_16.pdf
+9_17.pdf
+9_18.pdf
+9_19.pdf
+9_1a.pdf
+9_1b.pdf
+9_20.pdf
+9_21.pdf
+9_2.pdf
+9_3a.pdf
+9_3b.pdf
+9_4.pdf
+9_5.pdf
+9_6a.pdf
+9_6b.pdf
+9_7.pdf
+9_8.pdf
+9_9.pdf
+heartbeat.pdf
+image.pdf
+inner_prod.pdf
+mm_blocks.pdf

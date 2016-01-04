@@ -1,0 +1,643 @@
+\documentclass{beamer}
+\usetheme{Singapore}
+
+%\usepackage{pstricks,pst-node,pst-tree}
+\usepackage{amssymb,latexsym}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+\usepackage{relsize}
+\usepackage{multicol}
+
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ii}{\item}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\Show}[1]{\psshadowbox{#1}}
+
+
+\newcommand{\grf}[2]{\centerline{\includegraphics[width=#1\textwidth]{#2}}}
+\newcommand{\tw}{\textwidth}
+\newcommand{\bc}{\begin{columns}}
+\newcommand{\ec}{\end{columns}}
+\newcommand{\cc}[1]{\column{#1\textwidth}}
+
+\newcommand{\bfr}[1]{\begin{frame}[fragile]\frametitle{{ #1 }}}
+\newcommand{\efr}{\end{frame}}
+
+\newcommand{\cola}[1]{\begin{columns}\begin{column}{#1\textwidth}}
+\newcommand{\colb}[1]{\end{column}\begin{column}{#1\textwidth}}
+\newcommand{\colc}{\end{column}\end{columns}}
+
+\title{Little Book of Semaphores, Chapter 3}
+\author{Geoffrey Matthews\\
+\small Western Washington University}
+
+\RecustomVerbatimEnvironment{Verbatim}{Verbatim}
+{frame=single,fontsize=\relsize{-1}}
+
+\begin{document}
+\maketitle
+
+\bfr{Signaling}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Thread A]
+a1
+sem.signal()
+\end{Verbatim}
+\begin{Verbatim}[label=Thread B]
+sem.wait()
+b1
+\end{Verbatim}
+\end{multicols}
+\end{frame}
+
+\bfr{Rendezvous}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Thread A]
+a1
+a2
+\end{Verbatim}
+\begin{Verbatim}[label=Thread B]
+b1
+b2
+\end{Verbatim}
+\end{multicols}
+\bi
+\ii A has to wait for b1 to finish before a2
+\ii B has to wait for a1 to finish before b2
+\ii Ideas?
+\pause
+\ii Hint: use {\tt aArrived} and {\tt bArrived}
+\ei
+\end{frame}
+
+\bfr{Rendezvous}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Thread A]
+a1
+aArrived.signal()
+bArrived.wait()
+a2
+\end{Verbatim}
+\begin{Verbatim}[label=Thread B]
+b1
+bArrived.signal()
+aArrived.wait()
+b2
+\end{Verbatim}
+\end{multicols}
+\end{frame}
+
+\bfr{Rendezvous 2}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Thread A]
+a1
+bArrived.wait()
+aArrived.signal()
+a2
+\end{Verbatim}
+\begin{Verbatim}[label=Thread B]
+b1
+bArrived.signal()
+aArrived.wait()
+b2
+\end{Verbatim}
+\end{multicols}
+\bi\ii Will it still work?\ei
+\end{frame}
+
+\bfr{Rendezvous 3}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Thread A]
+a1
+bArrived.wait()
+aArrived.signal()
+a2
+\end{Verbatim}
+\begin{Verbatim}[label=Thread B]
+b1
+aArrived.wait()
+bArrived.signal()
+b2
+\end{Verbatim}
+\end{multicols}
+\bi
+\ii Will it still work?\pause
+\ii {\bf Deadlock!}
+\ei
+\end{frame}
+
+\bfr{Mutex}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Thread A]
+count = count + 1
+\end{Verbatim}
+\begin{Verbatim}[label=Thread B]
+count = count + 1
+\end{Verbatim}
+\end{multicols}
+\bi
+\ii Can't let both threads operate at the same time.
+\ii Don't care which goes first.
+\ii Ideas?
+\pause
+\ii Hint: create a semaphore {\tt mutex} initialized to 1.
+\ei
+\end{frame}
+
+
+\bfr{Mutex}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Thread A]
+mutex.wait()
+  # critical section
+  count = count + 1
+mutex.signal()
+\end{Verbatim}
+\begin{Verbatim}[label=Thread B]
+mutex.wait()
+  # critical section
+  count = count + 1
+mutex.signal()
+\end{Verbatim}
+\end{multicols}
+\pause
+\bi
+\ii A {\bf symmetric} solution.
+\ii Symmetric solutions are easy to generalize.
+\pause
+\ii Metaphorically we can look at this as a {\bf token} (the rock in
+the box).  
+\pause
+\ii Another metaphor is a {\bf lock}
+\ii Sometimes called ``getting'' and ``releasing'' a lock.
+\ei
+\end{frame}
+
+\bfr{Multiplex}
+\bi
+\ii Generalize the mutex so that at most {\tt n} threads can access
+the critical section at a time.
+\ii Ideas?
+\pause
+\ii Initialize the mutex to {\tt n}.
+\ei
+\begin{multicols}{2}
+\begin{Verbatim}[label=Thread i]
+mutex.wait()
+  # critical section
+  count = count + 1
+mutex.signal()
+\end{Verbatim}
+\begin{Verbatim}[label=Thread j]
+mutex.wait()
+  # critical section
+  count = count + 1
+mutex.signal()
+\end{Verbatim}
+\end{multicols}
+\end{frame}
+
+\bfr{Barrier}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Thread A]
+a1
+aArrived.signal()
+bArrived.wait()
+a2
+\end{Verbatim}
+\begin{Verbatim}[label=Thread B]
+b1
+bArrived.signal()
+aArrived.wait()
+b2
+\end{Verbatim}
+\end{multicols}
+\bi
+\ii Recall the rendezvous, above.
+\ii Is there a way to generalize this to {\tt n} threads?
+\ei
+
+
+\end{frame}
+
+\bfr{Barrier}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Thread i]
+rendezvous
+critical point
+\end{Verbatim}
+\begin{Verbatim}[label=Thread j]
+rendezvous
+critical point
+\end{Verbatim}
+\end{multicols}
+\bi
+\ii We want all tasks to finish {\tt rendezvous} before beginning {\tt
+  critical point}
+\ii When the first $n-1$ threads arrive, they should block until the
+$n$th thread arrives, when all should proceed.
+\ii Ideas?
+\ei
+
+
+\end{frame}
+
+\bfr{Barrier Hint}
+
+\begin{Verbatim}[label=Initialization]
+n = number of threads
+count = 0
+mutex = Semaphore(1)
+barrier = Semaphore(0)
+\end{Verbatim}
+
+\bi
+\ii {\tt count} keeps track of how many threads have arrived
+\ii {\tt mutex} provides atomic increment of {\tt count}
+\ii {\tt barrier} is locked until all threads arrive
+\ei
+
+\end{frame}
+\bfr{Barrier non-solution}
+
+\begin{Verbatim}[label=Thread i]
+rendezvous
+
+mutex.wait()
+  count = count + 1
+mutex.signal()
+
+if count == n:  barrier.signal()
+
+barrier.wait()
+
+critical point
+\end{Verbatim}
+
+\bi
+\ii What's wrong?
+\pause
+\ii Try simulation?
+\pause
+\ii Deadlock!
+\ei
+
+\end{frame}
+\bfr{Barrier working solution}
+
+\begin{Verbatim}[label=Thread i]
+rendezvous
+
+mutex.wait()
+  count = count + 1
+mutex.signal()
+
+if count == n:  barrier.signal()
+
+barrier.wait()
+barrier.signal()
+
+critical point
+\end{Verbatim}
+
+\bi
+\ii {\tt wait} then {\tt signal} is called a {\bf turnstile}
+\pause
+\ii After the $n$th thread, what state is the turnstile in?
+\pause
+\ii Is the barrier reusable?
+\ei
+
+\end{frame}
+\bfr{Another barrier non-solution}
+
+\begin{Verbatim}[label=Thread i]
+rendezvous
+
+mutex.wait()
+  count = count + 1
+  if count == n:  barrier.signal()
+
+  barrier.wait()
+  barrier.signal()
+mutex.signal()
+
+critical point
+\end{Verbatim}
+
+\bi
+\ii Deadlock again.  Why?
+\pause
+\ii Common source of deadlocks:  blocking on a semaphore while holding
+a mutex.
+\ei
+
+\end{frame}
+
+\bfr{Reusable barrier non-solution \#1}
+
+\begin{Verbatim}[label=Thread i]
+#rendezvous
+mutex.wait();  count += 1;  mutex.signal()
+if count == n: turnstile.signal()
+turnstile.wait()
+turnstile.signal()
+#critical point
+mutex.wait();  count -= 1;  mutex.signal()
+if count == 0: turnstile.wait()
+\end{Verbatim}
+
+\bi
+\ii What's wrong?
+\pause
+
+\ii If we interrupt a process {\em just before} evaluating the first
+conditional?
+
+\pause
+\ii It is possible that {\em all} the threads will see {\tt count == n} and signal the
+turnstile.
+\pause
+\ii If the second conditional is interrupted?
+\pause
+\ii Deadlock!
+\ei
+
+\end{frame}
+
+\bfr{Reusable barrier non-solution \#2}
+
+\begin{Verbatim}[label=Thread i]
+#rendezvous
+mutex.wait();  
+  count += 1;  
+  if count == n: turnstile.signal()
+mutex.signal()
+turnstile.wait()
+turnstile.signal()
+#critical point
+mutex.wait();
+  count -= 1;  
+  if count == 0: turnstile.wait()
+mutex.signal()
+\end{Verbatim}
+
+\bi
+\ii Still doesn't work.  Why?
+\pause
+\ii Hint:  this is meant to be in a loop.
+\pause
+\ii One thread could go around and through the turnstile again while
+the others sit there, getting one lap ahead.
+\ii What to do?
+\ei
+
+\end{frame}
+
+\bfr{Reusable barrier solution}
+
+\begin{Verbatim}[label=Thread i]
+#rendezvous
+mutex.wait();  
+  count += 1;  
+  if count == n: 
+    turnstile2.wait()       # lock the second
+    turnstile.signal()      # unlock the first
+mutex.signal()
+turnstile.wait()            # first turnstile
+turnstile.signal()
+#critical point
+mutex.wait();
+  count -= 1;  
+  if count == 0:
+    turnstile.wait()        # lock the first
+    turnstile2.signal()     # unlock the second
+mutex.signal()
+turnstile2.wait()           # second turnstile
+turnstile2.signal()    
+\end{Verbatim}
+
+
+\end{frame}
+\bfr{Reusable barrier solution}
+\bi
+\ii Called a {\bf two-phase barrier}
+\ii Forces all threads to wait twice: once for all to arrive, and
+again for all threads to execute the critical section. 
+\pause
+\ii Typical of semaphores---complex and difficult to understand.
+\ii Can we prove it correct?
+\pause
+\ii Only the $n$th thread can unlock turnstiles.
+\ii Before a thread can unlock the first turnstile, it has to close
+the second, and vice versa.  It is therefore impossible for one thread
+to get ahead of the others by more than one turnstile.
+\ei
+\end{frame}
+\bfr{Preloaded turnstile}
+\begin{Verbatim}
+# rendezvous
+mutex.wait()
+  count  += 1
+  if count == n:
+    turnstile2.wait()    # lock the second
+    turnstile.signal(n)  # unlock the first
+mutex.signal()
+turnstile.wait()         # first turnstile
+# critical point
+mutex.wait()
+  count -= 1
+  if count == 0:
+    turnstile.wait()     # lock the first
+    turnstile2.signal(n) # unlock the second
+mutex.signal()
+turnstile2.wait()        # second turnstile
+\end{Verbatim}
+\bi
+\ii Signals {\tt n} at a time
+\ii Could be done in a loop?
+\ei
+\end{frame}
+
+
+\bfr{Barrier Object}
+\begin{minipage}{0.6\textwidth}
+\begin{Verbatim}[fontsize=\relsize{-2}]
+class Barrier:
+  def __init__(self, n):
+    self.n = n
+    self.count = 0
+    self.mutex = Semaphore(1)
+    self.turnstile = Semaphore(0)
+    self.turnstile2 = Semaphore(0)
+  def phase1(self):
+    self.mutex.wait()
+      self.count += 1
+      if self.count == self.n:
+        self.turnstile2.wait()
+        self.turnstile.signal(self.n)
+    self.mutex.signal()
+    self.turnstile.wait()
+  def phase2(self):
+    self.mutex.wait()
+      self.count -= 1
+      if self.count == 0:
+        self.turnstile.wait()
+        self.turnstile2.signal(self.n)
+    self.mutex.signal()
+    self.turnstile2.wait()
+\end{Verbatim}
+\end{minipage}\begin{minipage}{0.4\textwidth}
+\begin{Verbatim}
+barrier = Barrier(n)
+...
+# rendezvous
+barrier.phase1()
+# critical point
+barrier.phase2()
+\end{Verbatim}
+\end{minipage}
+\end{frame}
+
+
+\bfr{Multiple barriers}
+\begin{minipage}{0.6\textwidth}
+\begin{Verbatim}[fontsize=\relsize{-2}]
+class Barrier:
+  def __init__(self, n):
+    self.n = n
+    self.count = 0
+    self.mutex = Semaphore(1)
+    self.turnstile = Semaphore(0)
+    self.turnstile2 = Semaphore(0)
+  def phase1(self):
+    self.mutex.wait()
+      self.count += 1
+      if self.count == self.n:
+        self.turnstile2.wait()
+        self.turnstile.signal(self.n)
+    self.mutex.signal()
+    self.turnstile.wait()
+  def phase2(self):
+    self.mutex.wait()
+      self.count -= 1
+      if self.count == 0:
+        self.turnstile.wait()
+        self.turnstile2.signal(self.n)
+    self.mutex.signal()
+    self.turnstile2.wait()
+\end{Verbatim}
+\end{minipage}\begin{minipage}{0.4\textwidth}
+\begin{Verbatim}
+barrier = Barrier(n)
+...
+loop:
+    # section A
+  barrier.phase1()
+    # section B
+  barrier.phase2()
+    # section C
+  barrier.phase1()
+    # section D
+  barrier.phase2()
+\end{Verbatim}
+\pause\bi
+\ii What if we have an odd number of sections?
+\ei
+\end{minipage}
+\end{frame}
+
+\bfr{Queue}
+\bi
+\ii Ballroom dancing.
+\ii If a leader arrives, it checks for a follower, if none available
+waits, otherwise proceeds. 
+\ii If a follower arrives, it checks for a leader, if none available
+waits, otherwise proceeds. 
+\ii Ideas?
+\pause
+\ii Hint:
+\begin{Verbatim}
+leaderQueue = Semaphore(0)
+followerQueue = Semaphore(0)
+\end{Verbatim}
+\ei
+\end{frame}
+
+\bfr{Queue solution}
+
+
+\begin{multicols}{2}
+\begin{Verbatim}[label=Leader]
+followerQueue.signal()
+leaderQueue.wait()
+dance()
+\end{Verbatim}
+\begin{Verbatim}[label=Follower]
+leaderQueue.signal()
+followerQueue.wait()
+dance()
+\end{Verbatim}
+\end{multicols}
+\pause
+\bi
+\ii Do the leaders and followers proceed together?
+\pause
+\ii It is possible for 100 leaders to dance before any followers do.
+\pause
+\ii Add constraint that only one leader and one follower can dance
+concurrently. 
+\ii Ideas?
+\ei
+
+\end{frame}
+\bfr{Exclusive Queue Hint}
+\begin{Verbatim}
+leaders = followers = 0
+mutex = Semaphore(1)
+leaderQueue = Semaphore(0)
+followerQueue = Semaphore(0)
+rendezvous = Semaphore(0)
+\end{Verbatim}
+
+\end{frame}
+\bfr{Exclusive Queue Solution}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Leader]
+mutex.wait()
+if followers > 0:
+  followers--
+  followerQueue.signal()
+else:
+  leaders++
+  mutex.signal()
+  leaderQueue.wait()
+dance()
+rendezvous.wait()
+mutex.signal()
+\end{Verbatim}
+\begin{Verbatim}[label=Follower]
+mutex.wait()
+if leaders > 0:
+  leaders--
+  leaderQueue.signal()
+else:
+  followers++
+  mutex.signal()
+  followerQueue.wait()
+dance()
+rendezvous.signal()
+
+\end{Verbatim}
+
+\end{multicols}
+
+\bi
+\ii ``Wait'' means ``wait on this queue''
+\ii ``Signal'' means ``let someone go from this queue''
+\ei
+
+\end{frame}
+
+\end{document}

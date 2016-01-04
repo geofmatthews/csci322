@@ -1,0 +1,279 @@
+\documentclass{article}
+\sloppy
+%\usepackage[margin=0.5in]{geometry}
+%\usepackage[landscape,margin=0.5in]{geometry}
+\usepackage[landscape,top=-1in,left=0.5in,right=0.5in,bottom=0.0in]{geometry}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{overpic}
+\usepackage{hyperref}
+
+\usepackage{fancyvrb}
+\setlength{\parindent}{0in}
+
+
+\newcommand{\nop}[1]{}
+\newcommand{\myfig}[1]{\newpage\begin{overpic}[scale=1.5]{figures/#1}}
+\newcommand{\myfigs}[2]{\newpage\begin{overpic}[scale=#1]{figures/#2}}
+\newcommand{\myfigsp}[3]{\newpage\begin{overpic}[scale=#1,page=#2]{figures/#3}}
+\newcommand{\myfigend}{\end{overpic}}
+\newcommand{\myput}[2]{\put(10,#1){$\bullet$ #2}}
+\newcommand{\myputn}[2]{\put(15,#1){#2}}
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ii}{\item}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\ti}[1]{
+\newpage
+\mbox{~}
+
+\vspace{1.25in}
+\centerline{\bf #1}
+}
+
+\newcommand{\la}{\ensuremath{\langle}}
+\newcommand{\ra}{\ensuremath{\rangle}}
+
+
+\RecustomVerbatimEnvironment
+  {Verbatim}{Verbatim}
+  {frame=single,commandchars=\\\{\}}
+
+\begin{document}
+
+
+\huge\sf
+
+\ti{Distributed Programming}
+
+\bi
+\ii Distributed memory architectures.
+\ii Concurrent programs here are usually called {\em distributed} programs.
+\ii No shared variables.
+\bi\ii No mutual exclusion necessary!\ei
+\ii Communicate and synchronize with {\em channels}:
+\bi
+\ii one-way or two-way
+\ii synchronous (blocking) or asynchronous (nonblocking)
+\ei
+\ii Four basic mechanisms:
+\bi
+\ii Chapter 7:
+\bi
+\ii asynchronous message passing
+\ii synchronous message passing
+\ei
+\ii Chapter 8:
+\bi
+\ii RPC (remote procedure call)
+\ii rendezvous
+\ei
+\ei
+\ii Chapter 9 describes several paradigms for distributed programming:
+\bi\ii managers/workers, hearbeat, pipeline, probe/echo, broadcast, \\
+token passing, decentralized servers\ei
+\ei
+
+\myfig{000_II_1.pdf}
+\myput{60}{Monitors combine implicit exclusion with explicit signalling}
+\myput{57}{Message passing adds data to semaphore}
+\myput{54}{RPC and Rendezvous combine procedural interface of monitors}
+\myputn{52}{with implicit message passing}
+\myfigend
+
+
+\ti{Message Passing}
+\centerline{Andrews, Chapter 07}
+
+\bi
+\ii Asynchronous message passing: channels are like semaphores.
+\ii {\tt send} and {\tt receive} are like {\tt V} and {\tt P}
+\ii {\tt receive} is {\em blocking}
+\ii May want to avoid blocking:  {\tt empty(ch)}
+\bi\ii use with caution:  may be unreliable\ei
+\ii The number of queued ``messages'' is the value of the semaphore.
+\ii We assume messages are atomic and delivery is reliable and
+error-free. 
+\ei
+
+\myfig{7_01.pdf}
+\myput{50}{Channels like this are called {\em mailboxes}}
+\myfigend
+
+\ti{Filters: Sorting}
+\begin{Verbatim}
+process Sort \{
+  \mbox{\rm receive all numbers from channel} input;
+  \mbox{\rm sort the numbers};
+  \mbox{\rm send the sorted numbers to channel} output;
+\}
+\end{Verbatim}
+\bi
+\ii Suitable for ``heavyweight'' processes.
+\ii Alternative: network of lightweight {\em merge} processes.
+\ei
+
+\myfig{7_02.pdf}
+\myfigend
+
+\myfig{7_03.pdf}
+\myput{60}{Original values can be lists sorted by ``mediumweight''
+  processes.} 
+\myfigend
+
+\myfig{7_04.pdf}
+\myput{90}{\bf Active Monitor}
+\myput{54}{Like a monitor with one method:  {\tt op}}
+\myput{52}{Client would call {\tt m.op(values, results)}}
+\myput{50}{Except,  here clients can do other things
+  between {\tt send} and {\tt recieve}.}
+\myput{48}{Clients need to send ID.}
+\myfigend
+
+\myfig{7_05.pdf}
+\myput{48}{No condition variables yet.}
+\myfigend
+
+\myfig{7_06.pdf}
+\myput{48}{Passing the condition:}
+\myputn{46}{good for translating into server code.}
+\myfigend
+
+\myfigs{1.25}{7_07.pdf}
+\put(48,79.5){$\Leftarrow$ Queue needed for {\tt wait}}
+\myfigend
+
+\ti{Other monitor code}
+\bi
+\ii {\tt wait} in a loop:
+\bi\ii queue requests and add code for when serviced\ei
+\ii Unconditional {\tt signal}:
+\bi
+  \ii check queue
+  \ii if nonempty, process it {\em after} finishing the {\tt signal}
+  \ii in other words: signal-and-continue
+\ei
+\ii Several exercises explore these problems.
+\ei
+
+\myfig{table7_1.pdf}
+\myput{60}{Shared memory favors Monitors}
+\myputn{58}{operating systems}
+\myput{55}{Distributed memory favors Message passing}
+\myputn{53}{networks, clusters}
+\myfigend
+
+\ti{Skipping \S 7.3.2 and \S 7.3.3}
+\bi
+\ii More complex examples of active monitors.
+\ei
+
+\nop{
+\myfig{7_08.pdf}
+\myfigend
+\myfigs{1.4}{7_09.pdf}
+\myfigend
+\myfigs{1.2}{7_10.pdf}
+\myfigend
+}
+
+\myfig{7_14.pdf}
+\put(3,90){\bf Interacting peers: each process needs maximum of all numbers}
+\myput{65}{Centralized solution:  $2(n-1)$ messages}
+\myputn{63}{with broadcast:  $n$ messages}
+\myputn{61}{not symmetric, one process does most of the work}
+\myput{58}{SPMD solution:  $n(n-1)$ messages}
+\myputn{56}{with broadcast: $n$ messages}
+\myputn{54}{symmetric}
+\myput{51}{Ring solution: $2(n-1)$ messages}
+\myputn{49}{almost symmetric, one process starts and ends}
+\myputn{47}{long delay, but efficient if other work needs to be done}
+\myfigend
+
+
+\myfig{7_11.pdf}
+\myfigend
+\myfig{7_12.pdf}
+\myfigend
+\myfig{7_13.pdf}
+\myfigend
+
+\ti{Synchronous message passing}
+\bi
+\ii \verb|synch_send| blocks until message received.
+\ii Buffer space bounded.
+\bi\ii Can even be zero.\ei
+\ii Concurrency reduced.
+\ii More prone to deadlock.
+\bi
+\ii Client/server and producer/consumer OK.
+\ii Interacting peers very difficult.
+\ei
+\ei
+
+
+\myfig{p318_pc_synchmp.pdf}
+\myfigend
+\myfig{p320_exchange_synchmp.pdf}
+\myput{60}{Deadlocks}
+\myput{57}{No problem with asynchronous send.}
+\myput{54}{Which of the three exchange-values solutions work with}
+\myputn{52}{{\tt asynch\_send}?} 
+\myfigend
+
+
+\ti{Skipping \S 7.6 and \S 7.7}
+\nop{
+\myfig{p322_GCD_csp.pdf}
+\myfigend
+\myfig{p324_copy_csp.pdf}
+\myfigend
+\myfig{p325_allocator_csp.pdf}
+\myfigend
+\myfig{p326_exchange_csp.pdf}
+\myfigend
+\myfig{7_15.pdf}
+\myfigend
+\myfig{p330_pc_occam.pdf}
+\myfigend
+\myfig{p331_copy_occam.pdf}
+\myfigend
+\myfig{p333_modernCSP.pdf}
+\myfigend
+
+\myfigsp{.9}{1}{7_16.pdf}
+\myfigend
+\myfigsp{.9}{2}{7_16.pdf}
+\myfigend
+}
+
+\ti{MPI}
+
+\bi
+\ii SPMD style
+\ii Also covered in Pacheco book available here:\\
+\url{http://ezproxy.library.wwu.edu/login?url=http://proquest.safaribooksonline.com/?uicode=wwu}
+\ei
+
+\myfig{7_17.pdf}
+\myfigend
+
+\ti{Networks and Sockets}
+\bi
+\ii TCP (Transmission Control Protocol)
+\bi\ii Same semantics as a channel.\ei
+\ii UDP (Unreliable Datagram Protocol)
+\bi\ii Used where speed more important than reliability.
+\ii Games, for example.\ei
+\ii Built on top of IP 
+\ii FTP and HTTP built on top of TCP
+\ii Available in most languages, Java illustrated in text.
+\ii Covered in detail in the network class.
+\ei
+
+
+\myfigs{1.1}{7_18.pdf}
+\myfigend
+\myfigs{1.3}{7_19.pdf}
+\myfigend
+\end{document}

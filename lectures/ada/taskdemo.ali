@@ -1,0 +1,92 @@
+V "GNAT Lib v4.5"
+M P W=b
+P SS ZX
+R nnnnnnvnnnnnnnnvnnvnvnvnvvnnvnnnnnnnvnnnnvnnnnvnvnnnnnnvnnnnnnnnnnnnv1nv1+nnnnnn
+
+U taskdemo%b		taskdemo.adb		6d16f462 NE OO SU
+W ada%s			ada.ads			ada.ali
+W ada.calendar.delays%s	a-caldel.adb		a-caldel.ali
+W ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
+W ada.real_time%s	a-reatim.adb		a-reatim.ali
+W ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W system%s		system.ads		system.ali
+W system.parameters%s	s-parame.adb		s-parame.ali
+W system.soft_links%s	s-soflin.adb		s-soflin.ali
+W system.task_info%s	s-tasinf.adb		s-tasinf.ali
+W system.tasking%s	s-taskin.adb		s-taskin.ali
+W system.tasking.rendezvous%s  s-tasren.adb	s-tasren.ali
+W system.tasking.stages%s  s-tassta.adb		s-tassta.ali
+
+D ada.ads		20070406091342 9c7dd3ea
+D a-calend.ads		20090409150019 19486c30
+D a-caldel.ads		20090409150019 c565f6eb
+D a-except.ads		20090727140100 34786013
+D a-finali.ads		20090409150019 bfd2ca79
+D a-filico.ads		20090409150019 4ff02a40
+D a-inteio.ads		20070406091342 03bc737c
+D a-ioexce.ads		20091130110856 2504b9d2
+D a-reatim.ads		20090409150019 7c462ab4
+D a-stream.ads		20090409150019 34aca5be
+D a-tags.ads		20090409150019 bfa07446
+D a-textio.ads		20091028140912 7065b2f2
+D a-tiinio.ads		20090409150019 949a7272
+D a-unccon.ads		20070406091342 51e09df2
+D interfac.ads		20090409150019 a69cad5c
+D i-c.ads		20070406091342 bc3ef662
+D i-cstrin.ads		20090417131547 d0370103
+D i-cstrea.ads		20090409150019 e1e064a9
+D system.ads		20111023073219 f47f7e1a
+D s-atacco.ads		20090409150019 60789a20
+D s-crtl.ads		20091130102047 bf835650
+D s-exctab.ads		20090417131547 4b7fd51d
+D s-ficobl.ads		20090409150019 8bb681e5
+D s-finimp.ads		20090409150019 90fd9896
+D s-finroo.ads		20090409150019 1408f9d1
+D s-osinte.ads		20090422121236 e19b549f
+D s-parame.ads		20091130110856 6cdeed25
+D s-secsta.ads		20090707124243 d2c357fb
+D s-soflin.ads		20090729085153 61e5c9e8
+D s-stache.ads		20090417130712 481f9e9d
+D s-stausa.ads		20090429103053 146a8ff1
+D s-stalib.ads		20090422095703 9cbc334a
+D s-stoele.ads		20090417130712 a4d57c26
+D s-stoele.adb		20090417130712 49ef69d7
+D s-stratt.ads		20090409150019 fef7c1da
+D s-tasinf.ads		20090409150019 ff3904e8
+D s-taspri.ads		20090409150019 f6de4d95
+D s-taprop.ads		20090409150019 25a7965c
+D s-taskin.ads		20090707124243 78c4deed
+D s-taprob.ads		20090409150019 5e00115c
+D s-tpoben.ads		20090409150019 18aadfe3
+D s-tasren.ads		20090409150019 5bda31d2
+D s-tassta.ads		20090409150019 71d2b71d
+D s-traent.ads		20090417130712 a66ef260
+D s-unstyp.ads		20090409150019 c0f9fae5
+D s-wchcon.ads		20090417130712 30c48dc1
+D s-win32.ads		20100128134454 4b10300f
+D taskdemo.adb		20130212015413 1ecf35ec
+X 1 ada.ads
+16K9*Ada 19e8 48|1r6 1r27 2r5 2r26
+X 7 a-inteio.ads
+18K13*Integer_Text_IO[13|45] 48|1w10 2r9
+X 12 a-textio.ads
+49K13*Text_IO 472e16 48|1w31 2r30
+167U14*New_Line 48|23r7 37r7
+X 13 a-tiinio.ads
+65U14*Put 48|22r7[7|18] 36r7[7|18]
+X 48 taskdemo.adb
+4U11*Taskdemo 4b11 42l5 42t13
+6T14 A_Type 8l8 8e14 13r8 16b14 26t7
+7Y13 Get 7>17 19b14 21l11 21t14 32r9
+7i17 NN{integer} 20r15
+9T14 B_Type 11l8 11e14 14r8 28b14 38t7
+10Y13 Get 10>17 25r9 33b14 35l11 35t14
+10i17 NN{integer} 34r15
+13t4 A{6T14} 32r7
+14t4 B{9T14} 25r7
+17i7 N{integer} 20m10 22r11 25r13 25r15
+19i18 NN{integer}
+29i7 N{integer} 34m10 36r11
+33i18 NN{integer}
+

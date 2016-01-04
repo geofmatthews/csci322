@@ -1,0 +1,22 @@
+#lang racket
+
+(define d displayln)
+
+(define thread-a (lambda ()
+                   (d 'a1)
+                   (d 'a2)
+                   (d 'a3)))
+
+(define thread-b (lambda ()
+                   (d 'b1)
+                   (d 'b2)))
+
+(define thread-c (lambda (x y z)
+                   (lambda ()
+                     (d (list 'c1 x y z))
+                     (d (list 'c2 x y z)))))
+
+(for-each (lambda (x) (thread x)) 
+          (list thread-a 
+                thread-b
+                (thread-c 1 2 3)))

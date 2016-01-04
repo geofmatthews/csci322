@@ -1,0 +1,84 @@
+#lang racket
+;; Demo of animation using threads
+;; Geoffrey Matthews
+;; 2013
+
+;; This version uses one thread for all animations
+(require racket/gui)
+
+(define frame (instantiate frame% ("Example")))
+(send frame create-status-line)
+
+(define my-canvas%
+  (class canvas% ; The base class is canvas%
+    ;; Declare overrides:
+    (override on-event on-paint )
+    (define cubes (make-object bitmap% "cubes.jpg"))
+    (define buffer-bitmap (make-object bitmap% (* 3 256) 256))
+    (define buffer-dc (make-object bitmap-dc% buffer-bitmap))
+    
+    (define rotations (vector 0 8 16))
+    (define threads (vector 0 0 0))
+    
+  ;  (define (dc) buffer-dc)
+  ;  (define (copy-buffer) (send (send this get-dc)
+  ;                              draw-bitmap buffer-bitmap 0 0))
+    (define (dc) (send this get-dc))
+    (define (copy-buffer) #f)
+    
+    (define (move pos)
+      (vector-set! rotations pos
+                   (modulo (add1 (vector-ref rotations pos)) 32))
+      (send this on-paint))
+        
+    ;; Define overriding method to handle mouse events
+    (define on-event 
+      (lambda (event)
+        (when (send event button-down?)
+          (let ((pos (quotient (send event get-x) 256)))
+            (cond ((and (thread? (vector-ref threads pos))
+                        (thread-running? (vector-ref threads pos)))
+                   (display "Killing thread...") 
+                   (display pos)
+                   (newline)
+                   (kill-thread (vector-ref threads pos)))
+                  (else
+                   (display "Starting thread...")
+                   (display pos)
+                   (newline)
+                   (vector-set! 
+                    threads pos
+                    (thread 
+                     (lambda () (let loop () (move pos) (sleep 0.05) (loop)))))
+                   ))))
+                     
+        (send frame set-status-text 
+              (format "mouse: ~a ~a" 
+                      (send event get-x) 
+                      (send event get-y)))
+        ))
+    (define on-paint
+      (lambda ()
+        (send (dc) draw-bitmap-section cubes
+              0 0 (* (vector-ref rotations 0) 256) 0 256 256)
+        (send (dc) draw-bitmap-section cubes
+              256 0 (* (vector-ref rotations 1) 256) 0 256 256)
+        (send (dc) draw-bitmap-section cubes
+              512 0 (* (vector-ref rotations 2) 256) 0 256 256)
+        (copy-buffer)
+        ))
+    
+    ;; Call the superclass initialization (and pass on all init args)
+    (super-instantiate ())))
+  
+(define panel (instantiate horizontal-panel% (frame)
+                (stretchable-height #f)))
+
+(instantiate button% 
+  ("Right" panel (lambda (button event) 
+                   (send frame set-status-text "Right button click"))))
+
+(define canvas (instantiate my-canvas% (frame) 
+                 (min-width (* 3 256)) (min-height 256)))
+  
+(send frame show #t)
