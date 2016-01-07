@@ -3,10 +3,7 @@
 ;; Geoffrey Matthews
 ;; 2013
 
-;; This version uses one thread for all animations
-;; This thread uses "busy waiting" incrementing by zero
-;; to "stop" the animation.
-
+;; This version uses one thread for each animation
 (require racket/gui)
 
 (define frame (instantiate frame% ("Example")))
@@ -21,7 +18,14 @@
     (define buffer-dc (make-object bitmap-dc% buffer-bitmap))
     
     (define rotations (vector 0 8 16))
-    (define increments (vector 1 1 1))
+    (define threads (vector 0 1 2))
+    (vector-map! (lambda (pos)
+                   (thread
+                    (lambda () (let loop () 
+                                 (move pos)
+                                 (sleep 0.05)
+                                 (loop)))))
+                 threads)
     
     ;; Double buffered:
     (define (dc) buffer-dc)
@@ -31,32 +35,26 @@
     ;(define (dc) (send this get-dc))
     ;(define (copy-buffer) #f)
     
-    (define animate
-      (thread
-       (lambda ()
-         (let outer-loop ()
-           (let inner-loop ((i 0))
-             (when (< i 3)
-               (vector-set! 
-                rotations i
-                (modulo
-                 (+ (vector-ref rotations i)
-                    (vector-ref increments i))
-                 32))
-               (inner-loop (add1 i))))
-           (send this refresh)
-           (sleep 0.05)
-           (outer-loop)))))
+    (define (move pos)
+      (vector-set! rotations pos
+                   (modulo (add1 (vector-ref rotations pos)) 32))
+      (send this on-paint))
         
     ;; Define overriding method to handle mouse events
     (define on-event 
       (lambda (event)
         (when (send event button-down?)
-          (let* ((pos (quotient (send event get-x) 256))
-                 (inc (vector-ref increments pos)))
-            (vector-set! increments pos (if (zero? inc) 1 0)))
-          )))
-    
+          (let ((pos (quotient (send event get-x) 256)))
+            (cond ((thread-running? (vector-ref threads pos))
+                   (send frame set-status-text
+                         (format "Suspending thread ~a" pos))
+                   (thread-suspend (vector-ref threads pos)))
+                  (else
+                   (send frame set-status-text
+                         (format "Resuming thread ~a" pos))
+                   (thread-resume (vector-ref threads pos))
+                   ))))
+        ))
     (define on-paint
       (lambda ()
         (send (dc) draw-bitmap-section cubes
@@ -68,8 +66,8 @@
         (copy-buffer)
         ))
     
-    ;; Call the superclass initialization
-    (super-new)))
+    ;; Call the superclass initialization (and pass on all init args)
+    (super-instantiate ())))
   
 (define panel (instantiate horizontal-panel% (frame)
                 (stretchable-height #f)))

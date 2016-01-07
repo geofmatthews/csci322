@@ -1,6 +1,6 @@
 #lang racket
 
-;; Define, then use:
+;; Define recursive function, then use:
 (define (loop n)
   (if (zero? n)
       (displayln 'done)
@@ -24,6 +24,10 @@
   (displayln n))
 
 ;; Or a for loop
+(for ((n '(5 4 3 2 1)))
+  (displayln n))
+(displayln 'done)
+
 (for ((n (in-range 5 0 -1)))
   (displayln n))
 (displayln 'done)

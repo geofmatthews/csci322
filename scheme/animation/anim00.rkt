@@ -3,6 +3,10 @@
 ;; Geoffrey Matthews
 ;; 2013
 
+;; In this version the thread is not suspended, but the increment
+;; is set to zero.  This gives us an idea of "busy waiting",
+;; the thread is doing work, but not accomplishing anything.
+
 (require racket/gui)
 
 (define frame (instantiate frame% ("Example")))

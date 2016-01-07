@@ -2,23 +2,25 @@
 
 (define d displayln)
 
-(define thread-a (lambda ()
+(define (run thunk) (thunk))
+
+(define thunk-a (lambda ()
                    (d 'a1)
                    (d 'a2)
                    (d 'a3)))
 
-(define thread-b (lambda ()
+(define thunk-b (lambda ()
                    (d 'b1)
                    (d 'b2)))
 
-(define thread-c (lambda (x y z)
-                   (lambda ()
-                     (d (list 'c1 x y z))
-                     (d (list 'c2 x y z)))))
+(define thunk-gen-c (lambda (x y z)
+                      (lambda ()
+                        (d (list 'c1 x y z))
+                        (d (list 'c2 x y z)))))
 
-(for-each (lambda (x) (thread x)) 
-          (list thread-a 
-                thread-b
-                (thread-c 1 2 3)
-                (thread-c 4 5 6)
-                ))
+(define thunks
+  (list thunk-a 
+        thunk-b
+        (thunk-gen-c 1 2 3)
+        (thunk-gen-c 4 5 6)
+        ))

@@ -4,6 +4,9 @@
 ;; 2013
 
 ;; This version uses one thread for each animation
+;; Clicking suspends and resumes the threads, so there
+;; is no "busy waiting" when doing nothing.
+
 (require racket/gui)
 
 (define frame (instantiate frame% ("Example")))

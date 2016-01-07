@@ -1,23 +1,30 @@
 import time
 from downey import *
 
-def threadA():
+def thunkA():
     print "a1"
     print "a2"
     print "a3"
     
-def threadB():
+def thunkB():
     print "b1"
     print "b2"
 
-def threadC(x, y, z):
+def procC(x, y, z):
     print "c1", x, y, z
     print "c2", x, y, z
 
-for thread in [threadA, threadB, threadC]:
-    if thread == threadC:
-        Thread(thread, 1, 2, 3)
+thunks = [thunkA, thunkB, procC]
+    
+for x in thunks:
+    if x == procC:
+        x(1, 2, 3)
     else:
-        Thread(thread)
+        x()
 
-time.sleep(1)
+for x in thunks:
+    if x == procC:
+        Thread(x, 1, 2, 3)
+    else:
+        Thread(x)
+
