@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\title{Boids!}
+\author{Homework \#1, CSCI 322, Winter 2016}
+\begin{document}
+\maketitle
+\centerline{\includegraphics[width=0.5\textwidth]{boids.png}}
+\begin{description}
+\item[Description:]  I have placed an animated boids demo in the class
+  repo called {\tt boids00.rkt}.  Currently it uses no explicit
+  threading, tha animation loop uses busy waiting when there is no
+  animation, and it uses {\tt sleep/yield} in order to collaborate
+  with the GUI.
+
+  Create two new version of this program:
+  \begin{enumerate}
+\item A program called {\tt boids01.rkt} that uses a single thread
+  for the animation loop:  calculate forces, move the boids, refresh
+  the view, sleep, repeat.  Clicking the checkbox should suspend and
+  resume this thread.  There should be no busy waiting when the
+  animation is suspended.  Use {\tt sleep } instead of {\tt
+    sleep/yield}.
+
+  Also, kill (not suspend) the animation thread when the window is
+  closed.  You do this by augmenting the {\tt on-close} method of the
+  top level {\tt frame\%}.  See my {\tt onclose.rkt} example in the
+  repo.
+
+\item A program called {\tt boids02.rkt} that uses a new thread for
+  each new boid. Each thread will take care of calculating the
+  forces and updating the position of its own boid.
+
+  Every time the
+  mouse is clicked, a new boid and a new thread are created. The
+  threads can be kept in a separate list, or each boid object can
+  contain its own thread.
+
+  There should be one more thread that takes
+  care of refreshing the view (there’s no point in each boid
+  refreshing the view). Note that the view refreshing does not have to
+  happen at the same frequency as the boid updating. For example,
+  given enough cycles, we can update the boid positions more
+  frequently than we refresh the view, to get a more accurate
+  simulation.
+
+  Clicking the checkbox suspends and resumes all of these
+  threads. Again, no busy waiting and no sleep/yield.
+
+  Also, kill all
+  threads when the window is closed.
+  \end{enumerate}
+
+
+\item[Due date:] Friday, January 23, at
+  midnight. Remember to upload both programs. Each should be stand-
+  alone and run without the other. 50\% of this assignment’s grade
+  points for each stage.
+  
+
+\end{description}
+
+\end{document}
