@@ -7,7 +7,7 @@
 \usepackage{fancyvrb}
 \usepackage{relsize}
 \usepackage{multicol}
-
+\usepackage{overpic}
 
 \newcommand{\bi}{\begin{itemize}}
 \newcommand{\ii}{\item}
@@ -576,11 +576,17 @@ while True:
   put_forks()
 \end{Verbatim}    
   \columnbreak
-  \includegraphics[width=0.5\textwidth]{dining-philosophers.jpg}
+\begin{overpic}[width=0.5\textwidth]{dining-philosophers.jpg}
+  \put(50,105){\large\bf 0}
+  \put(100,70){\large\bf 1}
+  \put(85,5){\large\bf 2}
+  \put(15,5){\large\bf 3}
+  \put(-5,70){\large\bf 4}
+\end{overpic}
 \end{multicols}
 \end{frame}
 
-\bfr{The Dining Philosophers}
+\bfr{The Dining Philosophers: a Non-solution}
 \begin{multicols}{2}
 \begin{Verbatim}[label=Which fork?]
 def left(i) = return i
@@ -603,8 +609,281 @@ def put_forks(i):
   fork[left(i)].signal()
 \end{Verbatim}    
 \columnbreak
-\includegraphics[width=0.5\textwidth]{dining-philosophers.jpg}
+\bi
+\ii Why does this not work?
+\pause
+\ii Deadlock is possible.  How?
+\ei
 \end{multicols}
+\end{frame}
+
+
+\bfr{The Dining Philosophers: Solution \#1}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Initialization]
+footman = Semaphore(4)
+\end{Verbatim}    
+    \vfill
+\begin{Verbatim}[label=Solution \#1]
+def get_forks(i):
+  footman.wait()
+  fork[right(i)].wait()
+  fork[left(i)].wait()
+
+def put_forks(i):
+  fork[right(i)].signal()
+  fork[left(i)].signal()
+  footman.signal()
+\end{Verbatim}    
+\columnbreak
+\bi
+\ii Only allow 4 philosophers at a time.
+\ii Can you prove deadlock is impossible?
+\ei
+\end{multicols}
+\end{frame}
+
+\bfr{The Dining Philosophers: Solution \#2}
+\bi
+\ii Have at least one leftie and at least one rightie.
+\ii How can you prove deadlock is impossible?
+\ei
+\end{frame}
+
+\bfr{The Dining Philosophers: Tanenbaum's solution}
+\begin{Verbatim}[label=Initialization]
+state = ['thinking'] * 5    
+sem = [Semaphore(0) for i in range(5)]
+mutex = Semaphore(1)
+\end{Verbatim}
+\begin{multicols}{2}
+\begin{Verbatim}
+def get_fork(i):    
+  mutex.wait()
+  state[i] = 'hungry'
+  test(i)
+  mutex.signal()
+  sem[i].wait()
+
+def put_fork(i):  
+  mutex.wait()
+  state[i] = 'thinking'
+  test(right(i))
+  test(left(i))
+  mutex.signal()
+\end{Verbatim}
+\columnbreak
+\begin{Verbatim}
+def test(i):
+if (
+  state[i] == 'hungry'
+  and
+  state(left(i)) != 'eating'
+  and
+  state(right(i)) != 'eating'
+  ) :
+    state[i] = 'eating'
+    sem[i].signal()
+\end{Verbatim}
+\end{multicols}
+\end{frame}
+
+\bfr{Tanenbaum's solution not starvation-free}
+\bi
+\ii Can you think of a situation where a Tanenbaum philosopher
+can starve?
+\ei
+\begin{multicols}{2}
+\begin{overpic}[width=0.5\textwidth]{dining-philosophers.jpg}
+  \put(50,105){\large\bf 0}
+  \put(100,70){\large\bf 1}
+  \put(85,5){\large\bf 2}
+  \put(15,5){\large\bf 3}
+  \put(-5,70){\large\bf 4}
+\end{overpic}
+\columnbreak
+\pause
+\bi
+\ii Imagine trying to starve 0.
+\ii Initially 1 and 3 are eating
+\ii 3 swaps with 4
+\ii 1 swaps with 2
+\ii Now 2 and 4 are eating
+\ii Repeat
+\ei
+\end{multicols}
+
+\end{frame}
+
+\bfr{Cigarette smokers problem}
+\bi
+\ii To smoke you need: paper, tobacco, and a match.
+\ii Four threads:  an agent and three smokers.
+\ii One smoker already has lots of paper.
+\ii One smoker already has lots of tobacco.
+\ii One smoker already has lots of matches.
+\ii The agent repeatedly obtains two ingredients at random.
+\ii The agent should wake up the smoker who needs those ingredients.
+\ei
+\end{frame}
+
+\bfr{Cigarette smokers problem: agent code}
+\bi
+\ii Interesting problem assumes we cannot change agent code.
+\ei
+\begin{multicols}{2}
+\begin{Verbatim}[label=Initialization]
+agentSem = Semaphore(1)
+tabacco = Semaphore(0)
+paper = Semaphore(0)
+match = Semaphore(0)
+\end{Verbatim}
+\columnbreak
+\begin{Verbatim}[label=Agent A]
+agentSem.wait()
+tabacco.signal()
+paper.signal()
+\end{Verbatim}
+
+\begin{Verbatim}[label=Agent B]
+agentSem.wait()
+paper.signal()
+match.signal()
+\end{Verbatim}
+
+\begin{Verbatim}[label=Agent C]
+agentSem.wait()
+tabacco.signal()
+match.signal()
+\end{Verbatim}
+\end{multicols}
+\end{frame}
+
+\bfr{Cigarette smokers problem: Non-solution}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Agent A]
+agentSem.wait()
+tabacco.signal()
+paper.signal()
+\end{Verbatim}
+
+\begin{Verbatim}[label=Agent B]
+agentSem.wait()
+paper.signal()
+match.signal()
+\end{Verbatim}
+
+\begin{Verbatim}[label=Agent C]
+agentSem.wait()
+tabacco.signal()
+match.signal()
+\end{Verbatim}
+
+\begin{Verbatim}[label=Smoker with matches]
+tabacco.wait()
+paper.signal()
+agentSem.signal()
+\end{Verbatim}
+
+\begin{Verbatim}[label=Smoker with tobacco]
+paper.wait()
+match.wait()
+agentSem.signal()
+\end{Verbatim}
+
+\begin{Verbatim}[label=Smoker with paper]
+tabacco.wait()
+match.wait()
+agentSem.signal()
+\end{Verbatim}
+\end{multicols}
+
+\bi
+\ii Why doesn't this work?
+\ei
+\end{frame}
+
+\bfr{Smokers problem:  Parnas solution}
+\begin{multicols}{2}
+
+\begin{Verbatim}[label=Initialization]
+isTobacco = isPaper =
+    isMatch = False
+tobaccoSem = Semaphore(0)    
+paperSem = Semaphore(0)    
+matchSem = Semaphore(0)    
+\end{Verbatim}
+
+\begin{Verbatim}[label=Smoker with tobacco]
+tobaccoSem.wait()
+makeCigarette()
+agentSem.signal()
+smoke()
+\end{Verbatim}
+
+\columnbreak
+
+\begin{Verbatim}[label=Pusher A]
+tobacco.wait()
+mutex.wait()  
+  if isPaper:
+    isPaper = False
+    matchSem.signal()
+  elif isMatch:
+    isMatch = False
+    paperSem.signal()
+  else:
+    isTobacco = True
+mutex.signal()
+\end{Verbatim}
+
+\end{multicols}
+
+\end{frame}
+
+
+\bfr{Generalized smokers problem}
+\begin{multicols}{2}
+
+\begin{Verbatim}[label=Initialization]
+numTobacco = numPaper =
+    numMatch = 1
+tobaccoSem = Semaphore(0)    
+paperSem = Semaphore(0)    
+matchSem = Semaphore(0)    
+\end{Verbatim}
+
+\begin{Verbatim}[label=Smoker with tobacco]
+tobaccoSem.wait()
+makeCigarette()
+agentSem.signal()
+smoke()
+\end{Verbatim}
+
+\columnbreak
+
+\begin{Verbatim}[label=Pusher A]
+tobacco.wait()
+mutex.wait()  
+  if numPaper:
+    isPaper -= 1
+    matchSem.signal()
+  elif numMatch:
+    isMatch -= 1
+    paperSem.signal()
+  else:
+    isTobacco += 1
+mutex.signal()
+\end{Verbatim}
+
+\end{multicols}
+
+\bi
+\ii Keep a {\bf scoreboard}:\\ \ \  variables describing the state of the
+  system.
+\ii Each agent checks the scoreboard to see if it can proceed.
+\ei
+
 \end{frame}
 
 

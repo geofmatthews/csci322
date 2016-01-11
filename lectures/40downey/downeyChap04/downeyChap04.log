@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.6.12)  11 JAN 2016 10:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.6.12)  11 JAN 2016 14:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -779,6 +779,31 @@ Package: multicol 2014/10/28 v1.8i multicolumn formatting (FMi)
 \colbreak@box=\box79
 \mc@col@check@num=\count164
 )
+(/usr/share/texlive/texmf-dist/tex/latex/overpic/overpic.sty
+Package: overpic 2010/09/13 v0.53  Overwriting graphics
+
+Package: overpic v0.53 <2010/09/13> (RN)
+(/usr/share/texlive/texmf-dist/tex/latex/eepic/epic.sty
+Enhancements to Picture Environment. Version 1.2 - Released June 1, 1986
+\@@multicnt=\count165
+\d@lta=\count166
+\@delta=\dimen197
+\@@delta=\dimen198
+\@gridcnt=\count167
+\@joinkind=\count168
+\@dotgap=\dimen199
+\@ddotgap=\dimen200
+\@x@diff=\count169
+\@y@diff=\count170
+\x@diff=\dimen201
+\y@diff=\dimen202
+\@dotbox=\box80
+\num@segments=\count171
+\num@segmentsi=\count172
+\@datafile=\read3
+)
+overpic: relative positioning in percent
+)
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\\' on input line 33.
@@ -837,16 +862,16 @@ LaTeX Font Info:    ... okay on input line 38.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count165
-\scratchdimen=\dimen197
-\scratchbox=\box80
-\nofMPsegments=\count166
-\nofMParguments=\count167
+\scratchcounter=\count173
+\scratchdimen=\dimen203
+\scratchbox=\box81
+\nofMPsegments=\count174
+\nofMParguments=\count175
 \everyMPshowfont=\toks43
-\MPscratchCnt=\count168
-\MPscratchDim=\dimen198
-\MPnumerator=\count169
-\makeMPintoPDFobject=\count170
+\MPscratchCnt=\count176
+\MPscratchDim=\dimen204
+\MPnumerator=\count177
+\makeMPintoPDFobject=\count178
 \everyMPtoPDFconversion=\toks44
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
@@ -864,7 +889,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 ABD: EveryShipout initializing macros
-\AtBeginShipoutBox=\box81
+\AtBeginShipoutBox=\box82
 Package hyperref Info: Link coloring OFF on input line 38.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
@@ -873,7 +898,7 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count171
+\c@section@level=\count179
 )
 LaTeX Info: Redefining \ref on input line 38.
 LaTeX Info: Redefining \pageref on input line 38.
@@ -1191,7 +1216,7 @@ File: dining-philosophers.jpg Graphic file (type jpg)
 Package pdftex.def Info: dining-philosophers.jpg used on input line 18.
 (pdftex.def)             Requested size: 153.64493pt x 154.16714pt.
 
-Overfull \hbox (10.0pt too wide) in paragraph at lines 18--19
+Overfull \hbox (8.97906pt too wide) in paragraph at lines 24--25
 []  
  []
 
@@ -1200,18 +1225,79 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 18--19
  <./dining-philosophers.jpg>]
 \openout4 = `downeyChap04.vrb'.
 
+ (./downeyChap04.vrb) [48
+
+]
+(./downeyChap04.vrb) [49
+
+]
+\openout4 = `downeyChap04.vrb'.
+
+ (./downeyChap04.vrb) [50
+
+]
+\openout4 = `downeyChap04.vrb'.
+
+ (./downeyChap04.vrb)
+[51
+
+]
+\openout4 = `downeyChap04.vrb'.
+
+ (./downeyChap04.vrb) [52
+
+]
+\openout4 = `downeyChap04.vrb'.
+
  (./downeyChap04.vrb
 File: dining-philosophers.jpg Graphic file (type jpg)
 
 <use dining-philosophers.jpg>
-Package pdftex.def Info: dining-philosophers.jpg used on input line 24.
+Package pdftex.def Info: dining-philosophers.jpg used on input line 7.
 (pdftex.def)             Requested size: 153.64493pt x 154.16714pt.
 
-Overfull \hbox (10.0pt too wide) in paragraph at lines 24--25
-[]  
+Overfull \hbox (8.97906pt too wide) in paragraph at lines 13--17
+[][] 
  []
 
-) [48
+) [53
+
+] (./downeyChap04.vrb
+File: dining-philosophers.jpg Graphic file (type jpg)
+ <use dining-philosophers.jpg>
+Package pdftex.def Info: dining-philosophers.jpg used on input line 7.
+(pdftex.def)             Requested size: 153.64493pt x 154.16714pt.
+
+Overfull \hbox (8.97906pt too wide) in paragraph at lines 13--17
+[][] 
+ []
+
+) [54
+
+]
+\openout4 = `downeyChap04.vrb'.
+
+ (./downeyChap04.vrb) [55
+
+]
+\openout4 = `downeyChap04.vrb'.
+
+ (./downeyChap04.vrb) [56
+
+]
+\openout4 = `downeyChap04.vrb'.
+
+ (./downeyChap04.vrb) [57
+
+]
+\openout4 = `downeyChap04.vrb'.
+
+ (./downeyChap04.vrb) [58
+
+]
+\openout4 = `downeyChap04.vrb'.
+
+ (./downeyChap04.vrb) [59
 
 ]
 \tf@nav=\write7
@@ -1223,11 +1309,11 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 24--25
 \tf@snm=\write9
 \openout9 = `downeyChap04.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 611.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 611.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 890.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 890.
  (./downeyChap04.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 611.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 611.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 890.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 890.
 Package rerunfilecheck Info: File `downeyChap04.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
@@ -1238,14 +1324,14 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 611.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 890.
  ) 
 Here is how much of TeX's memory you used:
- 17378 strings out of 494977
- 329388 string characters out of 6180183
- 401220 words of memory out of 5000000
- 19990 multiletter control sequences out of 15000+600000
- 13159 words of font info for 50 fonts, out of 8000000 for 9000
+ 17563 strings out of 494977
+ 331687 string characters out of 6180183
+ 407924 words of memory out of 5000000
+ 20123 multiletter control sequences out of 15000+600000
+ 13760 words of font info for 52 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  56i,15n,55p,408b,551s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/
@@ -1257,10 +1343,10 @@ ist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmtt9.pfb>
-Output written on downeyChap04.pdf (48 pages, 231262 bytes).
+Output written on downeyChap04.pdf (59 pages, 255992 bytes).
 PDF statistics:
- 1299 PDF objects out of 1440 (max. 8388607)
- 1219 compressed objects within 13 object streams
- 97 named destinations out of 1000 (max. 500000)
+ 1582 PDF objects out of 1728 (max. 8388607)
+ 1489 compressed objects within 15 object streams
+ 119 named destinations out of 1000 (max. 500000)
  54 words of extra memory for PDF output out of 10000 (max. 10000000)
 

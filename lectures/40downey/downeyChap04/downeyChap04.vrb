@@ -1,25 +1,42 @@
-\frametitle{ The Dining Philosophers }
+\frametitle{ Generalized smokers problem }
 \begin{multicols}{2}
-\begin{Verbatim}[label=Which fork?]
-def left(i) = return i
-def right(i) = return (i+1)%5
-\end{Verbatim}
-\mbox{}
-\begin{Verbatim}[label=Initialization]
-forks =
-  [Semaphore(1)
-    for i in range(5)]
-\end{Verbatim}
-\mbox{}
-\begin{Verbatim}[label=Non-solution]
-def get_forks(i):
-  fork[right(i)].wait()
-  fork[left(i)].wait()
 
-def put_forks(i):
-  fork[right(i)].signal()
-  fork[left(i)].signal()
+\begin{Verbatim}[label=Initialization]
+numTobacco = numPaper =
+    numMatch = 1
+tobaccoSem = Semaphore(0)
+paperSem = Semaphore(0)
+matchSem = Semaphore(0)
 \end{Verbatim}
+
+\begin{Verbatim}[label=Smoker with tobacco]
+tobaccoSem.wait()
+makeCigarette()
+agentSem.signal()
+smoke()
+\end{Verbatim}
+
 \columnbreak
-\includegraphics[width=0.5\textwidth]{dining-philosophers.jpg}
+
+\begin{Verbatim}[label=Pusher A]
+tobacco.wait()
+mutex.wait()
+  if numPaper:
+    isPaper -= 1
+    matchSem.signal()
+  elif numMatch:
+    isMatch -= 1
+    paperSem.signal()
+  else:
+    isTobacco += 1
+mutex.signal()
+\end{Verbatim}
+
 \end{multicols}
+
+\bi
+\ii Keep a {\bf scoreboard}:\\ \ \  variables describing the state of the
+  system.
+\ii Each agent checks the scoreboard to see if it can proceed.
+\ei
+
