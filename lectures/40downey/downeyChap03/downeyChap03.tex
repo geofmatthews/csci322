@@ -137,6 +137,23 @@ count = count + 1
 \end{Verbatim}
 \end{multicols}
 \bi
+\ii Any problems?
+\pause
+\ii Cannot assume operations are atomic.
+\ii Even if we write:\\\ \ \ \ {\tt count++}
+\ei
+\end{frame}
+
+\bfr{Mutex}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Thread A]
+count = count + 1
+\end{Verbatim}
+\begin{Verbatim}[label=Thread B]
+count = count + 1
+\end{Verbatim}
+\end{multicols}
+\bi
 \ii Can't let both threads operate at the same time.
 \ii Don't care which goes first.
 \ii Ideas?

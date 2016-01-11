@@ -37,11 +37,10 @@
 
 \bfr{Semaphores}
 \bi
-\ii A non-negative integer variable, initialized to any value.
+\ii An integer variable, initialized to any value.
 \ii Only {\bf increment} and {\bf decrement} available.
-\ii When a thread decrements, if the value is zero the thread blocks.
+\ii When a thread decrements, if the result is negative the thread blocks.
 \ii When a thread increments, if there are threads waiting, one gets unblocked.
-\pause
 \ii Increment and decrement are atomic.
 \pause
 \ii No getter.  Why?
@@ -80,6 +79,16 @@ fred.wait()
 \end{Verbatim}
 
 
+\end{frame}
+\bfr{Remarks}
+\bi
+\ii There is no way to know before decrementing if a thread will block.
+\ii After a thread increments a semaphore with waiting threads,
+there will be at least two active threads.
+There is no way to know which one will continue immediately.
+\ii When you signal a semaphore, there is no way to know if threads are
+waiting.
+\ei
 \end{frame}
 \bfr{Why semaphores?}
 \bi

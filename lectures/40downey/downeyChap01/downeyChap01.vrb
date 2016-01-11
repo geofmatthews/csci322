@@ -2,5 +2,6 @@
 \bi
 \ii Each hardware implementation may be different.\pause
 \ii Require hardware to provide specific known atomic operations.
-\ii Write programs that {\em only} assume these operations are atomic.
+\ii Write programs that {\em only} assume these operations are atomic.\pause
+\ii Example: {\bf semaphores}
 \ei

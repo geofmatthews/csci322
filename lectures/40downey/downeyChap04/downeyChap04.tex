@@ -33,8 +33,8 @@
 \small Western Washington University}
 
 \RecustomVerbatimEnvironment{Verbatim}{Verbatim}
-{frame=single,fontsize=\relsize{-1}}
-
+{numbers=left,frame=single,fontsize=\relsize{-1}}
+\setlength{\columnsep}{2\columnsep}
 \begin{document}
 \maketitle
 
@@ -283,7 +283,7 @@ mutex.signal()
 \end{frame}
 
 \bfr{A lightswitch object}
-\begin{minipage}{0.5\textwidth}
+\begin{minipage}{0.475\textwidth}
 \begin{Verbatim}
 class Lightswitch:
   def __init__(self):
@@ -304,7 +304,7 @@ class Lightswitch:
         semaphore.signal()
         self.mutex.signal()
 \end{Verbatim}
-\end{minipage}\begin{minipage}{0.5\textwidth}
+\end{minipage}\hspace{0.05\textwidth}\begin{minipage}{0.474\textwidth}
 \begin{Verbatim}[label=Initialization]
 readswitch = Lightswitch()
 roomEmpty = Semaphore(1)
@@ -465,30 +465,46 @@ assume:
 {\bf Property 1:}  if there is only one thread that is ready to run, the
 scheduler has to let it run.
 \ii This would be sufficient for the boundary problem.
-\pause
-\ii In general we need a stronger assumption:
+
+\ii In general we need a stronger assumption.
+\ei
+\end{frame}
+\bfr{Thread starvation}
+\bi
 \ii 
 {\bf Property 2:}  if a thread is ready to run, then the time it waits
 until it runs is bounded.
-\pause
+
 \ii We use this assumption in all our work.
 \ii Some schedulers in the real world do not guarantee this strictly.
+\ii Property 2 is not strong enough if we use semaphores.  Why?
 \ei
 \end{frame}
 
 \bfr{Semaphore starvation}
 \bi
-\ii When one thread signals a semaphore, which waiting thread is woken
-up?
-\pause
+\ii The weakest assumption about semaphores that makes it possible
+to avoid starvation is:
 \ii {\bf Property 3:}  if there are threads waiting on a semaphore
 when a thread executes {\tt signal}, then one of the waiting threads
 has to be woken.
+\ei
 \pause
+\begin{multicols}{2}
+\bi
 \ii Prevents a thread from signalling a semaphore, racing
-around a loop, waiting on the same semaphore, and catching its own
+around a loop and catching its own
 signal! 
+\ei
+\begin{Verbatim}[label=Thread i]
+  while True:
+    mutex.wait()
+    # critical section
+    mutex.signal()
+\end{Verbatim}
+\end{multicols}
 \pause
+\bi
 \ii However, if A, B, and C are using a mutex in a loop, A and B could
 race around and around, starving C.
 \pause
@@ -509,7 +525,87 @@ number of threads that will be woken before it is bounded.
 impossible to solve the mutex problem without starvation with weak
 semaphores. 
 \pause
-\ii Morris showed you could do it in 1979. (Solution in book.)
+\ii Morris showed you could do it in 1979.
 \ei
 \end{frame}
+\bfr{Morris's algorithm}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Initialization]
+room1 = room2 = 0
+mutex = Semaphore(1)
+t1 = Semaphore(1)
+t2 = Semaphore(0)
+\end{Verbatim}
+\columnbreak
+\begin{Verbatim}
+mutex.wait()
+  room1 += 1
+mutex.signal()
+t1.wait()
+  room2 += 1
+  mutex.wait()
+  room1 -= 1
+  if room1 == 0:
+    mutex.signal()
+    t2.signal()
+t2.wait()
+  room2 -= 1
+  # critical section
+  if room2 == 0:
+    t1.signal()
+  else:
+    t2.signal()
+\end{Verbatim}
+\end{multicols}
+\end{frame}
+
+\bfr{The Dining Philosophers}
+\begin{multicols}{2}
+  \bi
+  \ii Five philosophers are eating spaghetti.
+  \ii There are five forks.
+  \ii Eating spaghetti requires two forks.
+  \ii More than one philosopher can eat at a time.
+  \ei
+\mbox{}
+\begin{Verbatim}[label=Philosopher i]
+while True:
+  think()
+  get_forks()
+  eat()
+  put_forks()
+\end{Verbatim}    
+  \columnbreak
+  \includegraphics[width=0.5\textwidth]{dining-philosophers.jpg}
+\end{multicols}
+\end{frame}
+
+\bfr{The Dining Philosophers}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Which fork?]
+def left(i) = return i
+def right(i) = return (i+1)%5
+\end{Verbatim}    
+\mbox{}
+\begin{Verbatim}[label=Initialization]
+forks =
+  [Semaphore(1)
+    for i in range(5)]
+\end{Verbatim}    
+\mbox{}
+\begin{Verbatim}[label=Non-solution]
+def get_forks(i):
+  fork[right(i)].wait()
+  fork[left(i)].wait()
+
+def put_forks(i):
+  fork[right(i)].signal()
+  fork[left(i)].signal()
+\end{Verbatim}    
+\columnbreak
+\includegraphics[width=0.5\textwidth]{dining-philosophers.jpg}
+\end{multicols}
+\end{frame}
+
+
 \end{document}
