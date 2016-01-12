@@ -28,7 +28,7 @@
         (sleep .1)
         (set! m (vref a i)))))
 
-(when #f
+(when #t
   (max02)
   (displayln m))
 
@@ -40,7 +40,7 @@
          (sleep .1)
          (set! m (vref a i))))))
 
-(when #f
+(when #t
   (max03)
   (displayln m))
 
