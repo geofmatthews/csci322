@@ -39,6 +39,9 @@
 \maketitle
 
 \bfr{Signaling}
+\begin{Verbatim}[label=Initialization]
+sem = Semaphore(0)
+\end{Verbatim}
 \begin{multicols}{2}
 \begin{Verbatim}[label=Thread A]
 a1
@@ -72,6 +75,10 @@ b2
 \end{frame}
 
 \bfr{Rendezvous}
+\begin{Verbatim}[label=Initialization]
+  aArrived = Semaphore(0)
+  bArrived = Semaphore(0)
+\end{Verbatim}
 \begin{multicols}{2}
 \begin{Verbatim}[label=Thread A]
 a1
@@ -103,7 +110,11 @@ aArrived.wait()
 b2
 \end{Verbatim}
 \end{multicols}
-\bi\ii Will it still work?\ei
+\bi\ii Will it still work?
+\pause
+\ii Try to limit context switches.
+\ii Do everything you can before waiting.
+\ei
 \end{frame}
 
 \bfr{Rendezvous 3}
@@ -159,11 +170,16 @@ count = count + 1
 \ii Ideas?
 \pause
 \ii Hint: create a semaphore {\tt mutex} initialized to 1.
+\ii The rock in the box!
 \ei
 \end{frame}
 
 
 \bfr{Mutex}
+\begin{Verbatim}[label=Initialization]
+  mutex = Semaphore(1)
+\end{Verbatim}
+
 \begin{multicols}{2}
 \begin{Verbatim}[label=Thread A]
 mutex.wait()
@@ -183,8 +199,8 @@ mutex.signal()
 \ii A {\bf symmetric} solution.
 \ii Symmetric solutions are easy to generalize.
 \pause
-\ii Metaphorically we can look at this as a {\bf token} (the rock in
-the box).  
+\ii Metaphorically we can look at this as a {\bf token}:\\\ \  the rock in
+the box, the  talking stick
 \pause
 \ii Another metaphor is a {\bf lock}
 \ii Sometimes called ``getting'' and ``releasing'' a lock.
@@ -199,6 +215,12 @@ the critical section at a time.
 \pause
 \ii Initialize the mutex to {\tt n}.
 \ei
+
+\bigskip
+
+\begin{Verbatim}[label=Initialization]
+  mutex = Semaphore(n)
+\end{Verbatim}
 \begin{multicols}{2}
 \begin{Verbatim}[label=Thread i]
 mutex.wait()
@@ -216,6 +238,11 @@ mutex.signal()
 \end{frame}
 
 \bfr{Barrier}
+\begin{Verbatim}[label=Initialization]
+  aArrived = Semaphore(0)
+  bArrived = Semaphore(0)
+\end{Verbatim}
+
 \begin{multicols}{2}
 \begin{Verbatim}[label=Thread A]
 a1
@@ -279,33 +306,31 @@ barrier = Semaphore(0)
 \bfr{Barrier non-solution}
 
 \begin{Verbatim}[label=Thread i]
-rendezvous
-
+#rendezvous
 mutex.wait()
   count = count + 1
 mutex.signal()
 
-if count == n:  barrier.signal()
+if count == n:    barrier.signal()
 
 barrier.wait()
 
-critical point
+#critical point
 \end{Verbatim}
 
 \bi
 \ii What's wrong?
 \pause
-\ii Try simulation?
-\pause
 \ii Deadlock!
+\pause
+\ii Does it {\em always} deadlock?
 \ei
 
 \end{frame}
 \bfr{Barrier working solution}
 
 \begin{Verbatim}[label=Thread i]
-rendezvous
-
+#rendezvous
 mutex.wait()
   count = count + 1
 mutex.signal()
@@ -315,22 +340,43 @@ if count == n:  barrier.signal()
 barrier.wait()
 barrier.signal()
 
-critical point
+#critical point
 \end{Verbatim}
 
 \bi
-\ii {\tt wait} then {\tt signal} is called a {\bf turnstile}
-\pause
-\ii After the $n$th thread, what state is the turnstile in?
-\pause
-\ii Is the barrier reusable?
+\ii  {\tt wait} then {\tt signal} is called a {\bf turnstile}
+\ii  It blocks all threads until one thread signals, \\ \ \
+then lets all through.
+\ii   An ``open'' turnstyle can be {\em locked} by calling {\tt wait}\\ \ \
+and {\em unlocked} by calling {\tt signal}.
+\ei
+\end{frame}
+\bfr{Barrier working solution}
+
+\begin{Verbatim}[label=Thread i]
+#rendezvous
+mutex.wait()
+  count = count + 1
+mutex.signal()
+
+if count == n:  barrier.signal()
+
+barrier.wait()
+barrier.signal()
+
+#critical point
+\end{Verbatim}
+
+\bi
+\ii  After the $n$th thread, what state is the turnstile in?
+\ii  Is the barrier reusable?  Can we put this code in a loop?
 \ei
 
 \end{frame}
 \bfr{Another barrier non-solution}
 
 \begin{Verbatim}[label=Thread i]
-rendezvous
+#rendezvous
 
 mutex.wait()
   count = count + 1
@@ -340,7 +386,7 @@ mutex.wait()
   barrier.signal()
 mutex.signal()
 
-critical point
+#critical point
 \end{Verbatim}
 
 \bi
@@ -513,6 +559,14 @@ barrier = Barrier(n)
 barrier.phase1()
 # critical point
 barrier.phase2()
+\end{Verbatim}
+\begin{Verbatim}
+barrier = Barrier(n)
+...
+# rendezvous
+barrier.phase1()
+barrier.phase2()
+# critical point
 \end{Verbatim}
 \end{minipage}
 \end{frame}

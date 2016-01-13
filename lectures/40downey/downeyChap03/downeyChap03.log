@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.6.12)  11 JAN 2016 09:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.6.12)  13 JAN 2016 10:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1002,53 +1002,55 @@ LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
  (./downeyChap03.vrb)
 [6
 
+] (./downeyChap03.vrb) [7
+
 ]
 \openout4 = `downeyChap03.vrb'.
 
- (./downeyChap03.vrb) [7
+ (./downeyChap03.vrb) [8
 
-] (./downeyChap03.vrb) [8
+] (./downeyChap03.vrb)
+[9
+
+]
+\openout4 = `downeyChap03.vrb'.
+
+ (./downeyChap03.vrb) [10
+
+] (./downeyChap03.vrb) [11
 
 ]
 \openout4 = `downeyChap03.vrb'.
 
  (./downeyChap03.vrb)
-[9
-
-] (./downeyChap03.vrb) [10
-
-]
-\openout4 = `downeyChap03.vrb'.
-
- (./downeyChap03.vrb) [11
-
-] (./downeyChap03.vrb)
 [12
 
+] (./downeyChap03.vrb) [13
+
 ]
 \openout4 = `downeyChap03.vrb'.
 
- (./downeyChap03.vrb) [13
-
-] (./downeyChap03.vrb) [14
+ (./downeyChap03.vrb) [14
 
 ] (./downeyChap03.vrb)
 [15
 
 ] (./downeyChap03.vrb) [16
 
+] (./downeyChap03.vrb) [17
+
 ]
 \openout4 = `downeyChap03.vrb'.
 
- (./downeyChap03.vrb) [17
-
-] (./downeyChap03.vrb)
+ (./downeyChap03.vrb)
 [18
 
+] (./downeyChap03.vrb) [19
+
 ]
 \openout4 = `downeyChap03.vrb'.
 
- (./downeyChap03.vrb) [19
+ (./downeyChap03.vrb) [20
 
 ]
 \openout4 = `downeyChap03.vrb'.
@@ -1076,85 +1078,86 @@ line 15.
 File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/ma
 thkerncmss.
 ))
-[20
-
-]
-\openout4 = `downeyChap03.vrb'.
-
- (./downeyChap03.vrb) [21
+[21
 
 ]
 \openout4 = `downeyChap03.vrb'.
 
  (./downeyChap03.vrb) [22
 
-] (./downeyChap03.vrb)
-[23
+]
+\openout4 = `downeyChap03.vrb'.
 
-] (./downeyChap03.vrb) [24
+ (./downeyChap03.vrb) [23
+
+] (./downeyChap03.vrb)
+[24
+
+] (./downeyChap03.vrb) [25
 
 ]
 \openout4 = `downeyChap03.vrb'.
 
- (./downeyChap03.vrb) [25
+ (./downeyChap03.vrb) [26
 
-] (./downeyChap03.vrb)
-[26
+]
+\openout4 = `downeyChap03.vrb'.
 
-] (./downeyChap03.vrb) [27
+ (./downeyChap03.vrb)
+[27
 
 ]
 \openout4 = `downeyChap03.vrb'.
 
  (./downeyChap03.vrb) [28
 
-] (./downeyChap03.vrb)
-[29
+] (./downeyChap03.vrb) [29
 
 ]
 \openout4 = `downeyChap03.vrb'.
 
- (./downeyChap03.vrb) [30
+ (./downeyChap03.vrb)
+[30
 
 ] (./downeyChap03.vrb) [31
 
-] (./downeyChap03.vrb)
-[32
+] (./downeyChap03.vrb) [32
 
-] (./downeyChap03.vrb) [33
+] (./downeyChap03.vrb)
+[33
 
 ] (./downeyChap03.vrb) [34
 
 ]
 \openout4 = `downeyChap03.vrb'.
 
- (./downeyChap03.vrb)
-[35
+ (./downeyChap03.vrb) [35
 
-] (./downeyChap03.vrb) [36
+] (./downeyChap03.vrb)
+[36
 
 ] (./downeyChap03.vrb) [37
 
 ]
 \openout4 = `downeyChap03.vrb'.
 
- (./downeyChap03.vrb)
-[38
+ (./downeyChap03.vrb) [38
 
 ]
 \openout4 = `downeyChap03.vrb'.
 
- (./downeyChap03.vrb) [39
+ (./downeyChap03.vrb)
+[39
 
 ] (./downeyChap03.vrb) [40
 
-] (./downeyChap03.vrb)
-[41
+] (./downeyChap03.vrb) [41
 
 ]
 \openout4 = `downeyChap03.vrb'.
 
- (./downeyChap03.vrb) [42
+ (./downeyChap03.vrb)
+[42
 
 ]
 \openout4 = `downeyChap03.vrb'.
@@ -1164,30 +1167,30 @@ thkerncmss.
 ]
 \openout4 = `downeyChap03.vrb'.
 
- (./downeyChap03.vrb)
-[44
+ (./downeyChap03.vrb) [44
 
-] (./downeyChap03.vrb) [45
+] (./downeyChap03.vrb)
+[45
 
 ]
 \openout4 = `downeyChap03.vrb'.
 
  (./downeyChap03.vrb) [46
 
-] (./downeyChap03.vrb)
-[47
+] (./downeyChap03.vrb) [47
 
 ]
 \openout4 = `downeyChap03.vrb'.
 
- (./downeyChap03.vrb) [48
+ (./downeyChap03.vrb)
+[48
 
 ] (./downeyChap03.vrb) [49
 
-] (./downeyChap03.vrb)
-[50
+] (./downeyChap03.vrb) [50
 
-] (./downeyChap03.vrb) [51
+] (./downeyChap03.vrb)
+[51
 
 ]
 \openout4 = `downeyChap03.vrb'.
@@ -1197,8 +1200,7 @@ thkerncmss.
 ]
 \openout4 = `downeyChap03.vrb'.
 
- (./downeyChap03.vrb)
-[53
+ (./downeyChap03.vrb) [53
 
 ]
 \tf@nav=\write7
@@ -1210,11 +1212,11 @@ thkerncmss.
 \tf@snm=\write9
 \openout9 = `downeyChap03.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 660.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 660.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 714.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 714.
  (./downeyChap03.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 660.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 660.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 714.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 714.
 Package rerunfilecheck Info: File `downeyChap03.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
@@ -1225,13 +1227,13 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 660.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 714.
  ) 
 Here is how much of TeX's memory you used:
- 17368 strings out of 494977
- 328864 string characters out of 6180183
+ 17370 strings out of 494977
+ 328880 string characters out of 6180183
  403194 words of memory out of 5000000
- 19964 multiletter control sequences out of 15000+600000
+ 19966 multiletter control sequences out of 15000+600000
  12472 words of font info for 48 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  56i,15n,55p,408b,551s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1243,7 +1245,7 @@ xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/share/texlive
 -dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texlive/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmtt9.pfb>
-Output written on downeyChap03.pdf (53 pages, 191288 bytes).
+Output written on downeyChap03.pdf (53 pages, 193222 bytes).
 PDF statistics:
  1424 PDF objects out of 1440 (max. 8388607)
  1340 compressed objects within 14 object streams
