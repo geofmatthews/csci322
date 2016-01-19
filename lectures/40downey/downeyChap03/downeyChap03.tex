@@ -28,12 +28,13 @@
 \newcommand{\colb}[1]{\end{column}\begin{column}{#1\textwidth}}
 \newcommand{\colc}{\end{column}\end{columns}}
 
+\RecustomVerbatimEnvironment{Verbatim}{Verbatim}
+{numbers=left,numbersep=0pt,frame=single,fontsize=\relsize{-1}}
+%\setlength{\columnsep}{2\columnsep}
+
 \title{Little Book of Semaphores, Chapter 3}
 \author{Geoffrey Matthews\\
 \small Western Washington University}
-
-\RecustomVerbatimEnvironment{Verbatim}{Verbatim}
-{frame=single,fontsize=\relsize{-1}}
 
 \begin{document}
 \maketitle
@@ -551,7 +552,7 @@ class Barrier:
     self.mutex.signal()
     self.turnstile2.wait()
 \end{Verbatim}
-\end{minipage}\begin{minipage}{0.4\textwidth}
+\end{minipage}\hfill\begin{minipage}{0.35\textwidth}
 \begin{Verbatim}
 barrier = Barrier(n)
 ...
@@ -599,7 +600,7 @@ class Barrier:
     self.mutex.signal()
     self.turnstile2.wait()
 \end{Verbatim}
-\end{minipage}\begin{minipage}{0.4\textwidth}
+\end{minipage}\hfill\begin{minipage}{0.35\textwidth}
 \begin{Verbatim}
 barrier = Barrier(n)
 ...

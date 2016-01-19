@@ -1,0 +1,11 @@
+#lang racket
+
+(define balance 0)
+(define deposit
+  (lambda (amount)
+    (for ((i (in-range amount)))
+      (set! balance (+ balance 1)))))
+(for ((i (in-range 1000)))
+  (thread
+   (lambda ()
+     (deposit 1000))))

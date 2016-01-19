@@ -33,8 +33,8 @@
 \small Western Washington University}
 
 \RecustomVerbatimEnvironment{Verbatim}{Verbatim}
-{numbers=left,frame=single,fontsize=\relsize{-1}}
-\setlength{\columnsep}{2\columnsep}
+{numbers=left,numbersep=0pt,frame=single,fontsize=\relsize{-1}}
+%\setlength{\columnsep}{2\columnsep}
 \begin{document}
 \maketitle
 
@@ -166,8 +166,12 @@ if items >= bufferSize:
 \ii Even if we could, we could be interrupted between checking and
 blocking.
 \ii We {\em don't} want to block inside a mutex!
-\pause
 \ii What to do?
+\pause
+\ii How can we use a semaphore to count?
+\pause
+\ii We can {\em only} ``check'' if a semaphore is zero.
+\ii (For this problem, think of semaphores as $\geq 0$.)
 \ei
 \end{frame}
 
@@ -179,6 +183,7 @@ spaces = Semaphore(bufferSize)
 \end{Verbatim}
 \bi
 \ii {\tt items + spaces = bufferSize}
+\ii (only considering positive semaphore values)
 \ei
 \end{frame}
 
@@ -223,7 +228,10 @@ and help prove properties.
 \ii Any number of readers can be in the critical section
 simultaneously.
 \ii Writers must have exclusive access to the critical section.
+\ii This might be called {\bf categorical mutual exclusion}.
 \ii Ideas?
+\pause
+\ii Remember the barrier, where the last one in opened the turnstyle?
 \ei
 \end{frame}
 
@@ -247,6 +255,12 @@ roomEmpty.wait()
 # critical section for writer
 roomEmpty.signal()
 \end{Verbatim}
+
+\bi
+\ii A {\bf Lightswitch}
+\ii Note that Readers wait while holding a mutex.
+\ii Can we prove that this is never deadlocks?
+\ei
 \newpage
 \begin{Verbatim}[label=Readers]
 mutex.wait()
@@ -267,20 +281,44 @@ mutex.signal()
 \end{Verbatim}
 \end{multicols}
 
-\bi
-\ii A {\bf Lightswitch}
-\ei
-
 \end{frame}
 
 \bfr{Claims useful in a proof of correctness}
+\begin{multicols}{2}
+\begin{Verbatim}[label=Writers]
+roomEmpty.wait()
+# critical section for writer
+roomEmpty.signal()
+\end{Verbatim}
+
 \bi
 \ii Only one reader can queue on {\tt roomEmpty}
 \ii Several writers might be queued on {\tt roomEmpty}
 \ii When a reader signals {\tt roomEmpty} the room is empty
 \ei
+\newpage
+\begin{Verbatim}[label=Readers]
+mutex.wait()
+  readers += 1
+  if readers == 1:
+    # first in locks:
+    roomEmpty.wait()
+mutex.signal()
+
+# critical section for reader
+
+mutex.wait()
+  readers -= 1
+  if readers == 0:
+    # last out unlocks
+    roomEmpty.signal()
+mutex.signal()
+\end{Verbatim}
+\end{multicols}
 
 \end{frame}
+
+
 
 \bfr{A lightswitch object}
 \begin{minipage}{0.475\textwidth}
@@ -322,8 +360,36 @@ roomEmpty.wait()
 roomEmpty.signal()
 \end{Verbatim}
 \vfill
+\bi
+\ii Note that {\tt lock} takes the semaphore to lock
+as an argument.
+\ei
 \end{minipage}
 \end{frame}        
+
+\bfr{Rewritten Readers-Writers Solution}
+\begin{Verbatim}[label=Initialization]
+  readSwitch = Lightswitch()
+  roomEmpty = Semaphore(1)
+\end{Verbatim}
+
+\begin{multicols}{2}
+\begin{Verbatim}[label=Writers]
+roomEmpty.wait()
+# critical section for writer
+roomEmpty.signal()
+\end{Verbatim}
+
+\newpage
+\begin{Verbatim}[label=Readers]
+readSwitch.lock(roomEmpty)
+# critical section for reader
+readSwitch.unlock(roomEmpty)
+\end{Verbatim}
+\end{multicols}
+\end{frame}
+
+
 
 \bfr{Starvation}
 
@@ -387,6 +453,10 @@ readSwitch.unlock(roomEmpty)
 
 \bfr{Priority Scheduling}
 \bi
+\ii Suppose a writer is writing, readers are waiting, and a writer arrives?
+\pause
+\ii Usually readers want the most up-to-date data.
+\pause
 \ii Some schedulers allow priority scheduling.
 \ii Puzzle:  Write a solution to readers-writers that gives priority
 to writers.  In other words, once a writer arrives, no readers are
@@ -394,6 +464,8 @@ allowed in the critical section until {\em all} writers have left the
 system. 
 \pause
 \ii Hint: use two lightswitches
+\pause
+\ii One lightswitch controls access to the {\em VIP waiting area}.
 \ei
 \end{frame}        
 
@@ -410,7 +482,7 @@ noWriters = Semaphore(1)
 \bfr{Writer-priority readers-writers solution}
 \begin{multicols}{2}
 \begin{Verbatim}[label=Writers]
-writeSwith.lock(noReaders)
+writeSwitch.lock(noReaders)
   noWriters.wait()
 
     # critical section
@@ -464,7 +536,7 @@ assume:
 \ii
 {\bf Property 1:}  if there is only one thread that is ready to run, the
 scheduler has to let it run.
-\ii This would be sufficient for the boundary problem.
+\ii This would be sufficient for the barrier problem.
 
 \ii In general we need a stronger assumption.
 \ei
@@ -478,6 +550,9 @@ until it runs is bounded.
 \ii We use this assumption in all our work.
 \ii Some schedulers in the real world do not guarantee this strictly.
 \ii Property 2 is not strong enough if we use semaphores.  Why?
+\pause
+\ii We never said {\em which} thread is woken up.
+\ii A thread might never be ready to run.
 \ei
 \end{frame}
 
@@ -537,7 +612,7 @@ t1 = Semaphore(1)
 t2 = Semaphore(0)
 \end{Verbatim}
 \columnbreak
-\begin{Verbatim}
+\begin{Verbatim}[fontsize=\relsize{-2}]
 mutex.wait()
   room1 += 1
 mutex.signal()
@@ -548,6 +623,9 @@ t1.wait()
   if room1 == 0:
     mutex.signal()
     t2.signal()
+  else:
+    mutex.signal()
+    t1.signal()
 t2.wait()
   room2 -= 1
   # critical section
@@ -613,6 +691,7 @@ def put_forks(i):
 \ii Why does this not work?
 \pause
 \ii Deadlock is possible.  How?
+\ii Can you think of a symmetric solution?
 \ei
 \end{multicols}
 \end{frame}
@@ -639,6 +718,8 @@ def put_forks(i):
 \bi
 \ii Only allow 4 philosophers at a time.
 \ii Can you prove deadlock is impossible?
+\pause
+\ii Can you think of an asymmetric solution with no footman?
 \ei
 \end{multicols}
 \end{frame}
