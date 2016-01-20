@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.6.12)  19 JAN 2016 09:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.6.12)  20 JAN 2016 10:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1203,6 +1203,12 @@ thkerncmss.
  (./downeyChap03.vrb) [53
 
 ]
+\openout4 = `downeyChap03.vrb'.
+
+ (./downeyChap03.vrb)
+[54
+
+]
 \tf@nav=\write7
 \openout7 = `downeyChap03.nav'.
 
@@ -1212,11 +1218,11 @@ thkerncmss.
 \tf@snm=\write9
 \openout9 = `downeyChap03.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 715.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 715.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 742.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 742.
  (./downeyChap03.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 715.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 715.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 742.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 742.
 Package rerunfilecheck Info: File `downeyChap03.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
@@ -1227,11 +1233,11 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 715.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 742.
  ) 
 Here is how much of TeX's memory you used:
- 17376 strings out of 494977
- 328931 string characters out of 6180183
+ 17380 strings out of 494977
+ 328984 string characters out of 6180183
  405248 words of memory out of 5000000
  19969 multiletter control sequences out of 15000+600000
  13371 words of font info for 51 fonts, out of 8000000 for 9000
@@ -1246,10 +1252,10 @@ ist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmtt8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmtt9.pfb>
-Output written on downeyChap03.pdf (53 pages, 205527 bytes).
+Output written on downeyChap03.pdf (54 pages, 207826 bytes).
 PDF statistics:
- 1428 PDF objects out of 1440 (max. 8388607)
- 1343 compressed objects within 14 object streams
- 107 named destinations out of 1000 (max. 500000)
+ 1455 PDF objects out of 1728 (max. 8388607)
+ 1369 compressed objects within 14 object streams
+ 109 named destinations out of 1000 (max. 500000)
  49 words of extra memory for PDF output out of 10000 (max. 10000000)
 
