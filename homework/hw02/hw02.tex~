@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage[margin=1in]{geometry}
+
+\title{Synchronized Boids!}
+\author{Homework \#2, CSCI 322, Winter 2016}
+\date{}
+\begin{document}
+\maketitle
+This program is a continuation of
+  the {\sc Boids} program from the previous homework assignment.  You
+  will make two revisions to the {\tt boids02.rkt} program.  If you
+  haven't finished that program, see me as soon as possible to work
+  out the problems.
+\begin{description}
+\item[Due:  Monday, February 1, at  midnight.]
+
+\item[boids03.rkt:] The first revision, called {\tt boids03.rkt}, will
+  have all the features of {\tt boids02.rkt}, but, in addition, will
+  use a two phase barrier, as documented in listing 3.10 from {\em The
+    Little Book of Semaphores}, to make sure that the boids all update
+  their forces before updating their positions, and then all update
+  their positions before calculating their forces again.
+  \begin{itemize}
+  \item  Use just the two turnstyles with one turnstyle
+    between each phase.
+  \item Turning this into an object (as in listing 3.12) is optional,
+    since we only use the code once.
+  \end{itemize}
+
+\item[boids04.rkt:] The second revision, called {\tt boids04.rkt},
+  will fix a small problem with the first revision.  If you did just
+  what was called for above, it {\em probably} worked OK most of the
+  time.  This is typical of concurrent programming.  Many bugs lurk
+  unseen.
+
+  However, the reusable barrier run by each boid needs to know the
+  number of boids, $n$.  When a user clicks on the interface and
+  creates a new boid, the value of $n$ changes.
+  This is a classic readers-writers problem.  The boids are all
+  readers, needing to read the value of $n$ to run their barriers.
+  The callback for a mouse click is a writer, needing to change the
+  value of $n$. 
+
+  You can use the writer-priority readers-writers idea from {\em The
+    Little Book of Semaphores}, listings 4.23 and  4.24, to make sure
+  that when the boids are using their turnstyles, the mouse click
+  callback is not changing $n$, and when the mouse click callback is
+  changing $n$, the boids are not using their turnstyles.  Also, the
+  boids won't starve the mouse clicks.
+  
+  \begin{itemize}
+  \item Note that the {\em critical region} for the boids is {\em
+    only} the code dealing with turnstyles, not the code to update
+    their forces and positions.
+  \item Note that boids have two critical regions.
+  \item The {\em critical region} for the mouse click callback is only
+    the part that changes $n$.
+  \item Make sure no more than one writer can change $n$ at a time.
+  \item The lightswitch can be an object, or just inline code.  If it
+    is simply inline code, document with comments each section and
+    what purpose it has.  Be sure to use identifiers and comments so
+    that the {\bf barrier} code is easily distinguishable from the
+    {\bf reader-writer} code.
+  \item Note: this program has a bug in it that you may or may not run
+    into. We will fix this in the next homework assignment.
+  \item Do not attempt {\tt boids04.rkt} until you are sure {\tt
+    boids03.rkt} is working correctly.
+  \end{itemize}
+
+  
+
+\end{description}
+
+\end{document}
