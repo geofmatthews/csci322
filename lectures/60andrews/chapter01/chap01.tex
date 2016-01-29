@@ -138,9 +138,11 @@ disjoint from both the read and write sets of the other.
 \myfigend
 
 \myfig{p18a_quad_iterative.pdf}
+\myput{64}{Cannot be parrallelized because of {\tt area}.}
 \myfigend
 
 \myfig{p18b_quad_recursive.pdf}
+\myput{64}{Only recurse when area changing.}
 \myput{60}{Change the recursion to:}
 \myputn{56}{\tt co larea = quad(left, mid, fleft, fmid, larea);}
 \myputn{54}{\tt // rarea = quad(mid, right, fmid, fright, rarea);}
@@ -168,6 +170,7 @@ independent.
 \myfigend
 
 \myfig{1_6.pdf}
+\myput{66}{File servers}
 \myput{63}{Web pages}
 \myput{60}{Graphics cards}
 \myfigend

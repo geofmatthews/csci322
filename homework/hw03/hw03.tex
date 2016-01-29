@@ -1,0 +1,90 @@
+\documentclass{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{natded,color}
+
+\setlength{\parindent}{0in}
+\setlength{\parskip}{1em}
+\newcommand{\imp}{\Rightarrow}
+\newcommand{\stm}[3]{\ensuremath{\{#1\}}\ \mbox{\tt
+    #2}\ \ensuremath{\{#3\}}}
+\newcommand{\true}{\mbox{\color{blue} \sc true}}
+\newcommand{\false}{\mbox{\color{red} \sc false}}
+
+\title{Logic and Axiomatic Semantics}
+\author{Homework \#3, CSCI 322, Winter 2016}
+\date{}
+\begin{document}
+\maketitle
+
+
+
+Due:  Monday, February 15, at  midnight.
+
+Part I, Formal logic:
+  Provide formal proofs, as illustrated in the class notes, for the
+  following theorems:
+
+\begin{enumerate}
+\item  
+  $((P\imp R)\wedge (Q\imp S)) \imp ((P\wedge Q) \imp (R\wedge S))$
+\item  
+  $(P\imp (Q\imp R))\imp (Q\imp (P\imp R))$
+\item  
+  $(P\imp(P\imp Q))\imp (P\imp Q)$
+\item  
+  $((P\imp Q)\imp Q)\imp ((Q\imp P)\imp P)$
+\item
+  $(P\imp Q)\vee(Q \imp P)$
+\item
+  $((P\imp R)\vee (Q\imp R))\imp(P\wedge Q\imp R)$
+\item
+  $(P\wedge Q\imp R)\imp((P\imp R)\vee (Q\imp R))$
+\end{enumerate}
+
+Part II, Axiomatic Semantics:
+Provide formal proofs of the following  triples.
+\begin{enumerate}
+\setcounter{enumi}{7}
+\item
+  \stm{x > 5}{x = 2 * x}{x > 8}
+\item
+  \stm{y > 0}{if x > y then y = x + y}{y > 0}
+\end{enumerate}
+
+Part III, Concurrency:
+\begin{enumerate}
+  \setcounter{enumi}{9}
+  \item
+Provide a formal proof of the following.  Show both the annotated code,
+and proofs of all necessary triples.
+
+$\{x = 2 \wedge y = 3\}$\\
+{\tt co x = y; // y = 4; oc}\\
+$\{x = 3 \vee x = 4\}$
+\end{enumerate}
+
+\newpage
+
+I provide here an example using the natural deduction
+package for \LaTeX.  Further examples are in the lectures.
+
+Prove:  $(P\imp Q)\imp ((P\wedge R) \imp (Q\wedge R))$
+
+
+\[
+\Jproof{
+  \cablk{
+    \proofline{P\imp Q}{assumption for conditional proof}
+    \cablk{
+      \proofline{P\wedge R}{assumption for conditional proof}
+      \proofline{P}{2, simplification}
+      \proofline{R}{2, simplification}
+      \proofline{Q}{1, 3, modus ponens}
+      \proofline{Q\wedge R}{4, 5, conjunction}
+      }
+    \proofline{(P\wedge R) \imp (Q\wedge R)}{conditional proof}
+  }
+  \proofline{(P\imp Q)\imp ((P\wedge R) \imp (Q\wedge R))}{conditional proof}
+}
+\]
+\end{document}
