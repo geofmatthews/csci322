@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.6.12)  1 FEB 2016 10:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.6.12)  2 FEB 2016 14:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -544,17 +544,17 @@ Overfull \hbox (25.00003pt too wide) in paragraph at lines 1392--1396
  []
 
 [70] [71] [72] [73] [74]
-Overfull \hbox (25.00003pt too wide) in paragraph at lines 1498--1501
+Overfull \hbox (25.00003pt too wide) in paragraph at lines 1497--1500
 []
  []
 
-[75]
+[75] [76]
 File: chap02/2_2.pdf Graphic file (type pdf)
  <use chap02/2_2.pdf>
-Package pdftex.def Info: chap02/2_2.pdf used on input line 1505.
+Package pdftex.def Info: chap02/2_2.pdf used on input line 1524.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 1506--1506
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 1525--1525
 [][] 
  []
 
@@ -562,13 +562,13 @@ Overfull \hbox (195.48764pt too wide) in paragraph at lines 1506--1506
 Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 
 
-[76] <chap02/2_4.pdf, id=313, 614.295pt x 794.97pt>
+[77] <chap02/2_4.pdf, id=316, 614.295pt x 794.97pt>
 File: chap02/2_4.pdf Graphic file (type pdf)
  <use chap02/2_4.pdf>
-Package pdftex.def Info: chap02/2_4.pdf used on input line 1508.
+Package pdftex.def Info: chap02/2_4.pdf used on input line 1527.
 (pdftex.def)             Requested size: 767.86685pt x 993.71007pt.
 
-Overfull \hbox (42.45578pt too wide) in paragraph at lines 1509--1509
+Overfull \hbox (42.45578pt too wide) in paragraph at lines 1528--1528
 [][] 
  []
 
@@ -576,13 +576,13 @@ Overfull \hbox (42.45578pt too wide) in paragraph at lines 1509--1509
 Overfull \vbox (307.14381pt too high) has occurred while \output is active []
 
 
-[77 <./chap02/2_4.pdf>] [78] [79] [80] [81]
+[78 <./chap02/2_4.pdf>] [79] [80] [81] [82]
 File: chap02/2_4.pdf Graphic file (type pdf)
  <use chap02/2_4.pdf>
-Package pdftex.def Info: chap02/2_4.pdf used on input line 1571.
+Package pdftex.def Info: chap02/2_4.pdf used on input line 1590.
 (pdftex.def)             Requested size: 767.86685pt x 993.71007pt.
 
-Overfull \hbox (42.45578pt too wide) in paragraph at lines 1574--1574
+Overfull \hbox (42.45578pt too wide) in paragraph at lines 1595--1595
 [][] 
  []
 
@@ -590,21 +590,21 @@ Overfull \hbox (42.45578pt too wide) in paragraph at lines 1574--1574
 Overfull \vbox (307.14381pt too high) has occurred while \output is active []
 
 
-[82] [83] [84] [85] [86] [87]
+[83] [84] [85] [86] [87] [88]
 File: chap02/2_4.pdf Graphic file (type pdf)
  <use chap02/2_4.pdf>
-Package pdftex.def Info: chap02/2_4.pdf used on input line 1673.
+Package pdftex.def Info: chap02/2_4.pdf used on input line 1694.
 (pdftex.def)             Requested size: 767.86685pt x 993.71007pt.
 
-Overfull \hbox (42.45578pt too wide) in paragraph at lines 1674--1674
+Overfull \hbox (42.45578pt too wide) in paragraph at lines 1695--1695
 [][] 
  []
 
-[88]
+[89]
 Overfull \vbox (307.14381pt too high) has occurred while \output is active []
 
 
-[89] [90] (./chap02.aux) ) 
+[90] [91] (./chap02.aux) ) 
 Here is how much of TeX's memory you used:
  2920 strings out of 494977
  42801 string characters out of 6180183
@@ -622,10 +622,10 @@ b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on chap02.pdf (90 pages, 189028 bytes).
+Output written on chap02.pdf (91 pages, 189846 bytes).
 PDF statistics:
- 399 PDF objects out of 1000 (max. 8388607)
- 286 compressed objects within 3 object streams
+ 403 PDF objects out of 1000 (max. 8388607)
+ 289 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  46 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1466,9 +1466,6 @@ co
 oc
 \(\{ x = 3 \}\)
 \end{Verbatim}
-\ii The conjunction of the preconditions is $x=0$.
-\ii The conjunction of the postconditions is $x = 3$.
-\\ Can you prove these?
 \ei
 
 
@@ -1500,6 +1497,26 @@ consider only {\em entire} sequences.
 \ii For example, in the statement\\
 \centerline{\tt \la x = x+1; y = y+1; \ra}
 we don't have to consider each statement by itself.
+\ei
+\newpage
+\ti {Techniques for avoiding interference: synchronization}
+\bi
+\ii Consider the following:
+\begin{verbatim}
+co P1: ... a; ...
+// P2: ... S1; {C} S2; ...
+oc
+\end{verbatim}
+\ii{\tt a} might interfere with {\tt C}
+\ii There are two ways to ``hide'' {\tt C} from {\tt a}
+\ii \begin{verbatim}
+< S1 ; S2 >
+\end{verbatim}
+\ii \begin{verbatim}
+< await (!C or B) a; >
+\end{verbatim}
+where {\tt B} is a set of predicates such that executing {\tt a} will make
+{\tt C} true.
 \ei
 
 \newpage
@@ -1571,8 +1588,10 @@ delayed  in their {\tt await} statements.
 \newpage
 
 \myfigsmall{chap02/2_4.pdf}
-\put(50,73){$PC\land (p < n) \land (p \not= c)$}
-\put(50,51.5){$IC\land (c < n) \land (p \leq c)$}
+\put(53,75){$PC\land (p < n) \land (p \not= c)$}
+\put(55,72){(when delayed)}
+\put(53,53){$IC\land (c < n) \land (p \leq c)$}
+\put(55,50){(when delayed)}
 \myfigend
 
 \ti{Scheduling and Fairness}
