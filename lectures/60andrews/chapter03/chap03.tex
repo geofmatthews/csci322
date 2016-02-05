@@ -38,7 +38,7 @@
 
 \RecustomVerbatimEnvironment
   {Verbatim}{Verbatim}
-  {frame=single,commandchars=\\\{\}}
+  {frame=single,commandchars=\\\{\},numbers=left,numbersep=1pt}
 
 \begin{document}
 
@@ -52,6 +52,16 @@
 \newpage
 
 \ti{Critical Section Problem}
+\begin{verbatim}
+  process CS[i=1 to n] {
+    while (true) {
+      entry protocol;
+      critical section;
+      exit protocol;
+      noncritical section;
+    }
+  }
+\end{verbatim}
 \bi
 \ii Mutual Exclusion.
 \ii Absence of Deadlock (Livelock).
@@ -93,6 +103,10 @@ bool TS(bool lock) \{
   variables.}
 \myput{57}{Requires strong fairness.}
 \myput{54}{Weak fairness usually enough.}
+\myput{51}{Entry is possible infinitely often,}
+\myputn{48}{but a single process could spin forever.}
+
+
 \myfigend
 
 
@@ -100,6 +114,7 @@ bool TS(bool lock) \{
 
 \myfig{chap03/3_04.pdf}
 \myput{58}{Avoids repeated unecessary setting of lock.}
+\myput{55}{Usually much faster.  Why?}
 \myfigend
 
 \ti{Implementing Await Statements}
@@ -205,6 +220,10 @@ CSexit;
 \bi
 \ii Spin-lock solutions we've seen require a strongly fair scheduler.
 \ii This is impractical, real schedulers are usually weakly fair.
+
+\ii In practical situations, it is unlikely a process will wait
+forever, but not guaranteed.
+
 \ii Three user-defined critical section protocols, only requiring weak fairness:
 \bi
 \ii Tie breaker algorithm
@@ -215,15 +234,16 @@ CSexit;
 
 \myfig{chap03/3_01.pdf}
 \myput{50}{Not guaranteed for weakly fair scheduler.}
+\myput{47}{Tie breaker algorithm: make the processes take turns.}
 \myfigend
 
-\ti{Tie breaking attempted protocol 1}
+\ti{Tie breaking attempted entry protocol 1}
 \begin{multicols}{2}
-\begin{Verbatim}
+\begin{Verbatim}[label=CS1]
 while (in2) skip;
 in1 = true;
 \end{Verbatim}
-\begin{Verbatim}
+\begin{Verbatim}[label=CS2]
 while (in1) skip;
 in2 = true;
 \end{Verbatim}
@@ -233,13 +253,33 @@ in2 = true;
 \ei
 \newpage
 
-\ti{Tie breaking attempted protocol 2}
+\ti{Tie breaking attempted entry protocol 1}
 \begin{multicols}{2}
-\begin{Verbatim}
+\begin{Verbatim}[label=CS1]
+while (in2) skip;
+in1 = true;
+\end{Verbatim}
+\begin{Verbatim}[label=CS2]
+while (in1) skip;
+in2 = true;
+\end{Verbatim}
+\end{multicols}
+\bi
+\ii The desired postcondition for the delay
+loop in CS1 is {\tt in2} is false.
+\ii This is interfered with by the assignment {\tt in2 = true}
+in CS2.
+\ii Mutual exclusion is {\em not} guaranteed.
+\ei
+\newpage
+
+\ti{Tie breaking attempted entry protocol 2}
+\begin{multicols}{2}
+\begin{Verbatim}[label=CS1]
 in1 = true;
 while (in2) skip;
 \end{Verbatim}
-\begin{Verbatim}
+\begin{Verbatim}[label=CS2]
 in2 = true;
 while (in1) skip;
 \end{Verbatim}
@@ -249,18 +289,47 @@ while (in1) skip;
 \ei
 
 \newpage
+
+\ti{Tie breaking attempted entry protocol 2}
+\begin{multicols}{2}
+\begin{Verbatim}[label=CS1]
+in1 = true;
+while (in2) skip;
+\end{Verbatim}
+\begin{Verbatim}[label=CS2]
+in2 = true;
+while (in1) skip;
+\end{Verbatim}
+\end{multicols}
+\bi
+\ii Mutual exclusion is guaranteed.
+\ii Deadlock is possible.
+\ei
+
+\newpage
+
 \ti{Solution to deadlock problem}
 \bi
 \ii Add a variable {\tt last} to break ties when deadlocked.
 \ei
-
-
 \myfig{chap03/3_05.pdf}
 \myput{47}{Are the {\tt await} statements at-most-once?}
+\myput{45}{No, but at-most-once not required here.  Why?}
 \myfigend
 
+
+
+\ti{At-most-once not required}
+
+\bi
+\ii Suppose {\tt CS1} evaluates its delay condition and finds {\tt in2} false.
+\ii But suppose that {\tt in2} is now set to true.
+\ii In that case, {\tt CS2} also just set {\tt last} to 2.
+\ii Hence the delay still happens even though {\tt in2} changes value.
+\ii If {\tt CS1} found {\tt last == 2}, that will remain true until after
+its critical section.
+\ei
 \myfig{chap03/3_06.pdf}
-\myput{47}{At-most-once not required here.}
 \myfigend
 
 \myfig{chap03/3_07.pdf}
@@ -474,7 +543,7 @@ process Worker[i = 1 to n] \{
 \begin{multicols}{2}
 \begin{Verbatim}[label=Task i]
 arrive[i] = 1;
-\la await (continue[i] == 1);
+\la await (continue[i] == 1); \ra
 \end{Verbatim}
 \columnbreak
 \begin{Verbatim}[label=Coordinator]
