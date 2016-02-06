@@ -99,25 +99,28 @@
 
 \myfig{chap04/4_11.pdf}
 \myput{51}{Waiting on {\em two} variables: no simple semaphore works.}
-\myput{48}{Our implementation of {\tt await} with semaphores uses busy waiting.}
-\myput{45}{Is there a better way to simulate {\tt await} with semaphores?}
+\myput{49}{Our implementation of {\tt await} with semaphores uses busy waiting.}
+\myput{47}{Can we find a {\em general} solution to {\tt await} with semaphores}
+\myputn{45}{that doesn't use busy waiting?}
 \myfigend
 
 \myfig{chap04/p173_signal_code.pdf}
-\myput{63}{{\tt e} is a mutex for the readers/writers.}
-\myput{60}{Instead of releasing {\tt e}, signal {\em exactly one} of
+\myput{65}{{\tt e} is a mutex for the readers/writers.}
+\myput{62}{Instead of releasing {\tt e}, signal {\em exactly one} of
   the semaphores.} 
-\myput{57}{{\tt r}, {\tt w}, and {\tt e} are a split binary semaphore:
+\myput{59}{{\tt r}, {\tt w}, and {\tt e} are a split binary semaphore:
   only one  is nonzero.}
-\myput{54}{{\bf Passing the baton} to one another.}
-\myput{51}{The signaller {\em also} decrements the counter.}
+\myput{56}{The signaller does what the awakened process would do:}
+\myputn{53}{1. keeps the mutex locked}
+\myputn{50}{2. decrements the counter}
+\myput{47}{{\bf Passing the baton} to one another.}
 \myfigend
 
 \myfigsmall{chap04/4_12.pdf}
+\put(5,31){$\bullet$ Some of the {\tt SIGNAL} code can be simplified, resulting in the next figure.}
 \myfigend
 
 \myfigsmall{chap04/4_13.pdf}
-\put(40,30){Some of the {\tt SIGNAL} code can be simplified.}
 \myfigend
 
 \ti{Passing the baton more flexible}
@@ -143,6 +146,39 @@ else V(e);
 
 \myfig{chap04/4_14.pdf}
 \myfigend
+
+\ti{Pthreads}
+
+\begin{verbatim}
+  #include <pthread.h>
+  pthread_attr_t tattr;         /* thread attributes */
+  pthread_t tid;                /* thread descriptor */
+  void *start_func(void *arg) {
+    ...    pthread_exit(value);    ...
+  }
+  ...
+  pthread_atrr_init(&tattr);
+  ptrhead_attr_setscope(&tattr, PTHREAD_SCOPE_SYSTEM);
+  ...
+  pthread_create(&tid, &tattr, start_func, arg);
+  ...
+  pthread_join(tid, value_ptr);
+\end{verbatim}
+
+\newpage
+
+\ti{Semaphores}
+
+\begin{verbatim}
+  #include <semaphore.h>
+  sem_t mutex;
+  ...
+  sem_init(&mutex, SHARED, 1);
+  ..
+  sem_wait(&mutex);         /*  P(mutex)  */
+  ...
+  sem_post(&mutex);         /*  V(mutex)  */
+\end{verbatim}
 
 \myfigtiny{chap04/4_15.pdf}
 \myfigend
