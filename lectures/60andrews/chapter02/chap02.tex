@@ -1354,6 +1354,42 @@ assignment that invalidates an assertion in the other process.
 \ei
 
 \newpage
+\ti{Simple co example, no interference}
+{\bf  Co rule}
+ \[
+ \frac{\stm{P_i}{Si}{Q_i}\mbox{\ are interference free}}
+      {\stm{P_1\land ... \land P_n}{co S1; // ... // Sn; oc}{Q_1\land ... \land Q_n}}
+      \]
+
+\bigskip
+     
+\begin{Verbatim}
+  \(\{x = 0 \wedge y = 0\}\)
+  co x = x + 1
+  // y = y + 1;
+  oc
+  \(\{x = 1 \wedge y = 1\}\)
+\end{Verbatim}
+To prove this we need to prove both of the following:
+\begin{multicols}{2}
+\begin{Verbatim}
+  \(\{x = 0\}\)
+  x = x + 1;
+  \(\{x = 1\}\)
+\end{Verbatim}
+\begin{Verbatim}
+  \(\{y = 0\}\)
+  y = y + 1;
+  \(\{y = 1\}\)
+\end{Verbatim}
+\end{multicols}
+Each of these is a straightforward application of the assignment
+axiom.
+
+Further, neither assignment interferes with an assertion
+in the other process, since all variables are distinct.
+
+\newpage
 \ti{Co example}
 \bi
 \ii
