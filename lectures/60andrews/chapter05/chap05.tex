@@ -188,15 +188,30 @@ and the signaled process executes now.}
 
 
 \myfig{chap05/5_04.pdf}
+\myput{51}{{\tt wait} enclosed in {\tt while}}
+\myput{47}{{\tt signal} is merely a hint that condition {\em might} be met}
+\myputn{45}{---could be sent at any time}
 \myfigend
+
 \myfig{chap05/5_05.pdf}
+\myput{50}{Monitor invariant:  $(nr = 0 \vee nw = 0) \wedge nw \leq 1$}
 \myfigend
 \myfig{chap05/5_06.pdf}
 \myfigend
 \myfig{chap05/5_07.pdf}
+\myput{55}{Three ways to synchronize when conditions depend on local variables:}
+\myputn{52}{1. Priority wait.}
+\myputn{49}{2. Covering condition.}
+\myputn{46}{3. Record private condition variables for each waiting process.}
 \myfigend
 \myfig{chap05/5_08.pdf}
+\myput{55}{Three ways to synchronize when conditions depend on local variables:}
+\myputn{52}{1. Priority wait.}
+\myputn{49}{2. Covering condition.}
+\myputn{46}{3. Record private condition variables for each waiting process.}
 \myfigend
+
+
 \myfig{chap05/5_09.pdf}
 \myfigend
 \myfig{chap05/5_10.pdf}

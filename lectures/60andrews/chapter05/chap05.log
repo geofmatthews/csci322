@@ -1,15 +1,15 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.5.7)  11 FEB 2015 09:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.6.12)  17 FEB 2016 09:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **chap05
 (./chap05.tex
-LaTeX2e <2011/06/27>
-Babel <3.9h> and hyphenation patterns for 78 languages loaded.
+LaTeX2e <2014/05/01>
+Babel <3.9l> and hyphenation patterns for 4 languages loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
-Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
-File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@section=\count80
@@ -27,7 +27,7 @@ File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 Package: geometry 2010/09/12 v5.6 Page Geometry
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+Package: keyval 2014/05/08 v1.15 key=value parser (DPC)
 \KV@toks@=\toks14
 )
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
@@ -55,7 +55,7 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@dimlist=\toks15
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+Package: graphicx 2014/04/25 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
@@ -83,7 +83,7 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \Gin@req@width=\dimen112
 )
 (/usr/share/texlive/texmf-dist/tex/latex/tools/multicol.sty
-Package: multicol 2011/06/27 v1.7a multicolumn formatting (FMi)
+Package: multicol 2014/10/28 v1.8i multicolumn formatting (FMi)
 \c@tracingmulticols=\count91
 \mult@box=\box26
 \multicol@leftmargin=\dimen113
@@ -100,6 +100,7 @@ Package: multicol 2011/06/27 v1.7a multicolumn formatting (FMi)
 \multicolbaselineskip=\skip44
 \partial@page=\box27
 \last@line=\box28
+\maxbalancingoverflow=\dimen118
 \mult@rightbox=\box29
 \mult@grightbox=\box30
 \mult@gfirstbox=\box31
@@ -123,12 +124,12 @@ Package: multicol 2011/06/27 v1.7a multicolumn formatting (FMi)
 \@tempa=\box49
 \c@columnbadness=\count97
 \c@finalcolumnbadness=\count98
-\last@try=\dimen118
-\multicolovershoot=\dimen119
-\multicolundershoot=\dimen120
+\last@try=\dimen119
+\multicolovershoot=\dimen120
+\multicolundershoot=\dimen121
 \mult@nat@firstbox=\box50
 \colbreak@box=\box51
-\multicol@sort@counter=\count99
+\mc@col@check@num=\count99
 )
 (/usr/share/texlive/texmf-dist/tex/latex/overpic/overpic.sty
 Package: overpic 2010/09/13 v0.53  Overwriting graphics
@@ -138,16 +139,16 @@ Package: overpic v0.53 <2010/09/13> (RN)
 Enhancements to Picture Environment. Version 1.2 - Released June 1, 1986
 \@@multicnt=\count100
 \d@lta=\count101
-\@delta=\dimen121
-\@@delta=\dimen122
+\@delta=\dimen122
+\@@delta=\dimen123
 \@gridcnt=\count102
 \@joinkind=\count103
-\@dotgap=\dimen123
-\@ddotgap=\dimen124
+\@dotgap=\dimen124
+\@ddotgap=\dimen125
 \@x@diff=\count104
 \@y@diff=\count105
-\x@diff=\dimen125
-\y@diff=\dimen126
+\x@diff=\dimen126
+\y@diff=\dimen127
 \@dotbox=\box52
 \num@segments=\count106
 \num@segmentsi=\count107
@@ -218,13 +219,13 @@ LaTeX Font Info:    ... okay on input line 41.
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count111
-\scratchdimen=\dimen127
+\scratchdimen=\dimen128
 \scratchbox=\box54
 \nofMPsegments=\count112
 \nofMParguments=\count113
 \everyMPshowfont=\toks16
 \MPscratchCnt=\count114
-\MPscratchDim=\dimen128
+\MPscratchDim=\dimen129
 \MPnumerator=\count115
 \makeMPintoPDFobject=\count116
 \everyMPtoPDFconversion=\toks17
@@ -397,7 +398,7 @@ File: chap05/5_04.pdf Graphic file (type pdf)
 Package pdftex.def Info: chap05/5_04.pdf used on input line 190.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 191--192
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 194--195
 [][] 
  []
 
@@ -409,10 +410,10 @@ Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 File: chap05/5_05.pdf Graphic file (type pdf)
 
 <use chap05/5_05.pdf>
-Package pdftex.def Info: chap05/5_05.pdf used on input line 192.
+Package pdftex.def Info: chap05/5_05.pdf used on input line 196.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 193--194
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 198--199
 [][] 
  []
 
@@ -420,14 +421,14 @@ Overfull \hbox (195.48764pt too wide) in paragraph at lines 193--194
 Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 
 
-[17 <./chap05/5_05.pdf>] <chap05/5_06.pdf, id=110, 614.295pt x 794.97pt>
+[17 <./chap05/5_05.pdf>] <chap05/5_06.pdf, id=112, 614.295pt x 794.97pt>
 File: chap05/5_06.pdf Graphic file (type pdf)
 
 <use chap05/5_06.pdf>
-Package pdftex.def Info: chap05/5_06.pdf used on input line 194.
+Package pdftex.def Info: chap05/5_06.pdf used on input line 199.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 195--196
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 200--201
 [][] 
  []
 
@@ -435,14 +436,14 @@ Overfull \hbox (195.48764pt too wide) in paragraph at lines 195--196
 Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 
 
-[18 <./chap05/5_06.pdf>] <chap05/5_07.pdf, id=121, 614.295pt x 794.97pt>
+[18 <./chap05/5_06.pdf>] <chap05/5_07.pdf, id=123, 614.295pt x 794.97pt>
 File: chap05/5_07.pdf Graphic file (type pdf)
 
 <use chap05/5_07.pdf>
-Package pdftex.def Info: chap05/5_07.pdf used on input line 196.
+Package pdftex.def Info: chap05/5_07.pdf used on input line 201.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 197--198
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 206--207
 [][] 
  []
 
@@ -450,14 +451,14 @@ Overfull \hbox (195.48764pt too wide) in paragraph at lines 197--198
 Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 
 
-[19 <./chap05/5_07.pdf>] <chap05/5_08.pdf, id=133, 614.295pt x 794.97pt>
+[19 <./chap05/5_07.pdf>] <chap05/5_08.pdf, id=135, 614.295pt x 794.97pt>
 File: chap05/5_08.pdf Graphic file (type pdf)
 
 <use chap05/5_08.pdf>
-Package pdftex.def Info: chap05/5_08.pdf used on input line 198.
+Package pdftex.def Info: chap05/5_08.pdf used on input line 207.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 199--200
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 212--213
 [][] 
  []
 
@@ -465,14 +466,14 @@ Overfull \hbox (195.48764pt too wide) in paragraph at lines 199--200
 Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 
 
-[20 <./chap05/5_08.pdf>] <chap05/5_09.pdf, id=144, 614.295pt x 794.97pt>
+[20 <./chap05/5_08.pdf>] <chap05/5_09.pdf, id=146, 614.295pt x 794.97pt>
 File: chap05/5_09.pdf Graphic file (type pdf)
 
 <use chap05/5_09.pdf>
-Package pdftex.def Info: chap05/5_09.pdf used on input line 200.
+Package pdftex.def Info: chap05/5_09.pdf used on input line 215.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 201--202
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 216--217
 [][] 
  []
 
@@ -480,14 +481,14 @@ Overfull \hbox (195.48764pt too wide) in paragraph at lines 201--202
 Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 
 
-[21 <./chap05/5_09.pdf>] <chap05/5_10.pdf, id=155, 614.295pt x 794.97pt>
+[21 <./chap05/5_09.pdf>] <chap05/5_10.pdf, id=157, 614.295pt x 794.97pt>
 File: chap05/5_10.pdf Graphic file (type pdf)
 
 <use chap05/5_10.pdf>
-Package pdftex.def Info: chap05/5_10.pdf used on input line 202.
+Package pdftex.def Info: chap05/5_10.pdf used on input line 217.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 203--204
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 218--219
 [][] 
  []
 
@@ -496,42 +497,42 @@ Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 
 
 [22 <./chap05/5_10.pdf>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 205.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 220.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/bx/n' in size <20.74> not available
-(Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 205.
+(Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 220.
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/it' in size <24.88> not available
-(Font)              Font shape `OT1/cmss/m/sl' tried instead on input line 209.
+(Font)              Font shape `OT1/cmss/m/sl' tried instead on input line 224.
 
 
 [23] [24] [25]
-<chap05/p241_Java_rw_parallel.pdf, id=176, 614.295pt x 794.97pt>
+<chap05/p241_Java_rw_parallel.pdf, id=178, 614.295pt x 794.97pt>
 File: chap05/p241_Java_rw_parallel.pdf Graphic file (type pdf)
 
 <use chap05/p241_Java_rw_parallel.pdf>
-Package pdftex.def Info: chap05/p241_Java_rw_parallel.pdf used on input line 27
-7.
+Package pdftex.def Info: chap05/p241_Java_rw_parallel.pdf used on input line 29
+2.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
 
 Overfull \vbox (108.40266pt too high) has occurred while \output is active []
 
 
 [26 <./chap05/p241_Java_rw_parallel.pdf>]
-<chap05/p244_Java_rw_exclusive.pdf, id=185, 614.295pt x 794.97pt>
+<chap05/p244_Java_rw_exclusive.pdf, id=187, 614.295pt x 794.97pt>
 File: chap05/p244_Java_rw_exclusive.pdf Graphic file (type pdf)
 
 <use chap05/p244_Java_rw_exclusive.pdf>
 Package pdftex.def Info: chap05/p244_Java_rw_exclusive.pdf used on input line 2
-79.
+94.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 280--281
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 295--296
 [][] 
  []
 
@@ -540,14 +541,14 @@ Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 
 
 [27 <./chap05/p244_Java_rw_exclusive.pdf>]
-<chap05/p245_Java_rw_true.pdf, id=194, 614.295pt x 794.97pt>
+<chap05/p245_Java_rw_true.pdf, id=196, 614.295pt x 794.97pt>
 File: chap05/p245_Java_rw_true.pdf Graphic file (type pdf)
 
 <use chap05/p245_Java_rw_true.pdf>
-Package pdftex.def Info: chap05/p245_Java_rw_true.pdf used on input line 281.
+Package pdftex.def Info: chap05/p245_Java_rw_true.pdf used on input line 296.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 282--283
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 297--298
 [][] 
  []
 
@@ -556,22 +557,22 @@ Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 
 
 [28 <./chap05/p245_Java_rw_true.pdf>] [29]
-<chap05/5_18.pdf, id=206, page=1, 614.295pt x 794.97pt>
+<chap05/5_18.pdf, id=208, page=1, 614.295pt x 794.97pt>
 File: chap05/5_18.pdf Graphic file (type pdf)
 
 <use chap05/5_18.pdf, page 1>
-Package pdftex.def Info: chap05/5_18.pdf, page1 used on input line 325.
+Package pdftex.def Info: chap05/5_18.pdf, page1 used on input line 340.
 (pdftex.def)             Requested size: 552.86038pt x 715.4664pt.
 
 Overfull \vbox (28.90132pt too high) has occurred while \output is active []
 
 
 [30 <./chap05/5_18.pdf>]
-<chap05/5_18.pdf, id=212, page=2, 614.295pt x 794.97pt>
+<chap05/5_18.pdf, id=214, page=2, 614.295pt x 794.97pt>
 File: chap05/5_18.pdf Graphic file (type pdf)
 
 <use chap05/5_18.pdf, page 2>
-Package pdftex.def Info: chap05/5_18.pdf, page2 used on input line 327.
+Package pdftex.def Info: chap05/5_18.pdf, page2 used on input line 342.
 (pdftex.def)             Requested size: 552.86038pt x 715.4664pt.
 
 Overfull \vbox (28.90132pt too high) has occurred while \output is active []
@@ -583,24 +584,26 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 2689 strings out of 493304
- 39692 string characters out of 6139872
- 111689 words of memory out of 5000000
- 6107 multiletter control sequences out of 15000+600000
+ 2707 strings out of 494977
+ 39943 string characters out of 6180183
+ 107949 words of memory out of 5000000
+ 5888 multiletter control sequences out of 15000+600000
  8439 words of font info for 30 fonts, out of 8000000 for 9000
- 957 hyphenation exceptions out of 8191
+ 36 hyphenation exceptions out of 8191
  37i,5n,23p,235b,319s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmssi17.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on chap05.pdf (31 pages, 136675 bytes).
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmss17.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmssi17.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmtt12.pfb>
+Output written on chap05.pdf (31 pages, 155539 bytes).
 PDF statistics:
- 247 PDF objects out of 1000 (max. 8388607)
- 185 compressed objects within 2 object streams
+ 255 PDF objects out of 1000 (max. 8388607)
+ 191 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  91 words of extra memory for PDF output out of 10000 (max. 10000000)
 
