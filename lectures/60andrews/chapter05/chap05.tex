@@ -10,7 +10,6 @@
 \usepackage{fancyvrb}
 \setlength{\parindent}{0in}
 
-
 \newcommand{\nop}[1]{}
 \newcommand{\myfig}[1]{\newpage\begin{overpic}[scale=1.5]{#1}}
 \newcommand{\myfigs}[2]{\newpage\begin{overpic}[scale=#1]{#2}}
@@ -195,41 +194,62 @@ and the signaled process executes now.}
 
 \myfig{chap05/5_05.pdf}
 \myput{50}{Monitor invariant:  $(nr = 0 \vee nw = 0) \wedge nw \leq 1$}
+\myput{45}{{\tt signal} can be given at any time}
 \myfigend
+
 \myfig{chap05/5_06.pdf}
+\myput{60}{{\em SJN:} {\tt turn} ordered by time $\wedge$ ({\tt free $\Rightarrow$ turn} is empty)}
+\myput{50}{{\tt wait} not in {\tt while}, why?}
 \myfigend
+
 \myfig{chap05/5_07.pdf}
-\myput{55}{Three ways to synchronize when conditions depend on local variables:}
-\myputn{52}{1. Priority wait.}
-\myputn{49}{2. Covering condition.}
-\myputn{46}{3. Record private condition variables for each waiting process.}
+\myput{55}{Uses a covering condition for all waiting processes.}
 \myfigend
+
 \myfig{chap05/5_08.pdf}
-\myput{55}{Three ways to synchronize when conditions depend on local variables:}
-\myputn{52}{1. Priority wait.}
-\myputn{49}{2. Covering condition.}
+\myput{56}{Three ways to synchronize when conditions depend on local variables:}
+\myputn{54}{1. Priority wait.}
+\myputn{52}{---best}
+\myputn{50}{2. Covering condition.}
+\myputn{48}{---compact, correct solutions, possibly inefficient}
 \myputn{46}{3. Record private condition variables for each waiting process.}
+\myputn{44}{---more complex}
 \myfigend
 
 
 \myfig{chap05/5_09.pdf}
+\myput{64}{$C1$: \tt cinchair >= cleave $\wedge$ bavail >= bbusy >= bdone}
+\myput{61}{$C2$: \tt cinchair <= bavail $\wedge$ bbusy <= cinchair}
+\myput{58}{$C3$: \tt cleave <= bdone}
+\myputn{55}{{\em BARBER}:  $C1 \wedge C2 \wedge C3$}
+
+\myput{51}{\tt barber == (bavail - cinchair) $\in \{0,1\}$}
+\myput{48}{\tt chair == (cinchair - bbusy) $\in \{0,1\}$}
+\myput{45}{\tt open == (bdone - cleave) $\in \{0,1\}$}
+
 \myfigend
+
+
 \myfig{chap05/5_10.pdf}
 \myfigend
 
-\ti{Skipping disk scheduler \S5.3...except}
+\myfig{chap05/5_11.pdf}
+\myput{60}{Closest job next}
+\myput{57}{SCAN, LOOK (elevator algorithm)}
+\myput{54}{CSCAN or CLOOK (circular algorithm)}
+\myfigend
+\myfig{chap05/5_12.pdf}
+\myfigend
+\myfig{chap05/5_14.pdf}
+\myfigend
+\myfig{chap05/5_17.pdf}
+\myput{70}{{\em Open} and {\em Closed} monitors}
+\myput{67}{When a procedure in one monitor calls a procedure in a different monitor:}
+\myputn{64}{ If it releases the original monitor it is an {\em open} call.}
+\myputn{61}{ If it retains the lock on the original monitor it is a {\em closed} call.}
+\myfigend
 
-\bigskip
 
-\centerline{\Huge {\em Open} and {\em Closed} monitors }
-\bi
-\ii When a procedure in one monitor calls a procedure in a different monitor:
-\bi
-\ii If it releases the original monitor it is an {\em open} call.
-\ii If it retains the lock on the original monitor it is a {\em closed} call.
-\ei
-\ei
-\newpage
 \nop{
 \myfig{chap05/5_11.pdf}
 \myfigend
@@ -290,6 +310,9 @@ and the signaled process executes now.}
 
 
 \myfigs{1}{chap05/p241_Java_rw_parallel.pdf}
+\put(60,60){Does not actually create}
+\put(60,57){parallel readers and writers.}
+\put(60,54){(See java programs in repo.)}
 \myfigend
 \myfig{chap05/p244_Java_rw_exclusive.pdf}
 \myfigend
