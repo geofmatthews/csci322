@@ -93,7 +93,13 @@ token passing, decentralized servers\ei
 \bi\ii use with caution:  may be unreliable\ei
 \ii The number of queued ``messages'' is the value of the semaphore.
 \ii We assume messages are atomic and delivery is reliable and
-error-free. 
+error-free.
+\ii Three important types:
+\bi
+\ii {\bf Mailboxes}:  any process may send or receive.
+\ii {\bf Input port}:  one receiver, many senders.
+\ii {\bf Link}: one receiver, one sender.
+\ei
 \ei
 
 \myfig{7_01.pdf}
@@ -111,14 +117,19 @@ process Sort \{
 \bi
 \ii Suitable for ``heavyweight'' processes.
 \ii Alternative: network of lightweight {\em merge} processes.
+\bi \ii suitable for direct implementation in hardware.\ei
+\ii Construct a {\em merge network.}
 \ei
 
-\myfig{7_02.pdf}
-\myfigend
 
 \myfig{7_03.pdf}
 \myput{60}{Original values can be lists sorted by ``mediumweight''
-  processes.} 
+  processes.}
+\myput{57}{Nodes can wait for all values and then merge them.}
+\myput{54}{More parallelism if they merge as values come in.}
+\myfigend
+
+\myfig{7_02.pdf}
 \myfigend
 
 \myfig{7_04.pdf}
