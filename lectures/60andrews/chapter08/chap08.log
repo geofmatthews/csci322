@@ -1,15 +1,15 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.1.23)  3 MAR 2015 17:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2015.6.12)  24 FEB 2016 10:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**chap08.tex
+**chap08
 (./chap08.tex
-LaTeX2e <2011/06/27>
-Babel <3.9h> and hyphenation patterns for 2 languages loaded.
+LaTeX2e <2014/05/01>
+Babel <3.9l> and hyphenation patterns for 4 languages loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
-Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
-File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@section=\count80
@@ -27,7 +27,7 @@ File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 Package: geometry 2010/09/12 v5.6 Page Geometry
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+Package: keyval 2014/05/08 v1.15 key=value parser (DPC)
 \KV@toks@=\toks14
 )
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
@@ -55,7 +55,7 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@dimlist=\toks15
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+Package: graphicx 2014/04/25 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
@@ -83,7 +83,7 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \Gin@req@width=\dimen112
 )
 (/usr/share/texlive/texmf-dist/tex/latex/tools/multicol.sty
-Package: multicol 2011/06/27 v1.7a multicolumn formatting (FMi)
+Package: multicol 2014/10/28 v1.8i multicolumn formatting (FMi)
 \c@tracingmulticols=\count91
 \mult@box=\box26
 \multicol@leftmargin=\dimen113
@@ -100,6 +100,7 @@ Package: multicol 2011/06/27 v1.7a multicolumn formatting (FMi)
 \multicolbaselineskip=\skip44
 \partial@page=\box27
 \last@line=\box28
+\maxbalancingoverflow=\dimen118
 \mult@rightbox=\box29
 \mult@grightbox=\box30
 \mult@gfirstbox=\box31
@@ -123,12 +124,12 @@ Package: multicol 2011/06/27 v1.7a multicolumn formatting (FMi)
 \@tempa=\box49
 \c@columnbadness=\count97
 \c@finalcolumnbadness=\count98
-\last@try=\dimen118
-\multicolovershoot=\dimen119
-\multicolundershoot=\dimen120
+\last@try=\dimen119
+\multicolovershoot=\dimen120
+\multicolundershoot=\dimen121
 \mult@nat@firstbox=\box50
 \colbreak@box=\box51
-\multicol@sort@counter=\count99
+\mc@col@check@num=\count99
 )
 (/usr/share/texlive/texmf-dist/tex/latex/overpic/overpic.sty
 Package: overpic 2010/09/13 v0.53  Overwriting graphics
@@ -138,16 +139,16 @@ Package: overpic v0.53 <2010/09/13> (RN)
 Enhancements to Picture Environment. Version 1.2 - Released June 1, 1986
 \@@multicnt=\count100
 \d@lta=\count101
-\@delta=\dimen121
-\@@delta=\dimen122
+\@delta=\dimen122
+\@@delta=\dimen123
 \@gridcnt=\count102
 \@joinkind=\count103
-\@dotgap=\dimen123
-\@ddotgap=\dimen124
+\@dotgap=\dimen124
+\@ddotgap=\dimen125
 \@x@diff=\count104
 \@y@diff=\count105
-\x@diff=\dimen125
-\y@diff=\dimen126
+\x@diff=\dimen126
+\y@diff=\dimen127
 \@dotbox=\box52
 \num@segments=\count106
 \num@segmentsi=\count107
@@ -206,7 +207,7 @@ Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
 (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
 Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
 )
-\@linkdim=\dimen127
+\@linkdim=\dimen128
 \Hy@linkcounter=\count108
 \Hy@pagecounter=\count109
 
@@ -232,10 +233,10 @@ Package hyperref Info: Bookmarks ON on input line 4688.
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 5041.
-\XeTeXLinkMargin=\dimen128
+\XeTeXLinkMargin=\dimen129
 \Fld@menulength=\count112
-\Field@Width=\dimen129
-\Fld@charsize=\dimen130
+\Field@Width=\dimen130
+\Fld@charsize=\dimen131
 Package hyperref Info: Hyper figures OFF on input line 6295.
 Package hyperref Info: Link nesting OFF on input line 6300.
 Package hyperref Info: Hyper index ON on input line 6303.
@@ -330,13 +331,13 @@ LaTeX Font Info:    ... okay on input line 42.
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count121
-\scratchdimen=\dimen131
+\scratchdimen=\dimen132
 \scratchbox=\box54
 \nofMPsegments=\count122
 \nofMParguments=\count123
 \everyMPshowfont=\toks16
 \MPscratchCnt=\count124
-\MPscratchDim=\dimen132
+\MPscratchDim=\dimen133
 \MPnumerator=\count125
 \makeMPintoPDFobject=\count126
 \everyMPtoPDFconversion=\toks17
@@ -389,33 +390,33 @@ LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
 <figures/rpc.png, id=13, 694.595pt x 1108.14pt>
 File: figures/rpc.png Graphic file (type png)
  <use figures/rpc.png>
-Package pdftex.def Info: figures/rpc.png used on input line 77.
+Package pdftex.def Info: figures/rpc.png used on input line 79.
 (pdftex.def)             Requested size: 277.83307pt x 443.24815pt.
 
 <figures/rendezvous.png, id=14, 694.595pt x 1112.155pt>
 File: figures/rendezvous.png Graphic file (type png)
 
 <use figures/rendezvous.png>
-Package pdftex.def Info: figures/rendezvous.png used on input line 78.
+Package pdftex.def Info: figures/rendezvous.png used on input line 80.
 (pdftex.def)             Requested size: 277.83307pt x 444.85413pt.
  [2 <./figures/rpc.png> <./figures/rendezvous.png>]
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/it' in size <20.74> not available
-(Font)              Font shape `OT1/cmss/m/sl' tried instead on input line 97.
+(Font)              Font shape `OT1/cmss/m/sl' tried instead on input line 99.
 
 [3] [4]
 File: figures/rpc.png Graphic file (type png)
  <use figures/rpc.png>
-Package pdftex.def Info: figures/rpc.png used on input line 150.
+Package pdftex.def Info: figures/rpc.png used on input line 152.
 (pdftex.def)             Requested size: 277.83307pt x 443.24815pt.
  [5] [6]
 <figures/8_1.pdf, id=39, 614.295pt x 794.97pt>
 File: figures/8_1.pdf Graphic file (type pdf)
  <use figures/8_1.pdf>
-Package pdftex.def Info: figures/8_1.pdf used on input line 177.
+Package pdftex.def Info: figures/8_1.pdf used on input line 179.
 (pdftex.def)             Requested size: 767.86685pt x 993.71007pt.
 
-Overfull \hbox (42.45578pt too wide) in paragraph at lines 178--179
+Overfull \hbox (42.45578pt too wide) in paragraph at lines 180--181
 [][] 
  []
 
@@ -427,10 +428,10 @@ Overfull \vbox (307.14381pt too high) has occurred while \output is active []
 File: figures/8_2a.pdf Graphic file (type pdf)
 
 <use figures/8_2a.pdf>
-Package pdftex.def Info: figures/8_2a.pdf used on input line 179.
+Package pdftex.def Info: figures/8_2a.pdf used on input line 181.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 180--181
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 182--183
 [][] 
  []
 
@@ -442,10 +443,10 @@ Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 File: figures/8_2b.pdf Graphic file (type pdf)
 
 <use figures/8_2b.pdf>
-Package pdftex.def Info: figures/8_2b.pdf used on input line 181.
+Package pdftex.def Info: figures/8_2b.pdf used on input line 183.
 (pdftex.def)             Requested size: 798.5834pt x 1033.4609pt.
 
-Overfull \hbox (73.0638pt too wide) in paragraph at lines 182--183
+Overfull \hbox (73.0638pt too wide) in paragraph at lines 184--185
 [][] 
  []
 
@@ -457,10 +458,10 @@ Overfull \vbox (346.89449pt too high) has occurred while \output is active []
 File: figures/8_3.pdf Graphic file (type pdf)
 
 <use figures/8_3.pdf>
-Package pdftex.def Info: figures/8_3.pdf used on input line 183.
+Package pdftex.def Info: figures/8_3.pdf used on input line 185.
 (pdftex.def)             Requested size: 737.1503pt x 953.95924pt.
 
-Overfull \hbox (11.84776pt too wide) in paragraph at lines 184--185
+Overfull \hbox (11.84776pt too wide) in paragraph at lines 186--187
 [][] 
  []
 
@@ -472,10 +473,10 @@ Overfull \vbox (267.39314pt too high) has occurred while \output is active []
 File: figures/8_4.pdf Graphic file (type pdf)
 
 <use figures/8_4.pdf>
-Package pdftex.def Info: figures/8_4.pdf used on input line 185.
+Package pdftex.def Info: figures/8_4.pdf used on input line 187.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 186--187
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 188--189
 [][] 
  []
 
@@ -484,22 +485,22 @@ Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 
 
 [11 <./figures/8_4.pdf>]
-Underfull \hbox (badness 6016) in paragraph at lines 191--192
+Underfull \hbox (badness 6016) in paragraph at lines 193--194
 []\OT1/cmss/m/n/20.74 Rendezvous com-bines com-mu-ni-ca-tion
  []
 
 File: figures/rendezvous.png Graphic file (type png)
 <use figures/rendezvous.png>
-Package pdftex.def Info: figures/rendezvous.png used on input line 200.
+Package pdftex.def Info: figures/rendezvous.png used on input line 202.
 (pdftex.def)             Requested size: 277.83307pt x 444.85413pt.
  [12] [13] [14]
 <figures/8_5.pdf, id=113, 614.295pt x 794.97pt>
 File: figures/8_5.pdf Graphic file (type pdf)
  <use figures/8_5.pdf>
-Package pdftex.def Info: figures/8_5.pdf used on input line 250.
+Package pdftex.def Info: figures/8_5.pdf used on input line 252.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 251--252
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 253--254
 [][] 
  []
 
@@ -511,10 +512,10 @@ Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 File: figures/8_6.pdf Graphic file (type pdf)
 
 <use figures/8_6.pdf>
-Package pdftex.def Info: figures/8_6.pdf used on input line 252.
+Package pdftex.def Info: figures/8_6.pdf used on input line 254.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 253--254
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 255--256
 [][] 
  []
 
@@ -526,10 +527,10 @@ Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 File: figures/8_7.pdf Graphic file (type pdf)
 
 <use figures/8_7.pdf>
-Package pdftex.def Info: figures/8_7.pdf used on input line 254.
+Package pdftex.def Info: figures/8_7.pdf used on input line 256.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 255--256
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 257--258
 [][] 
  []
 
@@ -541,10 +542,10 @@ Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 File: figures/8_8.pdf Graphic file (type pdf)
 
 <use figures/8_8.pdf>
-Package pdftex.def Info: figures/8_8.pdf used on input line 256.
+Package pdftex.def Info: figures/8_8.pdf used on input line 258.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 257--258
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 259--260
 [][] 
  []
 
@@ -556,10 +557,10 @@ Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 File: figures/8_9.pdf Graphic file (type pdf)
 
 <use figures/8_9.pdf>
-Package pdftex.def Info: figures/8_9.pdf used on input line 258.
+Package pdftex.def Info: figures/8_9.pdf used on input line 260.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 259--260
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 261--262
 [][] 
  []
 
@@ -571,10 +572,10 @@ Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 File: figures/8_10.pdf Graphic file (type pdf)
 
 <use figures/8_10.pdf>
-Package pdftex.def Info: figures/8_10.pdf used on input line 260.
+Package pdftex.def Info: figures/8_10.pdf used on input line 262.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 261--262
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 263--264
 [][] 
  []
 
@@ -583,27 +584,27 @@ Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 
 
 [20 <./figures/8_10.pdf>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 263.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 265.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/bx/n' in size <20.74> not available
-(Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 263.
+(Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 265.
  [21]
 <figures/8_16.pdf, id=187, page=1, 614.295pt x 794.97pt>
 File: figures/8_16.pdf Graphic file (type pdf)
 
 <use figures/8_16.pdf, page 1>
-Package pdftex.def Info: figures/8_16.pdf, page1 used on input line 281.
+Package pdftex.def Info: figures/8_16.pdf, page1 used on input line 283.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <20.74> on input line 282.
+(Font)              <20.74> on input line 284.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 282.
+(Font)              <14.4> on input line 284.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 282.
+(Font)              <12> on input line 284.
 
 Overfull \vbox (108.40266pt too high) has occurred while \output is active []
 
@@ -613,7 +614,7 @@ Overfull \vbox (108.40266pt too high) has occurred while \output is active []
 File: figures/8_16.pdf Graphic file (type pdf)
 
 <use figures/8_16.pdf, page 2>
-Package pdftex.def Info: figures/8_16.pdf, page2 used on input line 284.
+Package pdftex.def Info: figures/8_16.pdf, page2 used on input line 286.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
 
 Overfull \vbox (108.40266pt too high) has occurred while \output is active []
@@ -624,10 +625,10 @@ Overfull \vbox (108.40266pt too high) has occurred while \output is active []
 File: figures/ada_tasks.pdf Graphic file (type pdf)
 
 <use figures/ada_tasks.pdf>
-Package pdftex.def Info: figures/ada_tasks.pdf used on input line 292.
+Package pdftex.def Info: figures/ada_tasks.pdf used on input line 294.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 293--294
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 295--296
 [][] 
  []
 
@@ -640,10 +641,10 @@ Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 File: figures/ada_accept_select.pdf Graphic file (type pdf)
 
 <use figures/ada_accept_select.pdf>
-Package pdftex.def Info: figures/ada_accept_select.pdf used on input line 295.
+Package pdftex.def Info: figures/ada_accept_select.pdf used on input line 297.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 296--297
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 298--299
 [][] 
  []
 
@@ -656,11 +657,11 @@ Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 File: figures/ada_protected_types.pdf Graphic file (type pdf)
 
 <use figures/ada_protected_types.pdf>
-Package pdftex.def Info: figures/ada_protected_types.pdf used on input line 298
+Package pdftex.def Info: figures/ada_protected_types.pdf used on input line 300
 .
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 303--304
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 305--306
 [][] 
  []
 
@@ -672,10 +673,10 @@ Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 <figures/8_17.pdf, id=241, 614.295pt x 794.97pt>
 File: figures/8_17.pdf Graphic file (type pdf)
  <use figures/8_17.pdf>
-Package pdftex.def Info: figures/8_17.pdf used on input line 306.
+Package pdftex.def Info: figures/8_17.pdf used on input line 308.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 311--312
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 313--314
 [][] 
  []
 
@@ -687,10 +688,10 @@ Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 File: figures/8_18.pdf Graphic file (type pdf)
 
 <use figures/8_18.pdf>
-Package pdftex.def Info: figures/8_18.pdf used on input line 313.
+Package pdftex.def Info: figures/8_18.pdf used on input line 315.
 (pdftex.def)             Requested size: 798.5834pt x 1033.4609pt.
 
-Overfull \hbox (73.0638pt too wide) in paragraph at lines 314--315
+Overfull \hbox (73.0638pt too wide) in paragraph at lines 316--317
 [][] 
  []
 
@@ -702,10 +703,10 @@ Overfull \vbox (346.89449pt too high) has occurred while \output is active []
 File: figures/8_19.pdf Graphic file (type pdf)
 
 <use figures/8_19.pdf>
-Package pdftex.def Info: figures/8_19.pdf used on input line 315.
+Package pdftex.def Info: figures/8_19.pdf used on input line 317.
 (pdftex.def)             Requested size: 737.1503pt x 953.95924pt.
 
-Overfull \hbox (11.84776pt too wide) in paragraph at lines 316--317
+Overfull \hbox (11.84776pt too wide) in paragraph at lines 318--319
 [][] 
  []
 
@@ -716,10 +717,10 @@ Overfull \vbox (267.39314pt too high) has occurred while \output is active []
 [30 <./figures/8_19.pdf>]
 File: figures/8_6.pdf Graphic file (type pdf)
  <use figures/8_6.pdf>
-Package pdftex.def Info: figures/8_6.pdf used on input line 318.
+Package pdftex.def Info: figures/8_6.pdf used on input line 320.
 (pdftex.def)             Requested size: 921.44023pt x 1192.45209pt.
 
-Overfull \hbox (195.48764pt too wide) in paragraph at lines 319--320
+Overfull \hbox (195.48764pt too wide) in paragraph at lines 321--322
 [][] 
  []
 
@@ -728,28 +729,28 @@ Overfull \vbox (505.88649pt too high) has occurred while \output is active []
 
 
 [31]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 333.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 335.
  [32]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 333.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 335.
  (./chap08.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 333.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 333.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 335.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 335.
 Package rerunfilecheck Info: File `chap08.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 333.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 335.
  ) 
 Here is how much of TeX's memory you used:
- 6247 strings out of 495028
- 93209 string characters out of 6181497
- 182673 words of memory out of 5000000
- 9358 multiletter control sequences out of 15000+600000
+ 6264 strings out of 494977
+ 93447 string characters out of 6180183
+ 183217 words of memory out of 5000000
+ 9387 multiletter control sequences out of 15000+600000
  8908 words of font info for 32 fonts, out of 8000000 for 9000
- 14 hyphenation exceptions out of 8191
- 29i,5n,23p,239b,694s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36 hyphenation exceptions out of 8191
+ 29i,5n,23p,235b,309s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/t
@@ -759,7 +760,7 @@ ist/fonts/type1/public/amsfonts/cm/cmss17.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmssi17.pfb></usr/share/texlive/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmtt12.pfb>
-Output written on chap08.pdf (32 pages, 162095 bytes).
+Output written on chap08.pdf (32 pages, 162133 bytes).
 PDF statistics:
  322 PDF objects out of 1000 (max. 8388607)
  255 compressed objects within 3 object streams

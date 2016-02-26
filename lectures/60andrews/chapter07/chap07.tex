@@ -17,8 +17,8 @@
 \newcommand{\myfigs}[2]{\newpage\begin{overpic}[scale=#1]{figures/#2}}
 \newcommand{\myfigsp}[3]{\newpage\begin{overpic}[scale=#1,page=#2]{figures/#3}}
 \newcommand{\myfigend}{\end{overpic}}
-\newcommand{\myput}[2]{\put(10,#1){$\bullet$ #2}}
-\newcommand{\myputn}[2]{\put(15,#1){#2}}
+\newcommand{\myput}[2]{\put(0,#1){$\bullet$ #2}}
+\newcommand{\myputn}[2]{\put(5,#1){#2}}
 
 \newcommand{\bi}{\begin{itemize}}
 \newcommand{\ii}{\item}
@@ -139,6 +139,7 @@ process Sort \{
 \myput{50}{Except,  here clients can do other things
   between {\tt send} and {\tt recieve}.}
 \myput{48}{Clients need to send ID.}
+\myput{46}{Monitor invariants become loop invariants.}
 \myfigend
 
 \myfig{7_05.pdf}
@@ -152,12 +153,18 @@ process Sort \{
 
 \myfigs{1.25}{7_07.pdf}
 \put(48,79.5){$\Leftarrow$ Queue needed for {\tt wait}}
+\myput{35}{Only works {\em without} the ``{\tt while(!B) wait(cv);}'' pattern.}
 \myfigend
 
 \ti{Other monitor code}
 \bi
 \ii {\tt wait} in a loop:
-\bi\ii queue requests and add code for when serviced\ei
+\bi
+\ii queue requests, as before
+\ii add code for what actions need to be taken when client wakes
+\ii different code for different wait statements depend on client
+info when queued
+\ei
 \ii Unconditional {\tt signal}:
 \bi
   \ii check queue
@@ -165,6 +172,15 @@ process Sort \{
   \ii in other words: signal-and-continue
 \ei
 \ii Several exercises explore these problems.
+\ei
+\ti{Monitors {\em vs.} message passing}
+\bi
+\ii There is a {\em duality} between monitors and message passing servers.
+\ii On shared memory machines, monitors are usually used.
+\bi\ii Operating systems use monitors.\ei
+\ii On distributed systems, message passing is used.
+\ii RPC and rendezvous (Chapter 8) strengthen the duality between
+monitors and message passing.
 \ei
 
 \myfig{table7_1.pdf}
@@ -193,9 +209,9 @@ process Sort \{
 \myput{65}{Centralized solution:  $2(n-1)$ messages}
 \myputn{63}{with broadcast:  $n$ messages}
 \myputn{61}{not symmetric, one process does most of the work}
-\myput{58}{SPMD solution:  $n(n-1)$ messages}
+\myput{58}{Symmetric solution:  $n(n-1)$ messages}
 \myputn{56}{with broadcast: $n$ messages}
-\myputn{54}{symmetric}
+\myputn{54}{SPMD: single program multiple data}
 \myput{51}{Ring solution: $2(n-1)$ messages}
 \myputn{49}{almost symmetric, one process starts and ends}
 \myputn{47}{long delay, but efficient if other work needs to be done}
@@ -204,9 +220,17 @@ process Sort \{
 
 \myfig{7_11.pdf}
 \myfigend
+
 \myfig{7_12.pdf}
+\myput{54}{Easiest to program.}
+\myput{51}{Creates largest number of messages.}
+\myput{48}{Message traffic frequently cancels out gains from parallelism.}
 \myfigend
+
 \myfig{7_13.pdf}
+\myput{48}{Solution inherently linear, but simple}
+\myput{46}{Very low communicaiton overhead, useful if processes have
+  other work to do.}
 \myfigend
 
 \ti{Synchronous message passing}
@@ -224,14 +248,39 @@ process Sort \{
 
 
 \myfig{p318_pc_synchmp.pdf}
-\myfigend
-\myfig{p320_exchange_synchmp.pdf}
-\myput{60}{Deadlocks}
-\myput{57}{No problem with asynchronous send.}
-\myput{54}{Which of the three exchange-values solutions work with}
-\myputn{52}{{\tt asynch\_send}?} 
+\myput{55}{A delay at {\em every} exchange.}
+\myput{52}{With asynchronous messages there might be {\em no} delay.}
+\myput{49}{Can insert a buffer process in the middle.}
 \myfigend
 
+\ti{Deadlocks with synchronized messages}
+\bi
+\ii No problem with producer/consumer, pipelines.
+\ii No problem with client/server.
+\ii Problems with interacting peers.
+\ei
+
+\myfig{p320_exchange_synchmp.pdf}
+\myput{60}{Deadlocks}
+\myput{58}{Which of the three exchange-values solutions work with
+  {\tt asynch\_send}?}
+
+\myput{54}{No problem with asynchronous send.}
+\myput{52}{Asynchronous send scales to more than two processes.}
+
+\myfigend
+
+\myfig{7_14.pdf}
+  \myput{60}{Asynchronous send works in all 3 of the patterns but one.  Which?}
+\myfigend
+
+\ti{Tradeoff between synchronous and asynchronous}
+\bi
+\ii Asynchronous uses more memory.
+\ii Asynchronous enables more concurrency.
+\ii Synchronous more prone to deadlock.
+\ii Memory is cheap, time and bugs are expensive:
+\bi\ii asynchronous wins\ei\ei
 
 \ti{Skipping \S 7.6 and \S 7.7}
 \nop{
@@ -264,10 +313,39 @@ process Sort \{
 \ii SPMD style
 \ii Also covered in Pacheco book available here:\\
 \url{http://ezproxy.library.wwu.edu/login?url=http://proquest.safaribooksonline.com/?uicode=wwu}
+\ii Compiling:\\ {\tt mpicc -g Wall -o myprogram myprogram.c}
+\ii Running:\\{\tt mpiexec -n 2 ./myprogram}
 \ei
 
 \myfig{7_17.pdf}
 \myfigend
+
+\ti{Other MPI primitives}
+\bi
+\ii {\tt MPI\_Barrier}\\ returns when all processes have called it.
+\ii {\tt MPI\_Bcast}\\ send a copy to all processes (including sender).
+\ii {\tt MPI\_Scatter}\\ scatter an array {\tt a} of size {\tt size}
+elements by sending a message containing {\tt a[i]} to every process
+{\tt i} in the group.
+\ii {\tt MPI\_Gather}\\
+gather messages from every process and store them in an
+array of {\tt size} elements.
+\ii {\tt MPI\_Reduce}\\
+gather values from every process and reduce them to one value.
+Reduction operators include {\tt MPI\_SUM}, {\tt MPI\_MAX}, {\em etc.}
+\ii {\tt MPI\_Allreduce}\\
+same as {\tt MPI\_Reduce} except that all processes receive a copy.
+\ei
+
+\myfig{7_11.pdf}
+\myput{54}{Could use {\tt MPI\_Gather} and {\tt MPI\_Bcast}}
+\myfigend
+
+\myfig{7_12.pdf}
+\myput{54}{Could use two calls to {\tt MPI\_Allreduce}}
+\myfigend
+  
+
 
 \ti{Networks and Sockets}
 \bi
