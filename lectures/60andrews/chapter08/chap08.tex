@@ -17,8 +17,8 @@
 \newcommand{\myfigs}[2]{\newpage\begin{overpic}[scale=#1]{figures/#2}}
 \newcommand{\myfigsp}[3]{\newpage\begin{overpic}[scale=#1,page=#2]{figures/#3}}
 \newcommand{\myfigend}{\end{overpic}}
-\newcommand{\myput}[2]{\put(10,#1){$\bullet$ #2}}
-\newcommand{\myputn}[2]{\put(15,#1){#2}}
+\newcommand{\myput}[2]{\put(0,#1){$\bullet$ #2}}
+\newcommand{\myputn}[2]{\put(5,#1){#2}}
 
 \newcommand{\bi}{\begin{itemize}}
 \newcommand{\ii}{\item}
@@ -167,10 +167,21 @@ both mutual exclusion and synchronization.  Can use any of the methods
 discussed in the book.
 \ei
 \ii The first approach is simpler to implement and program with.
-\ii The second approach is more general and fits better with modern
+\bi
+\ii Shared variables automatically protected from concurrent access.
+\ii Context switching can occur only at entry, exit, and delay points.
+\ei
+\ii The second approach is more general.
+\bi
+\ii  Fits better with modern
 architectures, which are multi-core.
-\ii The text assumes the second approach.  All RPC modules will have
-explicit synchronization programmed.
+\ii Time slicing can gain control of runaway processes.
+\ei
+\ii The text assumes the second approach.
+\bi
+\ii All RPC modules will have
+explicit synchronization programmed using semaphores.
+\ei
 \ei
 
 
@@ -178,13 +189,49 @@ explicit synchronization programmed.
 
 \myfigs{1.25}{8_1.pdf}
 \myfigend
+
 \myfig{8_2a.pdf}
+\myput{47}{Running on client. Synchronization not necessary if one cache per process.}
 \myfigend
+
 \myfigs{1.3}{8_2b.pdf}
+\myput{38}{Running on server. Synchronization necessary.}
 \myfigend
+
+\newpage
+\begin{overpic}[scale=1.5]{../chapter07/figures/7_03.pdf}
+\end{overpic}
+
+
+\ti{Sorting network of merge filters using RPC}
+\bi
+\ii Sorting networks easy with message passing.
+\bi
+\ii Using RPC we need to program process-to-process communication.
+\ei
+\ii Also have to link instances of merge filters together.
+\bi
+\ii Use dynamic naming.
+\ii {\em Capabilities} are pointers to operations.
+\ii We pass output channels as capabilities to the operations.
+
+\centerline{\tt call Merge[i].initialize(Merge[j].in2)}
+
+\ei
+\ei
+
+
 \myfigs{1.2}{8_3.pdf}
 \myfigend
+
+\newpage
+\begin{overpic}[scale=1.5]{../chapter07/figures/7_02.pdf}
+\myput{49}{Much simpler code with message passing.}
+\end{overpic}
+
 \myfig{8_4.pdf}
+\myput{52}{Note semaphore use to wait until other operation is done.}
+\myput{49}{Trivial code with asynchronous message passing.}
 \myfigend
 
 \ti{Rendezvous}
@@ -223,6 +270,7 @@ ni
 \bi\ii boolean determines if this branch is open\ei
 \ii {\tt ei} is the {\bf scheduling expression}
 \bi\ii number determines priority\ei
+\ii {\tt Si} is a statement list.
 \ei
 
 \ti{Input Statements}
@@ -244,25 +292,58 @@ ni
 \ii Execution of {\tt in} delays until some guard succeeds.
 \ii If more than one guard succeeds the {\tt in} statement services
 the oldest.
-\ii If scheduling expressions are present, oldest of minimum.
+\ii If scheduling expressions are present, oldest of minima.
 \ii Synchronization and scheduling expressions also present in some
 message-passing systems, {\em e.g.} MPI.
 \ei
 
 \myfig{8_5.pdf}
+\put(0,90){\bf Rendezvous}
+\myput{52}{Bounded buffers are, of course, asynchronous channels.}
 \myfigend
+
+\newpage
+\begin{overpic}[scale=1.5]{../chapter05/chap05/5_04.pdf}
+\put(0,90){\bf Monitor}
+\myput{51}{Bounded buffer with monitor.}
+\myput{47}{Explicit {\tt wait}s instead of synchronization conditions.}
+\end{overpic}
+
+
 \myfig{8_6.pdf}
 \myfigend
 \myfig{8_7.pdf}
+\put(0,90){\bf Rendezvous}
+\myput{50}{Server must monitor delayed requests.}
+\myput{47}{Not provided by Ada.}
 \myfigend
-\myfig{8_8.pdf}
-\myfigend
-\myfig{8_9.pdf}
-\myfigend
-\myfig{8_10.pdf}
+\myfigs{1.25}{8_1.pdf}
+\put(0,90){\bf RPC}
 \myfigend
 
-\ti{Skipping \S 8.3 and \S 8.4}
+\myfig{8_8.pdf}
+\myfigend
+
+\myfig{8_9.pdf}
+\put(0,90){\bf Rendezvous}
+\myfigend
+
+\myfigs{1.2}{8_3.pdf}
+\put(0,90){\bf RPC}
+\myfigend
+
+
+\myfig{8_10.pdf}
+\put(0,90){\bf Rendezvous}
+\myput{48}{Can't be symmetric.}
+\myfigend
+
+\myfig{8_4.pdf}
+\put(0,90){\bf RPC}
+\myput{48}{Symmetric.}
+\myfigend
+
+\ti{Skipping \S 8.3, \S 8.4, \S 8.5}
 \nop{
 \myfig{table.pdf}
 \myfigend
@@ -278,13 +359,14 @@ message-passing systems, {\em e.g.} MPI.
 \myfigend
 \myfigsp{1}{2}{8_15.pdf}
 \myfigend
-}
+
 
 \myfigsp{1}{1}{8_16.pdf}
 \put(70,70){$\bullet$ Java {\tt rmi} library}
 \myfigend
 \myfigsp{1}{2}{8_16.pdf}
 \myfigend
+}
 
 \ti{Tasks, Rendezvous, and Protected Types in Ada}
 \bi
