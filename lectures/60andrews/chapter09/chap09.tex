@@ -20,8 +20,8 @@
 \newcommand{\myfigs}[2]{\newpage\begin{overpic}[scale=#1]{figures/#2}}
 \newcommand{\myfigsp}[3]{\newpage\begin{overpic}[scale=#1,page=#2]{figures/#3}}
 \newcommand{\myfigend}{\end{overpic}}
-\newcommand{\myput}[2]{\put(10,#1){$\bullet$ #2}}
-\newcommand{\myputn}[2]{\put(15,#1){#2}}
+\newcommand{\myput}[2]{\put(0,#1){$\bullet$ #2}}
+\newcommand{\myputn}[2]{\put(5,#1){#2}}
 
 \newcommand{\bi}{\begin{itemize}}
 \newcommand{\ii}{\item}
@@ -286,6 +286,16 @@ computed very fast.
 \ii{How can a node know how many times to receive?}
 \ii{Too few: extra messages are left in the message queues.}
 \ii{Too many:  deadlock waiting for messages never sent.}
+\bigskip
+\ii{Solution: echo {\em every } message.}
+\ii One process sends message to one node.
+\ii Each node, where {\tt num} is number of neighbors:
+\bi
+\ii receives one probe
+\ii sends probes to all neighbors
+\ii receives {\tt num-1} probes
+
+\ei
 \ei
 
 \myfig{9_10.pdf}
@@ -324,15 +334,26 @@ local topology.
 
 \ti{Computing the topology of a general network (graph)}
 \bi
-\ii After receiving a probe, each node sends probes to all its neighbors.
+\ii One node is designated the root and receives a probe.
+\ii After receiving a probe, each node sends probes to all its {\em other}
+neighbors.
+\bi
 \ii Each node may thus receive multiple probes.
-\ii All but the first are echoed immediately with {\tt null} topology.
+\ii All but the first probe are echoed immediately with {\tt null} topology.
+\ii Echo to the first probe is delayed.
+\ii The first probe received indicates the {\em parent} of that node.
+\ii We thus process nodes in a {\em virtual} tree.
+\ei
 \ii Eventually a node will receive echoes from every probe.
+\bi
 \ii It keeps the union of all these echoes, adding them to its local
 topology. 
+\ei
 \ii After receiving an echo from every node, 
 the node sends an echo to the {\em first}
 probing node with the accumulated topology.
+\ii When the designated root node receives all echoes, topology is complete.
+\ii Can then be used for efficient broadcast.
 \ei
 
 \myfigs{1.2}{9_12.pdf}
